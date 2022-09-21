@@ -21,7 +21,7 @@ class Customer(models.Model):
     tax_item = fields.Many2one('account.tax', string="Tax Item")
     rep_id = fields.Many2one('hr.employee', string="Rep")
     resale = fields.Char()
-    account = fields.Char()
+    account_no = fields.Char()
     job_status = fields.Char()
     job_type = fields.Selection([('commercial', 'Commercial'), ('residential', 'Residential')], string="Job Type")
     job_description = fields.Text()
@@ -32,14 +32,25 @@ class Customer(models.Model):
     street2_ship = fields.Char()
     zip_ship = fields.Char(change_default=True)
     city_ship = fields.Char()
-    state_id_ship  = fields.Many2one("res.country.state", string='State', ondelete='restrict',
+    state_id_ship = fields.Many2one("res.country.state", string='State', ondelete='restrict',
                                domain="[('country_id', '=?', country_id)]")
-    country_id_ship  = fields.Many2one('res.country', string='Country', ondelete='restrict')
-    country_code_ship  = fields.Char(related='country_id.code', string="Country Code")
+    country_id_ship = fields.Many2one('res.country', string='Country', ondelete='restrict')
+    country_code_ship = fields.Char(related='country_id.code', string="Country Code")
+
+    # fields for smart buttons
+    sale_order_count = fields.Integer()
+    purchase_order_count = fields.Integer()
+    total_invoiced = fields.Integer()
+    currency_id = fields.Integer()
+    open_partner_ledger = fields.Integer()
+    supplier_invoice_count = fields.Integer()
 
 
-    def action_open_employees(self):
-        return
+    # def action_open_employees(self):
+    #     return
+    # def sale_order_count(self):
+    #     return
+
 
 
 
