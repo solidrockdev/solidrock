@@ -22,6 +22,9 @@
         <field name="inherit_id" ref="product.product_template_only_form_view"/>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='barcode']" position="before">
+                    <field name="customer" attrs="{'invisible': [('is_farm_equipment_base', '=', False)]}"/>
+                </xpath>
+            <xpath expr="//field[@name='customer']" position="after">
                     <field name="warranty_start_date" attrs="{'invisible': [('is_farm_equipment_base', '=', False)]}"/>
                 </xpath>
             <xpath expr="//field[@name='warranty_start_date']" position="after">

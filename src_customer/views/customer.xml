@@ -15,29 +15,29 @@
     </record>
 
 
-     <!--List view of my customer -->
-     <record id="view_customer_tree" model="ir.ui.view">
+    <!--List view of my customer -->
+    <record id="view_customer_tree" model="ir.ui.view">
         <field name="name">my.customer.tree</field>
         <field name="model">my.customer</field>
         <field name="arch" type="xml">
-                <tree>
-                    <field name="name"/>
-                    <field name="customer_type"/>
-                    <field name="parent_id" string="Company"/>
-                    <field name="first_name"/>
-                    <field name="middle_initial"/>
-                    <field name="last_name"/>
-                    <field name="primary_contact"/>
-                    <field name="phone"/>
-                    <field name="mobile"/>
-                    <field name="secondary_contact" optional="show"/>
-                    <field name="function" string="Job Title" optional="show"/>
-                    <field name="email" optional="show"/>
+            <tree>
+                <field name="name"/>
+                <field name="customer_type"/>
+                <field name="company"/>
+                <field name="first_name"/>
+                <field name="middle_initial"/>
+                <field name="last_name"/>
+                <field name="primary_contact"/>
+                <field name="phone"/>
+                <field name="mobile"/>
+                <field name="secondary_contact" optional="show"/>
+                <field name="function" string="Job Title" optional="show"/>
+                <field name="email" optional="show"/>
 
 
-                </tree>
+            </tree>
         </field>
-     </record>
+    </record>
 
 
     <!-- Form view of my customer -->
@@ -49,52 +49,66 @@
             <form string="Partners">
 
 
-                <div class="alert alert-warning oe_edit_only" role="alert"
-                     attrs="{'invisible': [('same_vat_partner_id', '=', False)]}">
-                    A partner with the same
-                    <span>
-                        <span class="o_vat_label">Tax ID</span>
-                    </span>
-                    already exists (<field name="same_vat_partner_id"/>), are you sure to create a new one?
-                </div>
+                <!--                <div class="alert alert-warning oe_edit_only" role="alert"-->
+                <!--                     attrs="{'invisible': [('same_vat_partner_id', '=', False)]}">-->
+                <!--                    A partner with the same-->
+                <!--                    <span>-->
+                <!--                        <span class="o_vat_label">Tax ID</span>-->
+                <!--                    </span>-->
+                <!--                    already exists (<field name="same_vat_partner_id"/>), are you sure to create a new one?-->
+                <!--                </div>-->
                 <sheet>
-<!--                    smart button for customer-->
+                    <!--                    smart button for customer-->
+
 
                     <div class="oe_button_box" name="button_box" position="inside">
-                    <button class="oe_stat_button" type="action" name="437" groups="sales_team.group_sale_salesman" icon="fa-usd">
-                        <field string="Sales" name="sale_order_count" widget="statinfo"/>
-                    </button>
-                    <button class="oe_stat_button" name="467" type="action" groups="purchase.group_purchase_user" icon="fa-credit-card">
-                        <field string="Purchases" name="purchase_order_count" widget="statinfo"/>
-                    </button>
-                    <button type="action" name="469" class="oe_stat_button" icon="fa-pencil-square-o">
-                        <div class="o_form_field o_stat_info">
-                            <span class="o_stat_value">
-                                <field name="currency_id" invisible="1"/>
-                                <field name="total_invoiced" widget="monetary" options="{'currency_field': 'currency_id'}" style="width:1px"/>
-                            </span>
-                            <span class="o_stat_text">Invoiced</span>
-                        </div>
-                    </button>
-                    <button type="object" class="oe_stat_button" id="partner_ledger_button" icon="fa-pencil-square-o" name="open_partner_ledger" string="Partner Ledger" context="{'default_partner_id': active_id}">
-                    </button>
-                    <button class="oe_stat_button" name="468" type="action" icon="fa-pencil-square-o" help="Vendor Bills">
-                        <field string="Vendor Bills" name="supplier_invoice_count" widget="statinfo"/>
-                    </button>
 
-                </div>
-<!--                    <div>-->
-<!--                    <div class="oe_button_box" name="button_box" position="inside">-->
-<!--                        <button  string="Button Name" class="oe_stat_button" type="object" name="action_open_employees" icon="fa-id-card-o">-->
+                        <button class="oe_stat_button" type="action" name="606"
+                                context="{'search_default_partner_id': active_id, 'default_partner_id': active_id}"
+                                attrs="{'invisible': [('task_count', '=', 0)]}" icon="fa-tasks">
+                            <field string="Tasks" name="task_count" widget="statinfo"/>
+                        </button>
 
 
-<!--                            <field string="Button Name" name="tax_code" widget="statinfo" style="width:5%;"/>-->
+                        <button class="oe_stat_button" type="action" name="437" groups="sales_team.group_sale_salesman"
+                                icon="fa-usd">
+                            <field string="Sales" name="sale_order_count" widget="statinfo"/>
+                        </button>
+                        <button class="oe_stat_button" name="467" type="action" groups="purchase.group_purchase_user"
+                                icon="fa-credit-card">
+                            <field string="Purchases" name="purchase_order_count" widget="statinfo"/>
+                        </button>
+                        <button type="action" name="469" class="oe_stat_button" icon="fa-pencil-square-o">
+                            <div class="o_form_field o_stat_info">
+                                <span class="o_stat_value">
+                                    <field name="currency_id" invisible="1"/>
+                                    <field name="total_invoiced" widget="monetary"
+                                           options="{'currency_field': 'currency_id'}" style="width:1px"/>
+                                </span>
+                                <span class="o_stat_text">Invoiced</span>
+                            </div>
+                        </button>
+                        <button type="object" class="oe_stat_button" id="partner_ledger_button"
+                                icon="fa-pencil-square-o" name="open_partner_ledger" string="Partner Ledger"
+                                context="{'default_partner_id': active_id}">
+                        </button>
+                        <button class="oe_stat_button" name="468" type="action" icon="fa-pencil-square-o"
+                                help="Vendor Bills">
+                            <field string="Vendor Bills" name="supplier_invoice_count" widget="statinfo"/>
+                        </button>
+
+                    </div>
+                    <!--                    <div>-->
+                    <!--                    <div class="oe_button_box" name="button_box" position="inside">-->
+                    <!--                        <button  string="Button Name" class="oe_stat_button" type="object" name="action_open_employees" icon="fa-id-card-o">-->
 
 
+                    <!--                            <field string="Button Name" name="tax_code" widget="statinfo" style="width:5%;"/>-->
 
-<!--                        </button>-->
-<!--                    </div>-->
-<!--                    </div>-->
+
+                    <!--                        </button>-->
+                    <!--                    </div>-->
+                    <!--                    </div>-->
                     <div class="oe_button_box" name="button_box" style="margin-bottom:50px !important"/>
                     <widget name="web_ribbon" title="Archived" bg_color="bg-danger"
                             attrs="{'invisible': [('active', '=', True)]}"/>
@@ -107,7 +121,7 @@
                         <field name="commercial_partner_id" invisible="1"/>
                         <field name="active" invisible="1"/>
                         <field name="country_code" invisible="1"/>
-                        <field name="company_type" widget="radio" options="{'horizontal': true}"/>
+                        <!--                        <field name="company_type" widget="radio" options="{'horizontal': true}"/>-->
                         <h1>
                             <field id="company" class="o_text_overflow" name="name" default_focus="1"
                                    placeholder="e.g. Lumber Inc"
@@ -120,9 +134,11 @@
                             <field name="parent_id" widget="res_partner_many2one" placeholder="Company Name..."
                                    domain="[('is_company', '=', True)]"
                                    context="{'default_is_company': True, 'show_vat': True}"
-                                   attrs="{'invisible': ['|', '&amp;', ('is_company','=', True),('parent_id', '=', False),('company_name', '!=', False),('company_name', '!=', '')]}"/>
+                                   attrs="{'invisible': ['|', '&amp;', ('is_company','=', True),('parent_id', '=', False),('company_name', '!=', False),('company_name', '!=', '')]}"
+                                   invisible="1"/>
                             <field name="company_name"
                                    attrs="{'invisible': ['|', '|', ('company_name', '=', False), ('company_name', '=', ''), ('is_company', '=', True)]}"/>
+                            <field name="company" placeholder="Company Name"/>
 
                         </div>
                     </div>
@@ -140,16 +156,18 @@
 
                         </group>
                         <group>
-                            <field name="function" placeholder="e.g. Sales Director" string="Job Title" attrs="{'invisible': [('is_company','=', True)]}"/>
-                            <field name="mobile" widget="phone" string="Alt. Phone"/>
+                            <field name="function" placeholder="e.g. Sales Director" string="Job Title"
+                                   attrs="{'invisible': [('is_company','=', True)]}"/>
                             <field name="phone" widget="phone" string="Main Phone"/>
+
+                            <field name="mobile" widget="phone" string="Alt. Phone"/>
 
                             <field name="user_ids" invisible="1"/>
                             <field name="email" widget="email" context="{'gravatar_image': True}"
                                    attrs="{'required': [('user_ids','!=', [])]}"/>
                             <field name="website" string="Website" widget="url"
                                    placeholder="e.g. https://www.odoo.com"/>
-                            <field name="title" options="{&quot;no_open&quot;: True}" placeholder="e.g. Mister"
+                            <field name="title" options="{&quot;no_open&quot;: True}" placeholder="e.g. Mr"
                                    attrs="{'invisible': [('is_company', '=', True)]}"/>
                             <field name="active_lang_count" invisible="1"/>
                             <label for="lang" attrs="{'invisible': [('active_lang_count', '&lt;=', 1)]}"/>
@@ -158,11 +176,12 @@
                                 <button type="action" name="56" class="btn-sm btn-link mb4 fa fa-globe"
                                         aria-label="More languages" groups="base.group_system" title="More languages"/>
                             </div>
-                            <field name="category_id" widget="many2many_tags"
-                                   options="{'color_field': 'color', 'no_create_edit': True}" placeholder="Tags..."/>
+                            <!--                            <field name="category_id" widget="many2many_tags"-->
+                            <!--                                   options="{'color_field': 'color', 'no_create_edit': True}" placeholder="Tags..."/>-->
+                            <field name="fax" string="Fax"/>
                         </group>
                     </group>
-<!--                    Tabs for customer-->
+                    <!--                    Tabs for customer-->
                     <notebook colspan="4">
 
                         <page name="customer_billing" string="Billing">
@@ -175,28 +194,23 @@
                                                 <label for="street" string="Bill To"/>
                                             </div>
                                             <div class="o_address_format" style="width:40%;">
-                                                <field name="street" placeholder="Street..." class="o_address_street"
-                                                       attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
-                                                <field name="street2" placeholder="Street 2..." class="o_address_street"
-                                                       attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
-                                                <field name="city" placeholder="City" class="o_address_city"
-                                                       attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                                                <field name="street" placeholder="Street..." class="o_address_street"/>
+                                                <field name="street2" placeholder="Street 2..."
+                                                       class="o_address_street"/>
+                                                <field name="city" placeholder="City" class="o_address_city"/>
                                                 <field name="state_id" class="o_address_state" placeholder="State"
                                                        options="{'no_open': True, 'no_quick_create': True}"
-                                                       attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"
                                                        context="{'country_id': country_id, 'default_country_id': country_id, 'zip': zip}"/>
-                                                <field name="zip" placeholder="ZIP" class="o_address_zip"
-                                                       attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                                                <field name="zip" placeholder="ZIP" class="o_address_zip"/>
                                                 <field name="country_id" placeholder="Country" class="o_address_country"
-                                                       options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"
-                                                       attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                                                       options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
 
                                             </div>
 
                                         </div>
                                         <div class="row" col="2" style="width:100%">
                                             <div style="width:20%">
-                                                <label for="street" string="Balance"/>
+                                                <label for="balance" string="Balance"/>
                                             </div>
                                             <div class="o_address_format" style="width:40%">
                                                 <field name="balance"/>
@@ -206,7 +220,7 @@
 
                                         <div class="row" col="2" style="width:100%">
                                             <div style="width:20%">
-                                                <label for="street" string="Balance Total"/>
+                                                <label for="balance_total" string="Balance Total"/>
                                             </div>
                                             <div class="o_address_format" style="width:40%">
                                                 <field name="balance_total"/>
@@ -263,21 +277,15 @@
 
                                 <div class="o_address_format" style="width:20%">
 
-                                    <field name="street_ship" placeholder="Street..." class="o_address_street"
-                                           attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
-                                    <field name="street2_ship" placeholder="Street 2..." class="o_address_street"
-                                           attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
-                                    <field name="city_ship" placeholder="City" class="o_address_city"
-                                           attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                                    <field name="street_ship" placeholder="Street..." class="o_address_street"/>
+                                    <field name="street2_ship" placeholder="Street 2..." class="o_address_street"/>
+                                    <field name="city_ship" placeholder="City" class="o_address_city"/>
                                     <field name="state_id_ship" class="o_address_state" placeholder="State"
                                            options="{'no_open': True, 'no_quick_create': True}"
-                                           attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"
                                            context="{'country_id_ship': country_id_ship, 'default_country_id_ship': country_id_ship, 'zip_ship': zip_ship}"/>
-                                    <field name="zip_ship" placeholder="ZIP" class="o_address_zip"
-                                           attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                                    <field name="zip_ship" placeholder="ZIP" class="o_address_zip"/>
                                     <field name="country_id_ship" placeholder="Country" class="o_address_country"
-                                           options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"
-                                           attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"/>
+                                           options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
                                 </div>
                             </div>
 
@@ -351,39 +359,49 @@
                                 </div>
                             </sheet>
                         </pages>
+
+                        <page string="Farm Equipment Base" name="product_details">
+                            <field name="product_detail_ids">
+                                <tree editable="bottom">
+                                    <field name="name_id" string=" Product Name"/>
+                                    <field name="product_category_id" string="Category"/>
+                                    <field name="warranty_start_date" string="Warranty Start Date"/>
+                                    <field name="warranty_end_date" string="Warranty End Date"/>
+                                    <field name="expiration_date" string="Expiration Date"/>
+                                </tree>
+                            </field>
+                        </page>
+
+
                     </notebook>
                 </sheet>
             </form>
         </field>
     </record>
 
-<!--    Search view for customer-->
-     <record id="view_customer_search" model="ir.ui.view">
+    <!--    Search view for customer-->
+    <record id="view_customer_search" model="ir.ui.view">
         <field name="name">my.customer.search</field>
         <field name="model">my.customer</field>
         <field name="arch" type="xml">
-                <search>
-                     <field name="name"/>
-                    <field name="customer_type"/>
-                    <field name="parent_id" string="Company"/>
-                    <field name="first_name"/>
-                    <field name="middle_initial"/>
-                    <field name="last_name"/>
-                    <field name="primary_contact"/>
-                    <field name="phone"/>
-                    <field name="mobile"/>
-                    <field name="secondary_contact"/>
-                    <field name="function" string="Job Title"/>
-                    <filter name="filter_customer" string="Active" domain="[('active', '=', 'active')]"/>
+            <search>
+                <field name="name"/>
+                <field name="customer_type"/>
+                <field name="company"/>
+                <field name="first_name"/>
+                <field name="middle_initial"/>
+                <field name="last_name"/>
+                <field name="primary_contact"/>
+                <field name="phone"/>
+                <field name="mobile"/>
+                <field name="secondary_contact"/>
+                <field name="function" string="Job Title"/>
+                <filter name="filter_customer" string="Active" domain="[('active', '=', 'active')]"/>
 
 
-                </search>
+            </search>
         </field>
-     </record>
-
-
-
-
+    </record>
 
 
 </odoo>
