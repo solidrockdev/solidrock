@@ -13,8 +13,35 @@ class Inventorys(models.Model):
     expiration_date = fields.Date(string="Expiration Date")
     is_farm_equipment_base = fields.Boolean(string="Is Farm Equipment Base", default=False)
     customer = fields.Many2one('res.partner', string="Customer")
-
-
-
-
+    model = fields.Char(string="Model")
+    year = fields.Char(string="Year")
+    rows = fields.Integer(string="Rows")
+    crops_being_planted = fields.Char(string="Crops being planted") #many2many
+    acres_planted_per_year = fields.Char(string="Acres Planted Per Year")
+    spacing = fields.Integer(string="Spacing")
+    frame_type = fields.Char(string="Frame Type") #many2one
+    seed_delivery = fields.Char(string="Seed Delivery")
+    original_planter_monitor = fields.Char(string="Original Planter Monitor")
+    current_planter_monitor = fields.Char(string="Current Planter Monitor")
+    meter_type = fields.Char(string="Meter Type") #many2one
+    meter_drive_system = fields.Char(string="Meter Drive System") #many2one
+    closing_system = fields.Char(string="Closing System") #many2one
+    hopper_type = fields.Char(string="Hopper Type") #many2one
+    row_config = fields.Char(string="Row Configuration")
+    no_of_regular_parallel_arms = fields.Integer(string="No of Regular Parallel Arms")
+    no_of_long_parallel_arms = fields.Integer(string="No of Long Parallel Arms")
+    downforce_system = fields.Char(string="DownForce System")
+    no_of_vr_motors = fields.Integer(string="No of VR Motors")
+    row_cleaner_make = fields.Char(string="Row Cleaner Make")
+    row_cleaner_model = fields.Char(string="Row Cleaner Model")
+    no_till_coulters = fields.Char(string="No-Till Coulters")
+    liquid_application_method_1 = fields.Char(string="Liquid Application Method #1") #many2one
+    liquid_application_method_2 = fields.Char(string="Liquid Application Method #2") #many2one
+    firmer = fields.Char(string="Firmer")
+    gps_make = fields.Char(string="GPS Make")
+    gps_monitor = fields.Char(string="GPS Monitor")
+    no_of_hydraulic_remotes = fields.Integer(string="No of Hydraulic Remotes")
+    hydraulic_capacity = fields.Char(string="Hydraulic Capacity")
+    width = fields.Float(string="Width")
+    monitor = fields.Char(string="Monitor")
 

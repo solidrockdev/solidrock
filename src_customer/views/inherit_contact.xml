@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+
+<!--    <record model="ir.actions.act_window" id="action_src_customer_contact">-->
+<!--        <field name="name">Customers</field>-->
+<!--        <field name="type">ir.actions.act_window</field>-->
+<!--        <field name="res_model">my.customer</field>-->
+<!--        <field name="view_mode">tree,form</field>-->
+<!--        <field name="context">{}</field>-->
+<!--        <field name="help" type="html">-->
+<!--            <p class="o_view_nocontent_smiling_face">-->
+<!--                Create your first customer !-->
+<!--            </p>-->
+<!--        </field>-->
+<!--    </record>-->
+
+     <!-- Form view for contact -->
+    <record id="view_contact_form" model="ir.ui.view">
+        <field name="name">my.customer.form</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//field[@name='vat']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//field[@name='category_id']" position="attributes">
+                <attribute name="invisible">True</attribute>
+            </xpath>
+            <xpath expr="//div[hasclass('o_address_format')]" position="after">
+                <field name="customer_type"/>
+            </xpath>
+            <xpath expr="//field[@name='customer_type']" position="after">
+                <field name="first_name"/>
+            </xpath>
+            <xpath expr="//field[@name='first_name']" position="after">
+                <field name="middle_initial"/>
+            </xpath>
+            <xpath expr="//field[@name='middle_initial']" position="after">
+                <field name="last_name"/>
+            </xpath>
+<!--            <xpath expr="//page[@name='contact_addresses']" position="attributes">-->
+<!--                <attribute name="invisible">True</attribute>-->
+<!--            </xpath>-->
+            <xpath expr="//div[hasclass('o_address_format')]" position="attributes">
+               <attribute name="invisible">True</attribute>
+
+            </xpath>
+            <xpath expr="//span[hasclass('o_form_label')]" position="attributes">
+               <attribute name="invisible">True</attribute>
+
+            </xpath>
+<!--tabs in contact-->
+            <xpath expr="//page[@name='sales_purchases']" position="before">
+                <page name="customer_billing" string="Billing">
+                    <sheet><br/>
+                        <div class="row" col="2" style="width:100%; padding-left:20px !important;">
+                            <div style="width:50%">
+
+                                <div class="row" col="2" style="width:100%">
+                                    <div style="width:20%">
+                                        <label for="type" string="Address Type"/>
+                                    </div>
+                                    <div class="o_address_format" style="width:40%">
+                                        <span class="o_form_label o_td_label" name="address_name">
+                                            <field name="type"
+                                                   context="{'default_type': 'contact'}"
+                                                   class="font-weight-bold"/>
+<!--                                            <b attrs="{'invisible': [('is_company', '=', False)]}">Address</b>-->
+                                        </span>
+
+                                    </div>
+                                </div><br/>
+
+
+
+                                <div class="row" col="2" style="width:100%">
+                                    <div style="width:20%">
+                                        <label for="street" string="Bill To"/>
+                                    </div>
+                                    <div class="o_address_format" style="width:40%;">
+                                        <field name="street" placeholder="Street..." class="o_address_street"/>
+                                        <field name="street2" placeholder="Street 2..."
+                                               class="o_address_street"/>
+                                        <field name="street3" placeholder="Street 3..."
+                                               class="o_address_street"/>
+                                        <field name="city" placeholder="City" class="o_address_city"/>
+                                        <field name="state_id" class="o_address_state" placeholder="State"
+                                               options="{'no_open': True, 'no_quick_create': True}"
+                                               context="{'country_id': country_id, 'default_country_id': country_id, 'zip': zip}"/>
+                                        <field name="zip" placeholder="ZIP" class="o_address_zip"/>
+                                        <field name="country_id" placeholder="Country" class="o_address_country"
+                                               options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+
+                                    </div>
+
+                                </div><br/>
+                                <div class="row" col="2" style="width:100%">
+                                    <div style="width:20%">
+                                        <label for="balance" string="Balance"/>
+                                    </div>
+                                    <div class="o_address_format" style="width:40%">
+                                        <field name="balance"/>
+
+                                    </div>
+                                </div><br/>
+
+                                <div class="row" col="2" style="width:100%">
+                                    <div style="width:20%">
+                                        <label for="balance_total" string="Balance Total"/>
+                                    </div>
+                                    <div class="o_address_format" style="width:40%">
+                                        <field name="balance_total"/>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="width:50%">
+                                <div style="padding:2% !important;width:100%;">
+                                    <label for="tax_code" string="Tax Code"
+                                           style="width:29%;margin-bottom: -15px;"/>
+                                    <field name="tax_code" style="width:49%;margin-bottom: -15px;"></field>
+                                    <br/>
+                                </div>
+                                <div style="padding:2% !important;width:100%;">
+                                    <label for="terms_id" string="Terms"
+                                           style="width:29%;margin-bottom: -15px;"/>
+                                    <field name="terms_id" style="width:49%;margin-bottom: -15px;"></field>
+                                    <br/>
+                                </div>
+                                <div style="padding:2% !important;width:100%;">
+                                    <label for="rep_id" string="Rep"
+                                           style="width:29%;margin-bottom: -15px;"/>
+                                    <field name="rep_id" style="width:49%;margin-bottom: -15px;"></field>
+                                    <br/>
+                                </div>
+                                <div style="padding:2% !important;width:100%;">
+                                    <label for="tax_item" string="Tax Item"
+                                           style="width:29%;margin-bottom: -15px;"/>
+                                    <field name="tax_item" style="width:49%;margin-bottom: -15px;"></field>
+                                    <br/>
+                                </div>
+
+
+                            </div>
+                        </div>
+                    </sheet>
+
+                </page>
+
+
+            </xpath>
+
+
+            <xpath expr="//notebook" position="inside">
+
+                <page name="customer_shipping" string="Shipping">
+
+                    <div class="row" col="2" style="width:100%">
+                        <div style="width:10%">
+                            <label for="street_ship" string="Ship To"/>
+                        </div>
+
+                        <div class="o_address_format" style="width:20%">
+
+                            <field name="street_ship" placeholder="Street..." class="o_address_street"/>
+                            <field name="street2_ship" placeholder="Street 2..." class="o_address_street"/>
+                            <field name="street3_ship" placeholder="Street 3..." class="o_address_street"/>
+                            <field name="city_ship" placeholder="City" class="o_address_city"/>
+                            <field name="state_id_ship" class="o_address_state" placeholder="State"
+                                   options="{'no_open': True, 'no_quick_create': True}"
+                                   context="{'country_id_ship': country_id_ship, 'default_country_id_ship': country_id_ship, 'zip_ship': zip_ship}"/>
+                            <field name="zip_ship" placeholder="ZIP" class="o_address_zip"/>
+                            <field name="country_id_ship" placeholder="Country" class="o_address_country"
+                                   options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                        </div>
+                    </div>
+
+                </page>
+
+                <pages string="Misc" name="misc">
+                    <sheet>
+                        <div class="row" style="width:100%;">
+                            <div style="width:50%">
+                                <div style="padding:2% !important;width:100%;">
+                                    <label for="resale" string="Resale"
+                                           style="width:29%;margin-bottom: -15px;"/>
+                                    <field name="resale" style="width:49%;margin-bottom: -15px;"></field>
+                                    <br/>
+                                </div>
+                                <div style="padding:2% !important;width:100%;">
+                                    <label for="account_no" string="Account Number"
+                                           style="width:29%;margin-bottom: -15px;"/>
+                                    <field name="account_no" style="width:49%;margin-bottom: -15px;"></field>
+                                    <br/>
+                                </div>
+                                <div style="padding:2% !important;width:100%;">
+                                    <label for="credit_limit" string="Credit Limit"
+                                           style="width:29%;margin-bottom: -15px;"/>
+                                    <field name="credit_limit" style="width:49%;margin-bottom: -15px;"></field>
+                                    <br/>
+                                </div>
+                                <div style="padding:2% !important;width:100%;">
+                                    <label for="job_status" string="Job Status"
+                                           style="width:29%;margin-bottom: -15px;"/>
+                                    <field name="job_status" style="width:49%;margin-bottom: -15px;"></field>
+                                    <br/>
+                                </div>
+                                <div style="padding:2% !important;width:100%;">
+                                    <label for="job_type" string="Job Type"
+                                           style="width:29%;margin-bottom: -15px;"/>
+                                    <field name="job_type" style="width:49%;margin-bottom: -15px;"></field>
+                                    <br/>
+                                </div>
+                            </div>
+
+                            <div style="width:50%">
+
+                                <div style="padding:2% !important;width:100%;">
+                                    <label for="job_description" string="Job Description"
+                                           style="width:29%;margin-bottom: -15px;"/>
+                                    <field name="job_description"
+                                           style="width:49%;margin-bottom: -15px;"></field>
+                                    <br/>
+                                </div>
+                                <div style="padding:2% !important;width:100%;">
+                                    <label for="start_date" string="Start Date"
+                                           style="width:29%;margin-bottom: -15px;"/>
+                                    <field name="start_date" style="width:49%;margin-bottom: -15px;"></field>
+                                    <br/>
+                                </div>
+                                <div style="padding:2% !important;width:100%;">
+                                    <label for="projected_end" string="Projected End"
+                                           style="width:29%;margin-bottom: -15px;"/>
+                                    <field name="projected_end" style="width:49%;margin-bottom: -15px;"></field>
+                                    <br/>
+                                </div>
+                                <div style="padding:2% !important;width:100%;">
+                                    <label for="end_date" string="End Date"
+                                           style="width:29%;margin-bottom: -15px;"/>
+                                    <field name="end_date" style="width:49%;margin-bottom: -15px;"></field>
+                                    <br/>
+                                </div>
+
+                            </div>
+                        </div>
+                    </sheet>
+                </pages>
+
+                <page string="Farm Equipment Base" name="product_details">
+                    <group>
+                        <field name="product_detail_ids" nolabel="1" class="product_auto_populate">
+                            <tree editable="bottom" >
+                                <field name="name_id" string=" Product Name" style="width: 200px;"/>
+                                <field name="product_category_id" string="Category"/>
+                                <field name="warranty_start_date" string="Warranty Start Date"/>
+                                <field name="warranty_end_date" string="Warranty End Date"/>
+                                <field name="expiration_date" string="Expiration Date"/>
+                                <field name="company_id" string="Make" style="width: 200px;"/>
+                                <field name="model" string="Model" style="width: 100px;"/>
+                                <field name="year" string="Year" style="width: 100px;"/>
+                            </tree>
+                        </field>
+                    </group>
+                </page>
+
+
+            </xpath>
+
+
+        </field>
+
+
+    </record>
+
+
+</odoo>
