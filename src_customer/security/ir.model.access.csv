@@ -1,3 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_my_customer,my.customer,model_my_customer,base.group_user,1,1,1,1
 access_my_customer_type,my.customer.type,model_my_customer_type,base.group_user,1,1,1,1
+access_product_info,product.info,model_product_info,base.group_user,1,1,1,1
+access_sku_details,sku.details,model_sku_details,base.group_user,1,1,1,1
+access_my_vendor_type,my.vendor.type,model_my_vendor_type,base.group_user,1,1,1,1
