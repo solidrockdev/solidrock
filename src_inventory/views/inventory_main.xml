@@ -57,12 +57,15 @@
                  </xpath>
             </span>
             <xpath expr="//field[@name='company_id']" position="replace">
-                <field name="company_id" options="{'no_create': True}" string="Make"/>
+                <field name="company_id" options="{'no_create': True}" string="Make" invisible="1"/>
             </xpath>
             <xpath expr="//page[@name='general_information']" position="after">
                 <page name="equip_info" string="Equipment Information" attrs="{'invisible': [('is_farm_equipment_base', '=', False)]}">
                      <group>
                          <group>
+<!--                            <xpath expr="//field[@name='company_id']" position="replace">-->
+                             <field name="company_id" options="{'no_create': True}" string="Make"/>
+<!--                            </xpath>-->
                             <field name="model" string="Model"/>
                             <field name="year" string="Year" />
                             <field name="rows" string="Rows" />
