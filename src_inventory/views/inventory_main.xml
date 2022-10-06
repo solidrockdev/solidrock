@@ -59,6 +59,10 @@
             <xpath expr="//field[@name='company_id']" position="replace">
                 <field name="company_id" options="{'no_create': True}" string="Make" invisible="1"/>
             </xpath>
+             <xpath expr="//field[@name='standard_price']" position="before">
+                 <field name="tax_agency"/>
+                 <field name="mpn"/>
+             </xpath>
             <xpath expr="//page[@name='general_information']" position="after">
                 <page name="equip_info" string="Equipment Information" attrs="{'invisible': [('is_farm_equipment_base', '=', False)]}">
                      <group>
@@ -111,12 +115,33 @@
                              <field name="hydraulic_capacity" string="Hydraulic Capacity" />
                              <field name="width" string="Width" />
                              <field name="monitor" string="Monitor" />
+                             <field name="serial_no" string="Serial No" widget="many2many_tags" />
                          </group>
                      </group>
                 </page>
             </xpath>
         </field>
     </record>
+
+    <record id="view_inventory_account_inherited_form" model="ir.ui.view">
+        <field name="name">product.template.account.form.inherited</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="account.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='properties']" position="after">
+                <group>
+                    <group>
+                    <field name="assets_account"/>
+                    <field name="accumulated_depreciation"/>
+                    </group>
+                <group>
+
+                </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
+
 
 
 

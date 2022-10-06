@@ -1,12 +1,12 @@
 from odoo import fields, models, api
 
 
-class Customer(models.Model):
-    '''
-        Inherit partner module to create a new customized customer module
-    '''
-    _name = 'my.customer'
-    _inherits = {'res.partner': 'partner_id'}
+# class Customer(models.Model):
+#     '''
+#         Inherit partner module to create a new customized customer module
+#     '''
+#     _name = 'my.customer'
+#     _inherits = {'res.partner': 'partner_id'}
 
     # customer_type = fields.Many2one('my.customer.type',string="Customer Type")
     # company = fields.Char(string="Company")
@@ -82,7 +82,7 @@ class PartnerInherit(models.Model):
     start_date = fields.Date()
     projected_end = fields.Date()
     end_date = fields.Date()
-    product_detail_ids = fields.One2many('product.info', 'stockss_id', string='Stock')
+    product_detail_ids = fields.One2many('product.info', 'partner_id', string='Stock')
     supplier_rank = fields.Integer(default=0, copy=False)
     customer_rank = fields.Integer(default=0, copy=False)
 
@@ -102,6 +102,10 @@ class PartnerInherit(models.Model):
     attach = fields.Selection([('yes', 'Yes'), ('no', 'No')], string="Attach")
     eligible_for_1099 = fields.Selection([('yes', 'Yes'), ('no', 'No')], string="Eligible For 1099")
     print_on_check_as = fields.Char(string="Print on Cheque As")
+    # is_customer_vendor = fields.Selection([('is_customer', 'Customer'), ('is_vendor', 'Vendor')])
+    is_customer_vendor = fields.Selection(string='Contact Type', selection=[('is_customer', 'Customer'), ('is_vendor', 'Vendor')])
+    notes = fields.Selection([('have_notes', 'Have Notes'), ('no_notes', 'No Notes')], string="Notes")
+
 
 
 
@@ -129,9 +133,11 @@ class PartnerInherit(models.Model):
         if search_partner_mode:
             for vals in vals_list:
                 if is_customer and 'customer_rank' not in vals:
-                    vals['customer_rank'] = 1
+                    if self.is_customer_vendor == 'is_customer':
+                        vals['customer_rank'] = 1
                 elif is_supplier and 'supplier_rank' not in vals:
-                    vals['supplier_rank'] = 1
+                    if self.is_customer_vendor == 'is_vendor' :
+                        vals['supplier_rank'] = 1
         return super().create(vals_list)
 
 
@@ -145,16 +151,18 @@ class ProductDetails(models.Model):
     warranty_start_date = fields.Date(string="Start Date")
     warranty_end_date = fields.Date(string="Warranty End Date")
     expiration_date = fields.Date(string="Expiration Date")
-    product_stock_id = fields.Many2one('my.customer')
-    stockss_id = fields.Many2one('my.customer')
+    # product_stock_id = fields.Many2one('my.customer')
+    partner_id = fields.Many2one('res.partner')
     company_id = fields.Many2one('res.company', 'Company', index=1)
     model = fields.Char(string="Model")
     year = fields.Char(string="Year")
+    serial_no = fields.Many2many('stock.production.lot', 'customer_product_serial_no', string='Serial No')
     # product_stocks_ids = fields.Many2one('my.customer')
 
     @api.onchange('name_id')
     def onchange_skus(self):
         for record in self:
+            # print(record.id)
             skus = self.env['product.template'].search(
                 [('id', '=', record.name_id.id), ('name', '=', record.name_id.name)], limit=1)
             record.product_category_id = skus.categ_id.id
@@ -164,6 +172,8 @@ class ProductDetails(models.Model):
             record.company_id = skus.company_id
             record.model = skus.model
             record.year = skus.year
+            record.partner_id = record.id
+            record.serial_no = skus.serial_no
 
 
 

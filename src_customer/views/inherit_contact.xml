@@ -22,17 +22,25 @@
         <field name="inherit_id" ref="base.view_partner_form"/>
         <field name="arch" type="xml">
 
-            <xpath expr="//field[@name='vat']" position="attributes">
-                <attribute name="invisible">True</attribute>
+            <xpath expr="//field[@name='vat']" position="replace">
+                <field name="vat" placeholder="e.g. BE0477472701" />
             </xpath>
             <xpath expr="//field[@name='category_id']" position="attributes">
                 <attribute name="invisible">True</attribute>
             </xpath>
+            <xpath expr="//field[@name='company_type']" position="after">
+<!--                <field name="is_customer_vendor" widget="radio"/>-->
+                <field name="is_customer_vendor" options="{'horizontal': true}" widget="radio" />
+<!--                    <h1>-->
+<!--                        <field id="company" name="name" default_focus="1" />-->
+<!--                        <field id="individual" name="name" default_focus="1" />-->
+<!--                    </h1>-->
+            </xpath>
             <xpath expr="//div[hasclass('o_address_format')]" position="after">
-                <field name="customer_type" />
+                <field name="customer_type" attrs="{'invisible': [('is_customer_vendor', '=', 'is_vendor')]}" />
             </xpath>
             <xpath expr="//field[@name='customer_type']" position="after">
-                <field name="vendor_type" />
+                <field name="vendor_type" attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>
             </xpath>
             <xpath expr="//field[@name='vendor_type']" position="after">
                 <field name="first_name"/>
@@ -53,7 +61,7 @@
                 <field name="alt_mobile" string="Alt. Mobile"/>
                 <field name="from_timer" string="From Timer"/>
                 <field name="attach" string="Attach"/>
-                <field name="eligible_for_1099" string="Eligible For 1099"/>
+                <field name="eligible_for_1099" string="Eligible For 1099" attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>
             </xpath>
             <xpath expr="//page[@name='contact_addresses']" position="attributes">
                 <attribute name="invisible">False</attribute>
@@ -73,13 +81,8 @@
                 <field name="alt_email1" string="Alt. Email 1"/>
                 <field name="alt_email2" string="Alt. Email 2"/>
                 <field name="cc_email" string="CC Email"/>
-<!--                <field name="alt_email1" string="Alt. Email 1"/>-->
-<!--                <field name="alt_email2" string="Alt. Email 2"/>-->
-<!--                <field name="cc_email" string="CC Email"/>-->
+                <field name="notes" string="Notes"/>
             </xpath>
-<!--            <group>-->
-<!--                <field name="primary_contact" string="Primary Contact"/>-->
-<!--            </group>-->
 
 
 <!--tabs in contact-->
@@ -304,12 +307,14 @@
                             <tree editable="bottom" >
                                 <field name="name_id" string=" Product Name" style="width: 200px;"/>
                                 <field name="product_category_id" string="Category"/>
-                                <field name="warranty_start_date" string="Warranty Start Date"/>
-                                <field name="warranty_end_date" string="Warranty End Date"/>
-                                <field name="expiration_date" string="Expiration Date"/>
                                 <field name="company_id" string="Make" style="width: 200px;"/>
                                 <field name="model" string="Model" style="width: 100px;"/>
                                 <field name="year" string="Year" style="width: 100px;"/>
+                                <field name="serial_no" string="Serial No" widget="many2many_tags" style="width: 100px;" />
+                                <field name="warranty_start_date" string="Warranty Start Date"/>
+                                <field name="warranty_end_date" string="Warranty End Date"/>
+                                <field name="expiration_date" string="Expiration Date"/>
+
                             </tree>
                         </field>
                     </group>
@@ -317,11 +322,19 @@
 
 
             </xpath>
-
-
         </field>
+    </record>
 
 
+    <record id="view_contact_inherit_search" model="ir.ui.view">
+          <field name="name">contact.search.expand.filter</field>
+          <field name="model">res.partner</field>
+          <field name="inherit_id" ref="base.view_res_partner_filter"/>
+          <field name="arch" type="xml">
+                <xpath expr="//search" position="inside">
+                    <field name="product_detail_ids" string="Equipment"/>
+                </xpath>
+          </field>
     </record>
 
 

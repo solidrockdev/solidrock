@@ -30,7 +30,7 @@ class Inventorys(models.Model):
     row_config = fields.Char(string="Row Configuration")
     no_of_regular_parallel_arms = fields.Integer(string="No of Regular Parallel Arms")
     no_of_long_parallel_arms = fields.Integer(string="No of Long Parallel Arms")
-    downforce_system = fields.Char(string="DownForce System")
+    downforce_system = fields.Char(string="Down Force System")
     no_of_vr_motors = fields.Integer(string="No of VR Motors")
     row_cleaner_make = fields.Char(string="Row Cleaner Make")
     row_cleaner_model = fields.Char(string="Row Cleaner Model")
@@ -44,4 +44,9 @@ class Inventorys(models.Model):
     hydraulic_capacity = fields.Char(string="Hydraulic Capacity")
     width = fields.Float(string="Width")
     monitor = fields.Char(string="Monitor")
+    mpn = fields.Char(string="MPN")
+    tax_agency = fields.Char(string="Tax Agency")
+    assets_account = fields.Many2one('account.account',string='Assets Account')
+    accumulated_depreciation = fields.Float(string='Accumulated Depreciation')
+    serial_no = fields.Many2many('stock.production.lot', 'contact_product_serial_no', string='Serial No')
 
