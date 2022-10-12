@@ -30,7 +30,9 @@ class Inventorys(models.Model):
     row_config = fields.Char(string="Row Configuration")
     no_of_regular_parallel_arms = fields.Integer(string="No of Regular Parallel Arms")
     no_of_long_parallel_arms = fields.Integer(string="No of Long Parallel Arms")
-    downforce_system = fields.Char(string="Down Force System")
+
+    downforce_system = fields.Char(string="DownForce System")
+
     no_of_vr_motors = fields.Integer(string="No of VR Motors")
     row_cleaner_make = fields.Char(string="Row Cleaner Make")
     row_cleaner_model = fields.Char(string="Row Cleaner Model")
@@ -48,5 +50,21 @@ class Inventorys(models.Model):
     tax_agency = fields.Char(string="Tax Agency")
     assets_account = fields.Many2one('account.account',string='Assets Account')
     accumulated_depreciation = fields.Float(string='Accumulated Depreciation')
-    serial_no = fields.Many2many('stock.production.lot', 'contact_product_serial_no', string='Serial No')
+    # serial_no = fields.Many2many('stock.production.lot', 'contact_product_serial_no', string='Serial No')
+    preferred_vendor = fields.Many2one('res.partner',string="Preferred Vendor")
+    reorder_pt_min = fields.Float(string='Reorder Pt (Min)')
+    tax_status = fields.Selection([
+        ('tax', 'Tax'),
+        ('non', 'Non'),
+        ('yes', 'Yes'),
+    ],  default='non', string="Tax Status")
+    serial_no = fields.Many2many('stock.production.lot', 'contact_product_serial_no', string='Serial No', compute='_compute_serial_no')
+
+
+    def _compute_serial_no(self):
+        serial_nos = self.env['stock.production.lot'].search([('product_id', '=', self._origin.id)])
+        list = []
+        for rec in serial_nos:
+            list.append(rec.id)
+        self.serial_no = list
 
