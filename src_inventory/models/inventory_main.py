@@ -44,4 +44,24 @@ class Inventorys(models.Model):
     hydraulic_capacity = fields.Char(string="Hydraulic Capacity")
     width = fields.Float(string="Width")
     monitor = fields.Char(string="Monitor")
+    mpn = fields.Char(string="MPN")
+    tax_agency = fields.Char(string="Tax Agency")
+    assets_account = fields.Many2one('account.account',string='Assets Account')
+    accumulated_depreciation = fields.Float(string='Accumulated Depreciation')
+    # serial_no = fields.Many2many('stock.production.lot', 'contact_product_serial_no', string='Serial No')
+    preferred_vendor = fields.Many2one('res.partner',string="Preferred Vendor")
+    reorder_pt_min = fields.Float(string='Reorder Pt (Min)')
+    tax_status = fields.Selection([
+        ('tax', 'Tax'),
+        ('non', 'Non'),
+        ('yes', 'Yes'),
+    ],  default='non', string="Tax Status")
+    serial_no = fields.Many2many('stock.production.lot', 'contact_product_serial_no', string='Serial No', compute='_compute_serial_no')
 
+
+    def _compute_serial_no(self):
+        serial_nos = self.env['stock.production.lot'].search([('product_id', '=', self._origin.id)])
+        list = []
+        for rec in serial_nos:
+            list.append(rec.id)
+        self.serial_no = list
