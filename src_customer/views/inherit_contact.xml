@@ -2,365 +2,199 @@
 <odoo>
 
 
-<!--    <record model="ir.actions.act_window" id="action_src_customer_contact">-->
-<!--        <field name="name">Customers</field>-->
-<!--        <field name="type">ir.actions.act_window</field>-->
-<!--        <field name="res_model">my.customer</field>-->
-<!--        <field name="view_mode">tree,form</field>-->
-<!--        <field name="context">{}</field>-->
-<!--        <field name="help" type="html">-->
-<!--            <p class="o_view_nocontent_smiling_face">-->
-<!--                Create your first customer !-->
-<!--            </p>-->
+    <record model="ir.actions.act_window" id="action_src_inventory">
+        <field name="name">Inventory</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">product.template</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create your first product !
+            </p>
+        </field>
+    </record>
+
+
+<!--     Form view of my customer -->
+<!--    <record id="view_inventory_form" model="ir.ui.view">-->
+<!--        <field name="name">product.template.form</field>-->
+<!--        <field name="model">product.template</field>-->
+<!--        <field name="inherit_id" ref="product.product_template_only_form_view"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <xpath expr="//field[@name='barcode']" position="before">-->
+<!--                    <field name="customer" attrs="{'invisible': [('is_farm_equipment_base', '=', False)]}"/>-->
+<!--                </xpath>-->
+<!--            <xpath expr="//field[@name='customer']" position="after">-->
+<!--                    <field name="warranty_start_date" attrs="{'invisible': [('is_farm_equipment_base', '=', False)]}"/>-->
+<!--                </xpath>-->
+<!--            <xpath expr="//field[@name='warranty_start_date']" position="after">-->
+<!--                    <field name="warranty_end_date" attrs="{'invisible': [('is_farm_equipment_base', '=', False)]}"/>-->
+<!--                </xpath>-->
+<!--            <xpath expr="//field[@name='warranty_end_date']" position="after">-->
+<!--                    <field name="expiration_date" attrs="{'invisible': [('is_farm_equipment_base', '=', False)]}"/>-->
+<!--                </xpath>-->
+<!--            <xpath expr="//field[@name='barcode']" position="after">-->
+<!--                    <field name="is_farm_equipment_base"/>-->
+<!--                </xpath>-->
 <!--        </field>-->
 <!--    </record>-->
 
-     <!-- Form view for contact -->
-    <record id="view_contact_form" model="ir.ui.view">
-        <field name="name">my.customer.form</field>
-        <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_form"/>
+
+
+
+
+    <!-- Form view -->
+    <record id="view_inventory_inherited_form" model="ir.ui.view">
+        <field name="name">product.template.form.inherited</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view"/>
         <field name="arch" type="xml">
-
-            <xpath expr="//field[@name='vat']" position="attributes">
-                <attribute name="invisible">True</attribute>
-                <!--                <field name="vat" placeholder="e.g. BE0477472701"-->
-                <!--                    attrs="{'invisible': [('is_customer_vendor', '=', 'is_vendor')]}"/>-->
+            <span class="d-inline-block">
+                <xpath expr="//field[@name='purchase_ok']" position="after">
+                    <field name="is_farm_equipment_base"/>
+                    <label for="is_farm_equipment_base"/>
+                </xpath>
+            </span>
+            <xpath expr="//field[@name='company_id']" position="replace">
+                <field name="company_id" options="{'no_create': True}" string="Make" invisible="1"/>
             </xpath>
-            <xpath expr="//field[@name='category_id']" position="attributes">
-                <attribute name="invisible">True</attribute>
+            <xpath expr="//div[@name='pricing']" position="after">
+                <field name="tax_agency" string="Tax Agency"/>
+                <field name="tax_status" string="Tax Status"/>
             </xpath>
-
-            <xpath expr="//group" position="inside">
-                <!--                 <Label for="active" string="Active" style="padding-bottom:-10px"/>-->
-                <!--                 <field name="active"/>-->
+            <xpath expr="//field[@name='detailed_type']" position="after">
+                <field name="mpn"/>
+            </xpath>
+            <xpath expr="//page[@name='purchase']//group[@name='purchase']" position="before">
                 <group>
-                    <field name="active"/>
-
+                    <group>
+                        <field name="preferred_vendor"/>
+                    </group>
+                    <group></group>
                 </group>
             </xpath>
-
-            <xpath expr="//field[@name='company_type']" position="after">
-<!--                <field name="is_customer_vendor" widget="radio"/>-->
-                <field name="is_customer_vendor" options="{'horizontal': true}" widget="radio" />
-<!--                    <h1>-->
-<!--                        <field id="company" name="name" default_focus="1" />-->
-<!--                        <field id="individual" name="name" default_focus="1" />-->
-<!--                    </h1>-->
-            </xpath>
-            <xpath expr="//div[hasclass('o_address_format')]" position="after">
-                <field name="customer_type" attrs="{'invisible': [('is_customer_vendor', '=', 'is_vendor')]}" />
-            </xpath>
-            <xpath expr="//field[@name='customer_type']" position="after">
-                <field name="vendor_type" attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>
-            </xpath>
-            <xpath expr="//field[@name='vendor_type']" position="after">
-                <field name="first_name"/>
-            </xpath>
-            <xpath expr="//field[@name='first_name']" position="after">
-                <field name="middle_initial"/>
-            </xpath>
-            <xpath expr="//field[@name='phone']" position="after">
-                <field name="middle_initial"/>
-            </xpath>
-            <xpath expr="//field[@name='middle_initial']" position="after">
-                <field name="last_name"/>
-                <field name="primary_contact" string="Primary Contact"/>
-                <field name="fax" string="Fax"/>
-                <field name="work_phone" string="Work Phone"/>
-                <field name="home_phone" string="Home Phone"/>
-                <field name="alt_phone" string="Alt. Phone"/>
-                <field name="alt_mobile" string="Alt. Mobile"/>
-                <field name="from_timer" string="From Timer"/>
-                <field name="attach" string="Attach"/>
-                <field name="eligible_for_1099" string="Eligible For 1099" attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>
-            </xpath>
-            <xpath expr="//page[@name='contact_addresses']" position="attributes">
-                <attribute name="invisible">False</attribute>
-            </xpath>
-            <xpath expr="//div[hasclass('o_address_format')]" position="attributes">
-               <attribute name="invisible">True</attribute>
-
-            </xpath>
-            <xpath expr="//span[hasclass('o_form_label')]" position="attributes">
-               <attribute name="invisible">True</attribute>
-
-            </xpath>
-            <xpath expr="//field[@name='website']" position="after">
-                <field name="linkedIn" string="LinkedIn"/>
-                <field name="facebook" string="Facebook"/>
-                <field name="twitter" string="Twitter"/>
-                <field name="alt_email1" string="Alt. Email 1"/>
-                <field name="alt_email2" string="Alt. Email 2"/>
-                <field name="cc_email" string="CC Email"/>
-                <field name="notes" string="Notes"/>
-                <field name="customer_rank" invisible="1"/>
-                <field name="supplier_rank" invisible="1"/>
-            </xpath>
-
-
-<!--tabs in contact-->
-            <xpath expr="//page[@name='sales_purchases']" position="before">
-                <page name="customer_billing" string="Billing">
-                    <sheet><br/>
-                        <div class="row" col="2" style="width:100%; padding-left:20px !important;">
-                            <div style="width:50%">
-
-
-<!--                                <div class="row" col="2" style="width:100%">-->
-<!--                                    <div style="width:20%">-->
-<!--                                        <label for="type" string="Address Type"/>-->
-<!--                                    </div>-->
-<!--                                    <div class="o_address_format" style="width:40%">-->
-<!--                                        <span class="o_form_label o_td_label" name="address_name">-->
-<!--                                            <field name="type"-->
-<!--                                                   attrs="{'invisible': [('is_company','=', True)], 'required': [('is_company','!=', True)], 'readonly': [('user_ids', '!=', [])]}"-->
-<!--                                                   context="{'default_type': 'invoice'}"-->
-<!--                                                   class="font-weight-bold"/>-->
-<!--                                            <b attrs="{'invisible': [('is_company', '=', False)]}">Address</b>-->
-<!--                                        </span>-->
-
-<!--                                    </div>-->
-<!--                                </div><br/>-->
-
-
-                                <div class="row" col="2" style="width:100%">
-                                    <div style="width:20%">
-                                        <label for="type" string="Address Type"/>
-                                    </div>
-                                    <div class="o_address_format" style="width:40%">
-                                        <span class="o_form_label o_td_label" name="address_name">
-                                            <field name="type"
-                                                   context="{'default_type': 'contact'}"
-                                                   class="font-weight-bold"/>
-<!--                                            <b attrs="{'invisible': [('is_company', '=', False)]}">Address</b>-->
-                                        </span>
-
-                                    </div>
-                                </div><br/>
-
-
-                                <div class="row" col="2" style="width:100%">
-                                    <div style="width:20%">
-                                        <label for="street" string="Bill To"/>
-                                    </div>
-                                    <div class="o_address_format" style="width:40%;">
-                                        <field name="street" placeholder="Street..." class="o_address_street"/>
-                                        <field name="street2" placeholder="Street 2..."
-                                               class="o_address_street"/>
-                                        <field name="street3" placeholder="Street 3..."
-                                               class="o_address_street"/>
-                                        <field name="city" placeholder="City" class="o_address_city"/>
-                                        <field name="state_id" class="o_address_state" placeholder="State"
-                                               options="{'no_open': True, 'no_quick_create': True}"
-                                               context="{'country_id': country_id, 'default_country_id': country_id, 'zip': zip}"/>
-                                        <field name="zip" placeholder="ZIP" class="o_address_zip"/>
-                                        <field name="country_id" placeholder="Country" class="o_address_country"
-                                               options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
-
-                                    </div>
-
-                                </div><br/>
-                                <div class="row" col="2" style="width:100%">
-                                    <div style="width:20%">
-                                        <label for="balance" string="Balance"/>
-                                    </div>
-                                    <div class="o_address_format" style="width:40%">
-                                        <field name="balance"/>
-
-                                    </div>
-                                </div><br/>
-
-                                <div class="row" col="2" style="width:100%">
-                                    <div style="width:20%">
-                                        <label for="balance_total" string="Balance Total"/>
-                                    </div>
-                                    <div class="o_address_format" style="width:40%">
-                                        <field name="balance_total"/>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div style="width:50%">
-                                <div style="padding:2% !important;width:100%;">
-                                    <label for="tax_code" string="Tax Code"
-                                           style="width:29%;margin-bottom: -15px;"/>
-                                    <field name="tax_code" style="width:49%;margin-bottom: -15px;"></field>
-                                    <br/>
-                                </div>
-                                <div style="padding:2% !important;width:100%;">
-                                    <label for="terms_id" string="Terms"
-                                           style="width:29%;margin-bottom: -15px;"/>
-                                    <field name="terms_id" style="width:49%;margin-bottom: -15px;"></field>
-                                    <br/>
-                                </div>
-                                <div style="padding:2% !important;width:100%;">
-                                    <label for="rep_id" string="Rep"
-                                           style="width:29%;margin-bottom: -15px;"/>
-                                    <field name="rep_id" style="width:49%;margin-bottom: -15px;"></field>
-                                    <br/>
-                                </div>
-                                <div style="padding:2% !important;width:100%;">
-                                    <label for="tax_item" string="Tax Item"
-                                           style="width:29%;margin-bottom: -15px;"/>
-                                    <field name="tax_item" style="width:49%;margin-bottom: -15px;"></field>
-                                    <br/>
-                                </div>
-                                <div style="padding:2% !important;width:100%;">
-                                    <label for="tax_item" string="Print on Cheque As"
-                                           style="width:29%;margin-bottom: -15px;"/>
-                                    <field name="print_on_check_as" style="width:49%;margin-bottom: -15px;"></field>
-                                    <br/>
-                                </div>
-                            </div>
-                        </div>
-                    </sheet>
-
-                </page>
-
-
-            </xpath>
-
-
-            <xpath expr="//notebook" position="inside">
-
-                <page name="customer_shipping" string="Shipping">
-
-                    <div class="row" col="2" style="width:100%">
-                        <div style="width:10%">
-                            <label for="street_ship" string="Ship To"/>
-                        </div>
-
-                        <div class="o_address_format" style="width:20%">
-
-                            <field name="street_ship" placeholder="Street..." class="o_address_street"/>
-                            <field name="street2_ship" placeholder="Street 2..." class="o_address_street"/>
-                            <field name="street3_ship" placeholder="Street 3..." class="o_address_street"/>
-                            <field name="city_ship" placeholder="City" class="o_address_city"/>
-                            <field name="state_id_ship" class="o_address_state" placeholder="State"
-                                   options="{'no_open': True, 'no_quick_create': True}"
-                                   context="{'country_id_ship': country_id_ship, 'default_country_id_ship': country_id_ship, 'zip_ship': zip_ship}"/>
-                            <field name="zip_ship" placeholder="ZIP" class="o_address_zip"/>
-                            <field name="country_id_ship" placeholder="Country" class="o_address_country"
-                                   options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
-                        </div>
-                    </div>
-
-                </page>
-
-                <pages string="Misc" name="misc" attrs="{'invisible': [('is_customer_vendor', '=', 'is_vendor')]}">
-                    <sheet>
-                        <div class="row" style="width:100%;">
-                            <div style="width:50%">
-                                <div style="padding:2% !important;width:100%;">
-                                    <label for="resale" string="Resale"
-                                           style="width:29%;margin-bottom: -15px;"/>
-                                    <field name="resale" style="width:49%;margin-bottom: -15px;"></field>
-                                    <br/>
-                                </div>
-                                <div style="padding:2% !important;width:100%;">
-                                    <label for="account_no" string="Account Number"
-                                           style="width:29%;margin-bottom: -15px;"/>
-                                    <field name="account_no" style="width:49%;margin-bottom: -15px;"></field>
-                                    <br/>
-                                </div>
-                                <div style="padding:2% !important;width:100%;">
-                                    <label for="credit_limit" string="Credit Limit"
-                                           style="width:29%;margin-bottom: -15px;"/>
-                                    <field name="credit_limit" style="width:49%;margin-bottom: -15px;"></field>
-                                    <br/>
-                                </div>
-                                <div style="padding:2% !important;width:100%;">
-                                    <label for="job_status" string="Job Status"
-                                           style="width:29%;margin-bottom: -15px;"/>
-                                    <field name="job_status" style="width:49%;margin-bottom: -15px;"></field>
-                                    <br/>
-                                </div>
-                                <div style="padding:2% !important;width:100%;">
-                                    <label for="job_type" string="Job Type"
-                                           style="width:29%;margin-bottom: -15px;"/>
-                                    <field name="job_type" style="width:49%;margin-bottom: -15px;"></field>
-                                    <br/>
-                                </div>
-                            </div>
-
-                            <div style="width:50%">
-
-                                <div style="padding:2% !important;width:100%;">
-                                    <label for="job_description" string="Job Description"
-                                           style="width:29%;margin-bottom: -15px;"/>
-                                    <field name="job_description"
-                                           style="width:49%;margin-bottom: -15px;"></field>
-                                    <br/>
-                                </div>
-                                <div style="padding:2% !important;width:100%;">
-                                    <label for="start_date" string="Start Date"
-                                           style="width:29%;margin-bottom: -15px;"/>
-                                    <field name="start_date" style="width:49%;margin-bottom: -15px;"></field>
-                                    <br/>
-                                </div>
-                                <div style="padding:2% !important;width:100%;">
-                                    <label for="projected_end" string="Projected End"
-                                           style="width:29%;margin-bottom: -15px;"/>
-                                    <field name="projected_end" style="width:49%;margin-bottom: -15px;"></field>
-                                    <br/>
-                                </div>
-                                <div style="padding:2% !important;width:100%;">
-                                    <label for="end_date" string="End Date"
-                                           style="width:29%;margin-bottom: -15px;"/>
-                                    <field name="end_date" style="width:49%;margin-bottom: -15px;"></field>
-                                    <br/>
-                                </div>
-
-                            </div>
-                        </div>
-                    </sheet>
-                </pages>
-
-                <page string="Farm Equipment Base" name="product_details"
-                      attrs="{'invisible': [('is_customer_vendor', '=', 'is_vendor')]}">
+            <xpath expr="//group[@name='group_lots_and_weight']" position="after">
+                <group>
                     <group>
-                        <field name="product_detail_ids" nolabel="1" class="product_auto_populate">
-                            <tree editable="bottom">
-                                <field name="name_id" string=" Product Name" style="width: 200px;"/>
-                                <field name="product_category_id" string="Category"/>
-                                <field name="company_id" string="Make" style="width: 200px;"/>
-                                <field name="model" string="Model" style="width: 100px;"/>
-                                <field name="year" string="Year" style="width: 100px;"/>
-                                <field name="serial_no" string="Serial No" widget="many2many_tags"
-                                       style="width: 100px;"/>
-                                <field name="warranty_start_date" string="Warranty Start Date"/>
-                                <field name="warranty_end_date" string="Warranty End Date"/>
-                                <field name="expiration_date" string="Expiration Date"/>
-
-                            </tree>
-                        </field>
+                        <field name="reorder_pt_min"/>
+                    </group>
+                </group>
+            </xpath>
+            <xpath expr="//page[@name='general_information']" position="after">
+                <page name="equip_info" string="Equipment Information"
+                      attrs="{'invisible': [('is_farm_equipment_base', '=', False)]}">
+                    <group>
+                        <group>
+                            <!--                            <xpath expr="//field[@name='company_id']" position="replace">-->
+                            <field name="company_id" options="{'no_create': True}" string="Make"/>
+                            <!--                            </xpath>-->
+                            <field name="model" string="Model"/>
+                            <field name="year" string="Year"/>
+                            <field name="rows" string="Rows"/>
+                            <field name="crops_being_planted" string="Crops being planted"/>
+                            <field name="acres_planted_per_year" string="Acres Planted Per Year"/>
+                            <field name="spacing" string="Spacing"/>
+                            <field name="frame_type" string="Frame Type"/>
+                            <field name="seed_delivery" string="Seed Delivery"/>
+                            <br/>
+                        </group>
+                        <group>
+                            <field name="customer" string="Customer"/>
+                            <field name="warranty_start_date" string="Warranty Start Date"/>
+                            <field name="warranty_end_date" string="Warranty End Date"/>
+                            <field name="expiration_date" string="Expiration Date"/>
+                            <field name="original_planter_monitor" string="Original Planter Monitor"/>
+                            <field name="current_planter_monitor" string="Current Planter Monitor"/>
+                            <field name="meter_type" string="Meter Type"/>
+                            <field name="meter_drive_system" string="Meter Drive System"/>
+                            <br/>
+                        </group>
+                        <group>
+                            <br/>
+                            <field name="closing_system" string="Closing System"/>
+                            <field name="hopper_type" string="Hopper Type"/>
+                            <field name="row_config" string="Row Configuration"/>
+                            <field name="no_of_regular_parallel_arms" string="No of Regular Parallel Arms"/>
+                            <field name="no_of_long_parallel_arms" string="No of Long Parallel Arms"/>
+                            <field name="downforce_system" string="DownForce System"/>
+                            <field name="no_of_vr_motors" string="No of VR Motors"/>
+                            <field name="row_cleaner_make" string="Row Cleaner Make"/>
+                            <field name="row_cleaner_model" string="Row Cleaner Model"/>
+                            <field name="no_till_coulters" string="No-Till Coulters"/>
+                        </group>
+                        <group>
+                            <br/>
+                            <field name="liquid_application_method_1" string="Liquid Application Method #1"/>
+                            <field name="liquid_application_method_2" string="Liquid Application Method #2"/>
+                            <field name="firmer" string="Firmer"/>
+                            <field name="gps_make" string="GPS Make"/>
+                            <field name="gps_monitor" string="GPS Monitor"/>
+                            <field name="no_of_hydraulic_remotes" string="No of Hydraulic Remotes"/>
+                            <field name="hydraulic_capacity" string="Hydraulic Capacity"/>
+                            <field name="width" string="Width"/>
+                            <field name="monitor" string="Monitor"/>
+                            <field name="serial_no" string="Serial No" widget="many2many_tags"/>
+                        </group>
                     </group>
                 </page>
+            </xpath>
+        </field>
+    </record>
 
+    <record id="view_inventory_account_inherited_form" model="ir.ui.view">
+        <field name="name">product.template.account.form.inherited</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="account.product_template_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//group[@name='properties']" position="after">
+                <group>
+                    <group>
+                        <field name="assets_account"/>
+                        <field name="accumulated_depreciation"/>
+                    </group>
+                    <group>
+                    </group>
+                </group>
+            </xpath>
+        </field>
+    </record>
 
+    <record id="view_inventory_purchase_inherited_form" model="ir.ui.view">
+        <field name="name">product.supplierinfo.purchase.form.inherited</field>
+        <field name="model">product.supplierinfo</field>
+        <field name="inherit_id" ref="product.product_supplierinfo_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="replace">
+                <tree string="Vendor Information" multi_edit="1">
+                        <field name="sequence" widget="handle"/>
+                        <field name="product_code" optional="hide"/>
+                        <field name="name" readonly="1" />
+                        <field name="product_id" readonly="1" optional="hide"
+                            invisible="context.get('product_template_invisible_variant', False)"
+                            groups="product.group_product_variant"
+                            domain="[('product_tmpl_id', '=?', context.get('default_product_tmpl_id', False))]"
+                            options="{'no_quick_create': True, 'no_create_edit' : True}"/>
+                        <field name="product_tmpl_id" string="Product" readonly="1"
+                            invisible="context.get('visible_product_tmpl_id', True)"/>
+                        <field name="product_name" optional="hide"/>
+                        <field name="currency_id" groups="base.group_multi_currency"/>
+                        <field name="date_start" optional="hide"/>
+                        <field name="date_end" optional="hide"/>
+                        <field name="company_id" readonly="1" groups="base.group_multi_company"/>
+                        <field name="min_qty"/>
+                        <field name="product_uom" groups="uom.group_uom"/>
+                        <field name="price" string="Price"/>
+                        <field name="delay" optional="hide"/>
+                </tree>
             </xpath>
         </field>
     </record>
 
 
-    <record id="view_contact_inherit_search" model="ir.ui.view">
-          <field name="name">contact.search.expand.filter</field>
-          <field name="model">res.partner</field>
-          <field name="inherit_id" ref="base.view_res_partner_filter"/>
-          <field name="arch" type="xml">
-                <xpath expr="//search" position="inside">
-                    <field name="product_detail_ids" string="Equipment"/>
-                </xpath>
-          </field>
-    </record>
 
 
-    <record id="account.res_partner_action_supplier" model="ir.actions.act_window">
-        <field name="context">{'default_is_customer_vendor': 'is_vendor','search_default_supplier': 1,'res_partner_search_mode': 'supplier', 'default_is_company': True, 'default_supplier_rank': 1}</field>
-    </record>
 
-    
 
 
 </odoo>
