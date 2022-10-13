@@ -132,20 +132,20 @@ class PartnerInherit(models.Model):
 
 
 
-    @api.model
-    def create(self, vals_list):
-        search_partner_mode = self.env.context.get('res_partner_search_mode')
-        is_customer = search_partner_mode == 'customer'
-        is_supplier = search_partner_mode == 'supplier'
-        if search_partner_mode:
-            for vals in vals_list:
-                if is_customer and 'customer_rank' not in vals:
-                    if self.is_customer_vendor == 'is_customer':
-                        vals['customer_rank'] = 1
-                elif is_supplier and 'supplier_rank' not in vals:
-                    if self.is_customer_vendor == 'is_vendor' :
-                        vals['supplier_rank'] = 1
-        return super().create(vals_list)
+    # @api.model
+    # def create(self, vals_list):
+    #     search_partner_mode = self.env.context.get('res_partner_search_mode')
+    #     is_customer = search_partner_mode == 'customer'
+    #     is_supplier = search_partner_mode == 'supplier'
+    #     if search_partner_mode:
+    #         for vals in vals_list:
+    #             if is_customer and 'customer_rank' not in vals:
+    #                 if self.is_customer_vendor == 'is_customer':
+    #                     vals['customer_rank'] = 1
+    #             elif is_supplier and 'supplier_rank' not in vals:
+    #                 if self.is_customer_vendor == 'is_vendor' :
+    #                     vals['supplier_rank'] = 1
+    #     return super().create(vals_list)
 
     '''
         Supplier rank and Customer rank are get populated
