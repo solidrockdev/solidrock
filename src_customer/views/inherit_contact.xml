@@ -2,20 +2,20 @@
 <odoo>
 
 
-<!--    <record model="ir.actions.act_window" id="action_src_customer_contact">-->
-<!--        <field name="name">Customers</field>-->
-<!--        <field name="type">ir.actions.act_window</field>-->
-<!--        <field name="res_model">my.customer</field>-->
-<!--        <field name="view_mode">tree,form</field>-->
-<!--        <field name="context">{}</field>-->
-<!--        <field name="help" type="html">-->
-<!--            <p class="o_view_nocontent_smiling_face">-->
-<!--                Create your first customer !-->
-<!--            </p>-->
-<!--        </field>-->
-<!--    </record>-->
+    <!--    <record model="ir.actions.act_window" id="action_src_customer_contact">-->
+    <!--        <field name="name">Customers</field>-->
+    <!--        <field name="type">ir.actions.act_window</field>-->
+    <!--        <field name="res_model">my.customer</field>-->
+    <!--        <field name="view_mode">tree,form</field>-->
+    <!--        <field name="context">{}</field>-->
+    <!--        <field name="help" type="html">-->
+    <!--            <p class="o_view_nocontent_smiling_face">-->
+    <!--                Create your first customer !-->
+    <!--            </p>-->
+    <!--        </field>-->
+    <!--    </record>-->
 
-     <!-- Form view for contact -->
+    <!-- Form view for contact -->
     <record id="view_contact_form" model="ir.ui.view">
         <field name="name">my.customer.form</field>
         <field name="model">res.partner</field>
@@ -23,9 +23,8 @@
         <field name="arch" type="xml">
 
             <xpath expr="//field[@name='vat']" position="attributes">
-                <attribute name="invisible">True</attribute>
-                <!--                <field name="vat" placeholder="e.g. BE0477472701"-->
-                <!--                    attrs="{'invisible': [('is_customer_vendor', '=', 'is_vendor')]}"/>-->
+                <attribute name="attrs">{'invisible': [('is_customer_vendor', '=', 'is_customer')]}</attribute>
+
             </xpath>
             <xpath expr="//field[@name='category_id']" position="attributes">
                 <attribute name="invisible">True</attribute>
@@ -41,15 +40,15 @@
             </xpath>
 
             <xpath expr="//field[@name='company_type']" position="after">
-<!--                <field name="is_customer_vendor" widget="radio"/>-->
-                <field name="is_customer_vendor" options="{'horizontal': true}" widget="radio" />
-<!--                    <h1>-->
-<!--                        <field id="company" name="name" default_focus="1" />-->
-<!--                        <field id="individual" name="name" default_focus="1" />-->
-<!--                    </h1>-->
+                <!--                <field name="is_customer_vendor" widget="radio"/>-->
+                <field name="is_customer_vendor" options="{'horizontal': true}" widget="radio"/>
+                <!--                    <h1>-->
+                <!--                        <field id="company" name="name" default_focus="1" />-->
+                <!--                        <field id="individual" name="name" default_focus="1" />-->
+                <!--                    </h1>-->
             </xpath>
             <xpath expr="//div[hasclass('o_address_format')]" position="after">
-                <field name="customer_type" attrs="{'invisible': [('is_customer_vendor', '=', 'is_vendor')]}" />
+                <field name="customer_type" attrs="{'invisible': [('is_customer_vendor', '=', 'is_vendor')]}"/>
             </xpath>
             <xpath expr="//field[@name='customer_type']" position="after">
                 <field name="vendor_type" attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>
@@ -73,17 +72,18 @@
                 <field name="alt_mobile" string="Alt. Mobile"/>
                 <field name="from_timer" string="From Timer"/>
                 <field name="attach" string="Attach"/>
-                <field name="eligible_for_1099" string="Eligible For 1099" attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>
+                <field name="eligible_for_1099" string="Eligible For 1099"
+                       attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>
             </xpath>
             <xpath expr="//page[@name='contact_addresses']" position="attributes">
                 <attribute name="invisible">False</attribute>
             </xpath>
             <xpath expr="//div[hasclass('o_address_format')]" position="attributes">
-               <attribute name="invisible">True</attribute>
+                <attribute name="invisible">True</attribute>
 
             </xpath>
             <xpath expr="//span[hasclass('o_form_label')]" position="attributes">
-               <attribute name="invisible">True</attribute>
+                <attribute name="invisible">True</attribute>
 
             </xpath>
             <xpath expr="//field[@name='website']" position="after">
@@ -99,29 +99,30 @@
             </xpath>
 
 
-<!--tabs in contact-->
+            <!--tabs in contact-->
             <xpath expr="//page[@name='sales_purchases']" position="before">
                 <page name="customer_billing" string="Billing">
-                    <sheet><br/>
+                    <sheet>
+                        <br/>
                         <div class="row" col="2" style="width:100%; padding-left:20px !important;">
                             <div style="width:50%">
 
 
-<!--                                <div class="row" col="2" style="width:100%">-->
-<!--                                    <div style="width:20%">-->
-<!--                                        <label for="type" string="Address Type"/>-->
-<!--                                    </div>-->
-<!--                                    <div class="o_address_format" style="width:40%">-->
-<!--                                        <span class="o_form_label o_td_label" name="address_name">-->
-<!--                                            <field name="type"-->
-<!--                                                   attrs="{'invisible': [('is_company','=', True)], 'required': [('is_company','!=', True)], 'readonly': [('user_ids', '!=', [])]}"-->
-<!--                                                   context="{'default_type': 'invoice'}"-->
-<!--                                                   class="font-weight-bold"/>-->
-<!--                                            <b attrs="{'invisible': [('is_company', '=', False)]}">Address</b>-->
-<!--                                        </span>-->
+                                <!--                                <div class="row" col="2" style="width:100%">-->
+                                <!--                                    <div style="width:20%">-->
+                                <!--                                        <label for="type" string="Address Type"/>-->
+                                <!--                                    </div>-->
+                                <!--                                    <div class="o_address_format" style="width:40%">-->
+                                <!--                                        <span class="o_form_label o_td_label" name="address_name">-->
+                                <!--                                            <field name="type"-->
+                                <!--                                                   attrs="{'invisible': [('is_company','=', True)], 'required': [('is_company','!=', True)], 'readonly': [('user_ids', '!=', [])]}"-->
+                                <!--                                                   context="{'default_type': 'invoice'}"-->
+                                <!--                                                   class="font-weight-bold"/>-->
+                                <!--                                            <b attrs="{'invisible': [('is_company', '=', False)]}">Address</b>-->
+                                <!--                                        </span>-->
 
-<!--                                    </div>-->
-<!--                                </div><br/>-->
+                                <!--                                    </div>-->
+                                <!--                                </div><br/>-->
 
 
                                 <div class="row" col="2" style="width:100%">
@@ -133,11 +134,12 @@
                                             <field name="type"
                                                    context="{'default_type': 'contact'}"
                                                    class="font-weight-bold"/>
-<!--                                            <b attrs="{'invisible': [('is_company', '=', False)]}">Address</b>-->
+                                            <!--                                            <b attrs="{'invisible': [('is_company', '=', False)]}">Address</b>-->
                                         </span>
 
                                     </div>
-                                </div><br/>
+                                </div>
+                                <br/>
 
 
                                 <div class="row" col="2" style="width:100%">
@@ -160,7 +162,8 @@
 
                                     </div>
 
-                                </div><br/>
+                                </div>
+                                <br/>
                                 <div class="row" col="2" style="width:100%">
                                     <div style="width:20%">
                                         <label for="balance" string="Balance"/>
@@ -169,7 +172,8 @@
                                         <field name="balance"/>
 
                                     </div>
-                                </div><br/>
+                                </div>
+                                <br/>
 
                                 <div class="row" col="2" style="width:100%">
                                     <div style="width:20%">
@@ -345,22 +349,22 @@
 
 
     <record id="view_contact_inherit_search" model="ir.ui.view">
-          <field name="name">contact.search.expand.filter</field>
-          <field name="model">res.partner</field>
-          <field name="inherit_id" ref="base.view_res_partner_filter"/>
-          <field name="arch" type="xml">
-                <xpath expr="//search" position="inside">
-                    <field name="product_detail_ids" string="Equipment"/>
-                </xpath>
-          </field>
+        <field name="name">contact.search.expand.filter</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_res_partner_filter"/>
+        <field name="arch" type="xml">
+            <xpath expr="//search" position="inside">
+                <field name="product_detail_ids" string="Equipment"/>
+            </xpath>
+        </field>
     </record>
 
 
     <record id="account.res_partner_action_supplier" model="ir.actions.act_window">
-        <field name="context">{'default_is_customer_vendor': 'is_vendor','search_default_supplier': 1,'res_partner_search_mode': 'supplier', 'default_is_company': True, 'default_supplier_rank': 1}</field>
+        <field name="context">{'default_is_customer_vendor': 'is_vendor','search_default_supplier':
+            1,'res_partner_search_mode': 'supplier', 'default_is_company': True, 'default_supplier_rank': 1}
+        </field>
     </record>
-
-    
 
 
 </odoo>

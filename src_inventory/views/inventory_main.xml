@@ -77,7 +77,9 @@
             <xpath expr="//group[@name='group_lots_and_weight']" position="after">
                 <group>
                     <group>
-                        <field name="reorder_pt_min"/>
+                        <field name="reordering_min_qty" string="Reorder Pt (Min)" />
+                        <field name="reordering_max_qty" string="Max"  />
+                        <field name="order"/>
                     </group>
                 </group>
             </xpath>
@@ -134,7 +136,7 @@
                             <field name="hydraulic_capacity" string="Hydraulic Capacity"/>
                             <field name="width" string="Width"/>
                             <field name="monitor" string="Monitor"/>
-                            <field name="serial_no" string="Serial No" widget="many2many_tags"/>
+                            <field name="serial_no" string="Serial No" widget="many2many_tags" />
                         </group>
                     </group>
                 </page>
@@ -168,7 +170,7 @@
             <xpath expr="//tree" position="replace">
                 <tree string="Vendor Information" multi_edit="1">
                         <field name="sequence" widget="handle"/>
-                        <field name="product_code" optional="hide"/>
+                        <field name="product_code" />
                         <field name="name" readonly="1" />
                         <field name="product_id" readonly="1" optional="hide"
                             invisible="context.get('product_template_invisible_variant', False)"
@@ -192,6 +194,29 @@
     </record>
 
 
+    <record id="view_product_template_tree_view_inherited" model="ir.ui.view">
+        <field name="name">product.template.product.tree.inherited</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_tree_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="replace">
+                <tree >
+                    <field name="name" />
+                    <field name="preferred_vendor" />
+                    <field name="reordering_min_qty" string="Reorder Pt (Min)" />
+                    <field name="reordering_max_qty" string="Max"  />
+                    <field name="qty_available" string="On Hand"/>
+                    <field name="sales_count" string="On Sales Order"/>
+                    <field name="available" string="Available"/>
+                    <field name="order" />
+                    <field name="purchased_product_qty" string="On PO" />
+                    <field name="reorder_qty" />
+                    <field name="next_deli" />
+                    <field name="sales_Week" />
+                </tree>
+            </xpath>
+        </field>
+    </record>
 
 
 

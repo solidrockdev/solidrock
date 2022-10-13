@@ -1,4 +1,5 @@
 from odoo import models, fields, api
+from odoo.tools.float_utils import float_round
 
 
 class Inventorys(models.Model):
@@ -50,13 +51,27 @@ class Inventorys(models.Model):
     accumulated_depreciation = fields.Float(string='Accumulated Depreciation')
     # serial_no = fields.Many2many('stock.production.lot', 'contact_product_serial_no', string='Serial No')
     preferred_vendor = fields.Many2one('res.partner',string="Preferred Vendor")
-    reorder_pt_min = fields.Float(string='Reorder Pt (Min)')
+    # reorder_pt_min = fields.Float(string='Reorder Pt (Min)')
+    # reorder_pt_max = fields.Float(string='Max')
     tax_status = fields.Selection([
         ('tax', 'Tax'),
         ('non', 'Non'),
         ('yes', 'Yes'),
     ],  default='non', string="Tax Status")
     serial_no = fields.Many2many('stock.production.lot', 'contact_product_serial_no', string='Serial No', compute='_compute_serial_no')
+    # product_variant_id = fields.Many2one('product.product', 'Product')
+    # product_uom_qty = fields.Integer(related='product_variant_id.product_uom_qty')
+    order = fields.Boolean(string='Order')
+    reorder_qty = fields.Integer(string='Reorder Qty')
+    next_deli = fields.Datetime(string='Next Delivery')
+    sales_Week = fields.Integer(string='Sales/Week')
+    purchased_product_qty = fields.Float(compute='_compute_purchased_product_qty', string='Purchased')
+    sales_count = fields.Float(compute='_compute_sales_count', string='Sold')
+    available = fields.Float(compute='_compute_available_count', string='Available')
+    reordering_min_qty = fields.Float(
+        compute='_compute_nbr_reordering_rules', compute_sudo=False)
+    reordering_max_qty = fields.Float(
+        compute='_compute_nbr_reordering_rules', compute_sudo=False)
 
 
     def _compute_serial_no(self):
@@ -65,3 +80,24 @@ class Inventorys(models.Model):
         for rec in serial_nos:
             list.append(rec.id)
         self.serial_no = list
+
+
+
+    # @api.depends('write_date')
+    # def _compute_purchased_product_qty(self):
+    #     for template in self:
+    #         template.purchased_product_qty = float_round(sum([p.purchased_product_qty for p in template.product_variant_ids]), precision_rounding=template.uom_id.rounding)
+    #
+    #
+    #
+    # @api.depends('write_date')
+    # def _compute_sales_count(self):
+    #     for product in self:
+    #         product.sales_count = float_round(sum([p.sales_count for p in product.with_context(active_test=False).product_variant_ids]), precision_rounding=product.uom_id.rounding)
+
+
+
+    @api.depends('sales_count')
+    def _compute_available_count(self):
+        for rec in self:
+            rec.available = rec.qty_available - rec.sales_count
