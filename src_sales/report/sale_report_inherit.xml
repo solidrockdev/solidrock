@@ -1,0 +1,11 @@
+<odoo>
+
+    <template id="report_sale_order_inherit" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//td[@name='td_subtotal']" position="replace">
+            <span t-field="line.price_subtotal" groups="account.group_show_line_subtotals_tax_excluded" hidden="hidden"/>
+            <span t-field="line.price_total" groups="account.group_show_line_subtotals_tax_included" hidden="hidden"/>
+        </xpath>
+    </template>
+
+
+</odoo>
