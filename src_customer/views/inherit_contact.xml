@@ -97,11 +97,18 @@
                 <field name="alt_email2" string="Alt. Email 2"/>
                 <field name="cc_email" string="CC Email"/>
                 <field name="role" string="Role"/>
+
                 <field name="notes" string="Notes"
                 attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>
                 <field name="is_date_based_disc" string="Date Based Discounts" options="{'horizontal': true}" widget="radio" attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>
                 <field name="is_vol_based_disc" string="Volume Based Discounts" options="{'horizontal': true}" widget="radio" attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>
                 <field name="is_cus_based_disc" string="Customer Discounts" options="{'horizontal': true}" widget="radio" attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>
+
+                <field name="notes" string="Notes"/>
+                <field name="is_date_based_disc" string="Date Based Discounts" attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>
+                <field name="is_vol_based_disc" string="Volume Based Discounts" attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>
+                <field name="is_cus_based_disc" string="Customer Discounts" attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>
+
                 <field name="customer_rank" invisible="1"/>
                 <field name="supplier_rank" invisible="1"/>
             </xpath>
@@ -263,9 +270,11 @@
             <xpath expr="//page[@name='contact_addresses']" position="before">
                 <page string="Contact_2" name="contacts">
                         <sheet>
+
                             <group>
                                     <field name="contact_name" style="width:40%;"/>
                             </group>
+
                             <div class="row" style="width:100%;">
                                 <div style="width:50%">
                                     <div style="padding:2% !important;width:100%;">
@@ -360,9 +369,17 @@
                                         <field name="country_id_contact2" placeholder="Country" class="o_address_country"
                                                options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
 
+
                                     </div>
 
                                 </div>
+
+
+
+                                    </div>
+
+                                </div>
+
 
                                 </div>
                             </div>
@@ -488,7 +505,11 @@
                     </group>
                 </page>
 
+
                  <pages string="Customer Discounts" name="customer_discounts" attrs="{'invisible': ['|', ('is_customer_vendor', '=', 'is_customer'),('is_cus_based_disc', '=', 'no')]}">
+
+                 <pages string="Customer Discounts" name="customer_discounts" attrs="{'invisible': [('is_customer_vendor', '=', 'is_vendor'),('is_cus_based_disc', '=', 'no'),('is_date_based_disc', 'in', ('yes','no')), ('is_vol_based_disc', 'in', ('yes','no'))]}">
+
                     <sheet>
                         <div class="row" style="width:100%;">
                             <div style="width:50%">
@@ -525,6 +546,7 @@
                         </div>
                     </sheet>
                 </pages>
+
 
                 <page string="Date Based Discounts" attrs="{'invisible': ['|',('is_customer_vendor', '=', 'is_customer'),('is_date_based_disc', '=', 'no')]}">
                     <sheet>
@@ -599,6 +621,83 @@
                 </page>
 
                 <pages string="Volume Based Discounts" attrs="{'invisible': ['|',('is_customer_vendor', '=', 'is_customer'),('is_vol_based_disc', '=', 'no')]}">
+
+
+                <page string="Date Based Discounts" attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer'),('is_date_based_disc', '=', 'no'),('is_cus_based_disc', 'in', ('yes','no')), ('is_vol_based_disc', 'in', ('yes','no'))]}">
+                    <sheet>
+                        <div class="row" style="width:100%;">
+                            <div style="width:50%">
+                                <div style="padding:2% !important;width:100%;">
+                                    <label for="db_std_base_dealer_disc" string="Standard Base Dealer Discount"
+                                           style="width:39%;margin-bottom: -15px;"/>
+                                    <field name="db_std_base_dealer_disc"
+                                           style="width:49%;margin-bottom: -15px;"></field>
+                                    <br/>
+                                </div>
+                                <div style="padding:2% !important;width:100%;">
+                                    <label for="db_level_2_disc" string="Level 2 Discount"
+                                           style="width:39%;margin-bottom: -15px;"/>
+                                    <field name="db_level_2_disc" style="width:49%;margin-bottom: -15px;"></field>
+                                    <br/>
+                                </div>
+                                <div style="padding:2% !important;width:100%;">
+                                    <label for="db_free_freight_date_range_start" string="Free Freight Date Range"
+                                           style="width:39%;margin-bottom: -15px;"/>
+                                    <div class="o_row" style="padding:2% !important;width:100%;">
+                                        <field name="db_free_freight_date_range_start" style="width:30%%" nolabel="1"
+                                               class="oe_inline"
+                                               options="{'related_start_date': 'db_free_freight_date_range_start'}"/>
+                                        <i class="fa fa-long-arrow-right mx-2" aria-label="Arrow icon" title="Arrow"/>
+                                        <field name="db_free_freight_date_range_end" style="width:30%%" nolabel="1"
+                                               class="oe_inline"
+                                               options="{'related_end_date': 'db_free_freight_date_range_end'}"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div style="width:50%">
+                                <div style="padding:2% !important;width:100%;">
+                                    <label for="db_level_3_dealer_disc" string="Level 3 Dealer Discount"
+                                           style="width:39%;margin-bottom: -15px;"/>
+                                    <field name="db_level_3_dealer_disc"
+                                           style="width:49%;margin-bottom: -15px;"></field>
+                                    <br/>
+                                </div>
+                                <div style="padding:2% !important;width:100%;">
+                                    <label for="db_free_freight_vol" string="Free Freight Volume"
+                                           style="width:39%;margin-bottom: -15px;"/>
+                                    <field name="db_free_freight_vol" style="width:49%;margin-bottom: -15px;"></field>
+                                    <br/>
+                                </div>
+                                <div style="padding:2% !important;width:100%;">
+                                    <label for="additional_notes" string="Additional Notes"
+                                           style="width:39%;margin-bottom: -15px;"/>
+                                    <field name="additional_notes" style="width:49%;margin-bottom: -15px;"></field>
+                                    <br/>
+                                </div>
+                            </div>
+                        </div>
+                        <!--                        <field name="db_std_base_dealer_disc" style="width:50%%"/>-->
+                        <!--                        <field name="db_level_2_disc" style="width:30%%"/>-->
+                        <!--                        <field name="db_level_3_dealer_disc" style="width:30%%"/>-->
+                        <!--                        <field name="db_free_freight_vol" style="width:30%%"/>-->
+                        <!--                        <label for="db_free_freight_date_range_start" string="Free Freight Date Range"/>-->
+                        <!--                        <div class="o_row">-->
+                        <!--                            <field name="db_free_freight_date_range_start" style="width:30%%" nolabel="1"-->
+                        <!--                                   class="oe_inline"-->
+                        <!--                                   options="{'related_start_date': 'db_free_freight_date_range_start'}"/>-->
+                        <!--                            <i class="fa fa-long-arrow-right mx-2" aria-label="Arrow icon" title="Arrow"/>-->
+                        <!--                            <field name="db_free_freight_date_range_end" style="width:30%%" nolabel="1"-->
+                        <!--                                   class="oe_inline"-->
+                        <!--                                   options="{'related_end_date': 'db_free_freight_date_range_end'}"/>-->
+                        <!--                        </div>-->
+                        <!--                        <field name="additional_notes" style="width:40%%"/>-->
+                    </sheet>
+                </page>
+
+                <pages string="Volume Based Discounts"
+                      attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer'),('is_vol_based_disc', '=', 'no'),('is_date_based_disc', 'in', ('yes','no')), ('is_cus_based_disc', 'in', ('yes','no'))]}">
+
                     <sheet>
                         <div class="row" style="width:100%;">
                             <div style="width:50%">
@@ -685,9 +784,14 @@
         <field name="arch" type="xml">
             <xpath expr="//search" position="inside">
                 <field name="product_detail_ids" string="Equipment"/>
+
                 <filter name="is_vol_based_disc" string="Volume Based Discounts" domain="[('is_vol_based_disc','=','yes')]" />
                 <filter name="is_date_based_disc" string="Date Based Discounts" domain="[('is_date_based_disc','=','yes')]" />
                 <filter name="is_cus_based_disc" string="Customer Discounts" domain="[('is_cus_based_disc','=','yes')]" />
+
+                <filter name="is_vol_based_disc" string="Volume Based Discounts" context="{'group_by': 'is_vol_based_disc'}" />
+                <filter name="is_date_based_disc" string="Date Based Discounts" context="{'group_by': 'is_date_based_disc'}" />
+                <filter name="is_cus_based_disc" string="Customer Discounts" context="{'group_by': 'is_cus_based_disc'}" />
 
             </xpath>
         </field>
@@ -710,6 +814,7 @@
                 <field name="estimate"/>
             </xpath>
 
+
             <xpath expr="//tree/field[@name='name']" position="after">
                 <field name="so_no" attrs="{'column_invisible': [('parent.move_type','=','in_invoice')]}"/>
             </xpath>
@@ -731,4 +836,14 @@
             </xpath>
         </field>
     </record>
+
+
+            <xpath expr="//tree/field[@name='name']" position="after">
+                <field name="so_no" attrs="{'column_invisible': [('parent.move_type','=','in_invoice')]}"/>
+            </xpath>
+        </field>
+    </record>
+
+
+
 </odoo>
