@@ -58,7 +58,8 @@ class PartnerInherit(models.Model):
 
     _inherit = "res.partner"
 
-
+    company_type = fields.Selection(string='Company Type', selection=[('person', 'Individual'), ('company', 'Company')],
+                                    compute='_compute_company_type', inverse='_write_company_type', default='person')
     customer_type = fields.Many2one('my.customer.type',string="Customer Type")
     vendor_type = fields.Many2one('my.vendor.type',string="Vendor Type")
     first_name = fields.Char(string="First Name")
@@ -68,7 +69,7 @@ class PartnerInherit(models.Model):
     balance_total = fields.Float()
     terms_id = fields.Many2one('account.payment.term', string="Terms")
     tax_code = fields.Char(string="Tax Code")
-    tax_item = fields.Many2one('account.tax', string="Tax Item")
+    tax_item = fields.Many2one('account.tax', string="Tax ID")
     rep_id = fields.Many2one('hr.employee', string="Rep")
     street_ship = fields.Char()
     street2_ship = fields.Char()
@@ -89,6 +90,10 @@ class PartnerInherit(models.Model):
     product_detail_ids = fields.One2many('product.info', 'partner_id', string='Stock')
     # supplier_rank = fields.Integer(default=0, copy=False)
     # customer_rank = fields.Integer(default=0, copy=False)
+    customer_base_discount = fields.Float()
+    customer_early_order_discount = fields.Float()
+    customer_early_pay_discount = fields.Float()
+    early_order_deadline = fields.Date()
 
     primary_contact = fields.Char(string="Primary Contact")
     fax = fields.Char(string="Fax")
@@ -102,54 +107,85 @@ class PartnerInherit(models.Model):
     alt_email1 = fields.Char(string="Alt. Email 1")
     alt_email2 = fields.Char(string="Alt. Email 2")
     cc_email = fields.Char(string="CC Email")
+    date_added = fields.Date(string="Date Added", default=fields.Date.context_today)
     from_timer = fields.Selection([('yes', 'Yes'), ('no', 'No')], string="From Timer")
     attach = fields.Selection([('yes', 'Yes'), ('no', 'No')], string="Attach")
     eligible_for_1099 = fields.Selection([('yes', 'Yes'), ('no', 'No')], string="Eligible For 1099")
     print_on_check_as = fields.Char(string="Print on Cheque As")
-    notes = fields.Selection([('has_notes', 'Has Notes'), ('no_notes', 'No Notes')], string="Notes")
-
+    notes = fields.Selection([('has_notes', 'Has Notes'), ('no_notes', 'No Notes')], string="Notes", default="has_notes")
+    role = fields.Char(string="Role")
     ''' 
         Added customer and vendor radio buttons
     '''
     is_customer_vendor = fields.Selection(string='Contact Type', selection=[('is_customer', 'Customer'), ('is_vendor', 'Vendor')], default='is_customer')
+    is_date_based_disc = fields.Selection(selection=[('yes', 'Yes'), ('no', 'No')], string="Date Based Discounts", default='no')
+    is_vol_based_disc = fields.Selection(selection=[('yes', 'Yes'), ('no', 'No')], string="Volume Based Discounts", default='no')
+    is_cus_based_disc = fields.Selection(selection=[('yes', 'Yes'), ('no', 'No')], string="Customer Discounts", default='no')
+
+
+    db_std_base_dealer_disc = fields.Float(string="Standard Base Dealer Discount")
+    db_level_2_disc = fields.Float(string="Level 2 Discount")
+    db_level_3_dealer_disc = fields.Float(string="Level 3 Dealer Discount")
+    db_free_freight_vol = fields.Float(string="Free Freight Volume")
+    db_free_freight_date_range_start = fields.Date(string="Free Freight Start Date")
+    db_free_freight_date_range_end = fields.Date(string="Free Freight End Date")
+    additional_notes = fields.Text(string="Additional Notes")
+
+
+    vb_volume_disc_level_1 = fields.Float(string="Volume Discount Level 1")
+    vb_level_1_disc = fields.Float(string="Level 1 Discount")
+    vb_volume_disc_level_2 = fields.Float(string="Volume Discount Level 2")
+    vb_level_2_disc = fields.Float(string="Level 2 Discount")
+    vb_volume_disc_level_3 = fields.Float(string="Volume Discount Level 3")
+    vb_level_3_disc = fields.Float(string="Level 3 Discount")
+    vb_volume_disc_level_4 = fields.Float(string="Volume Discount Level 4")
+    vb_level_4_disc = fields.Float(string="Level 4 Discount")
+
+    '''for contact 2'''
+    contact_name = fields.Many2one('res.partner',string="Contact")
+    first_name1 = fields.Char(string="First Name")
+    middle_initial1 = fields.Char(string="Middle Initial")
+    last_name1 = fields.Char(string="Last Name")
+    role1 = fields.Char(string="Role")
+    job_title = fields.Char(string="Job Title")
+    mobile1 = fields.Char(string="Mobile")
+    work_phone1 = fields.Char(string="Work Phone")
+    home_phone1 = fields.Char(string="Home Phone")
+    email1 = fields.Char(string="Email")
+    street_contact2 = fields.Char()
+    street2_contact2 = fields.Char()
+    zip_contact2 = fields.Char(change_default=True)
+    city_contact2 = fields.Char()
+    state_id_contact2 = fields.Many2one("res.country.state", string='State', ondelete='restrict', domain="[('country_id', '=?', country_id)]")
+    country_id_contact2 = fields.Many2one('res.country', string='Country', ondelete='restrict')
 
 
 
+    @api.onchange('contact_name')
+    def onchange_contact(self):
+        if self.contact_name:
+            print(self.contact_name)
+            contact = self.env['res.partner'].search([('id', '=', self.contact_name.id)])
+            print(contact)
+            print(contact.first_name)
+            self.first_name1 = contact.first_name
+            self.middle_initial1 = contact.middle_initial
+            self.last_name1 = contact.last_name
+            self.role1 = contact.role
+            self.job_title = contact.function
+            self.mobile1 = contact.mobile
+            self.work_phone1 = contact.work_phone
+            self.home_phone1 = contact.home_phone
+            self.email1 = contact.email
+            self.street_contact2 = contact.street
+            self.street2_contact2 = contact.street2
+            self.zip_contact2 = contact.zip
+            self.city_contact2 = contact.city
+            self.state_id_contact2 = contact.state_id
+            self.country_id_contact2 = contact.country_id
 
-    # def _get_name_search_order_by_fields(self):
-    #     res = super()._get_name_search_order_by_fields()
-    #     partner_search_mode = self.env.context.get('res_partner_search_mode')
-    #     if not partner_search_mode in ('customer', 'supplier'):
-    #         return res
-    #     order_by_field = 'COALESCE(res_partner.%s, 0) DESC,'
-    #     if partner_search_mode == 'customer':
-    #         field = 'customer_rank'
-    #     else:
-    #         field = 'supplier_rank'
-    #
-    #     order_by_field = order_by_field % field
-    #     return '%s, %s' % (res, order_by_field % field) if res else order_by_field
 
 
-
-    # @api.model
-    # def create(self, vals_list):
-    #     search_partner_mode = self.env.context.get('res_partner_search_mode')
-    #     is_customer = search_partner_mode == 'customer'
-    #     is_supplier = search_partner_mode == 'supplier'
-    #     if search_partner_mode:
-    #         for vals in vals_list:
-    #             if is_customer and 'customer_rank' not in vals:
-    #                 if self.is_customer_vendor == 'is_customer':
-    #                     vals['customer_rank'] = 1
-    #             elif is_supplier and 'supplier_rank' not in vals:
-    #                 if self.is_customer_vendor == 'is_vendor' :
-    #                     vals['supplier_rank'] = 1
-    #     return super().create(vals_list)
-
-    '''
-        Supplier rank and Customer rank are get populated
-    '''
 
     @api.onchange('is_customer_vendor')
     def onchange_customer(self):
@@ -236,3 +272,44 @@ class VendorType(models.Model):
     '''
     _name = 'my.vendor.type'
     name = fields.Char()
+
+
+class InvoiceInherit(models.Model):
+    '''
+           Inherit account.Move model
+    '''
+
+    _inherit = "account.move"
+
+    estimate = fields.Monetary(string="Estimate")
+
+
+class InvoiceInheritLine(models.Model):
+    '''
+           Inherit account.Move.line model
+    '''
+
+    _inherit = "account.move.line"
+
+    so_no = fields.Char(string="S.O.No.")
+
+class PurchaseorderInherit(models.Model):
+        '''
+               Inherit purchase.order model
+        '''
+
+        _inherit = "purchase.order"
+
+        customer = fields.Char(string="Customer")
+
+class PurchaseOrderLineInherit(models.Model):
+    '''
+           Inherit Purchase.Order.line model
+    '''
+
+    _inherit = "purchase.order.line"
+
+    mpn = fields.Char(string="MPN")
+
+
+
