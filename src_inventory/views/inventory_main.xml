@@ -220,6 +220,36 @@
 
 
 
+    <record id="product_template_form_view_procurement_button_inherited1" model="ir.ui.view">
+        <field name="name">product.template_procurement.inherited</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view"/>
+        <field name="arch" type="xml">
+                <xpath expr="//button[@name='action_product_tmpl_forecast_report']" position="replace">
+                        <button type="object"
+                            name="action_product_tmpl_forecast_report"
+                            attrs="{'invisible':[('show_forecasted_qty_status_button', '=', False)]}"
+                            context="{'default_product_tmpl_id': id}"
+                            class="oe_stat_button" icon="fa-cubes">
+                            <div class="o_field_widget o_stat_info">
+                                <span class="o_stat_value">
+
+
+                                    <field name="virtual_available" widget="statinfo" nolabel="1" class="mr4"/>
+                                    <field name="uom_name"/>
+                                </span>
+                                <span class="o_stat_text">Available</span>
+                            </div>
+                        </button>
+            </xpath>
+
+        </field>
+    </record>
+
+
+    <record id="stock.stock_replenishment_product_product_action" model="ir.actions.client">
+        <field name="name">Availability Report</field>
+    </record>
 
 
 </odoo>
