@@ -112,11 +112,7 @@ class PartnerInherit(models.Model):
     attach = fields.Selection([('yes', 'Yes'), ('no', 'No')], string="Attach")
     eligible_for_1099 = fields.Selection([('yes', 'Yes'), ('no', 'No')], string="Eligible For 1099")
     print_on_check_as = fields.Char(string="Print on Cheque As")
-
     notes = fields.Selection([('has_notes', 'Has Notes'), ('no_notes', 'No Notes')], string="Notes", default="has_notes")
-
-    notes = fields.Selection([('has_notes', 'Has Notes'), ('no_notes', 'No Notes')], string="Notes")
-
     role = fields.Char(string="Role")
     ''' 
         Added customer and vendor radio buttons
@@ -146,10 +142,7 @@ class PartnerInherit(models.Model):
     vb_level_4_disc = fields.Float(string="Level 4 Discount")
 
     '''for contact 2'''
-
     contact_name = fields.Many2one('res.partner',string="Contact")
-
-
     first_name1 = fields.Char(string="First Name")
     middle_initial1 = fields.Char(string="Middle Initial")
     last_name1 = fields.Char(string="Last Name")
@@ -165,6 +158,7 @@ class PartnerInherit(models.Model):
     city_contact2 = fields.Char()
     state_id_contact2 = fields.Many2one("res.country.state", string='State', ondelete='restrict', domain="[('country_id', '=?', country_id)]")
     country_id_contact2 = fields.Many2one('res.country', string='Country', ondelete='restrict')
+
 
 
     @api.onchange('contact_name')
@@ -189,7 +183,6 @@ class PartnerInherit(models.Model):
             self.city_contact2 = contact.city
             self.state_id_contact2 = contact.state_id
             self.country_id_contact2 = contact.country_id
-
 
 
 
@@ -300,7 +293,6 @@ class InvoiceInheritLine(models.Model):
 
     so_no = fields.Char(string="S.O.No.")
 
-
 class PurchaseorderInherit(models.Model):
         '''
                Inherit purchase.order model
@@ -318,7 +310,6 @@ class PurchaseOrderLineInherit(models.Model):
     _inherit = "purchase.order.line"
 
     mpn = fields.Char(string="MPN")
-
 
 
 
