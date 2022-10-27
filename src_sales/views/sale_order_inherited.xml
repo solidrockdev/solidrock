@@ -5,6 +5,17 @@
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="type">form</field>
             <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="before">
+                    <field name="sell_to" />
+                </xpath>
+                <xpath expr="//field[@name='partner_id']" position="replace">
+<!--                    <label for="partner_id" attrs="{'invisible': [('sell_to','=','vendor')]}"/>-->
+                    <div>
+                        <label for="partner_id" string="Vendor" attrs="{'invisible': [('sell_to','=','customer')]}" style="font-weight:500;"/>
+                        <label for="partner_id" string="Customer" attrs="{'invisible': [('sell_to','=','vendor')]}" style="font-weight:500;"/>
+                    </div>
+                    <field name="partner_id" nolabel="1" widget="res_partner_many2one" context="{'res_partner_search_mode': 'customer', 'show_address': 1, 'show_vat': True}" options='{"always_reload": True}'/>
+                </xpath>
                 <xpath expr="//field[@name='order_line']/tree/field[@name='name']" position="before">
                     <field name="available_qty"/>
                 </xpath>

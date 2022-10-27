@@ -8,6 +8,19 @@ class SaleInherited(models.Model):
 
     _inherit = "sale.order"
 
+    sell_to = fields.Selection([('customer', 'Customer'), ('vendor', 'Vendor')], string="Sell To", default='customer')
+
+
+    @api.onchange('sell_to')
+    def onchange_partner(self):
+        # for rec in self:
+            if self.sell_to == 'vendor':
+                return {'domain': {'partner_id': [('is_customer_vendor', '=', 'is_vendor')]}}
+            else:
+                return {'domain': {'partner_id': [('is_customer_vendor', '=', 'is_customer')]}}
+
+
+
 
 
 class SaleOrderLineIn(models.Model):
