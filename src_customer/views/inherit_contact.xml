@@ -31,6 +31,10 @@
             </xpath>
 
 
+            <xpath expr="//notebook//page[@name='contact_addresses']//form//sheet//field[@name='name']"
+                   position="before">
+                <field name="contact_name"/>
+            </xpath>
 
             <xpath expr="//field[@name='company_type']" position="after">
                 <!--                <field name="is_customer_vendor" widget="radio"/>-->
@@ -75,7 +79,9 @@
                 <attribute name="invisible">False</attribute>
             </xpath>
             <xpath expr="//page[@name='internal_notes']" position="attributes">
-                <attribute name="attrs">{'invisible': ['|',('is_customer_vendor', '=', 'is_customer') ,('notes', '=', 'no_notes')]}</attribute>
+                <attribute name="attrs">{'invisible': ['|',('is_customer_vendor', '=', 'is_customer') ,('notes', '=',
+                    'no_notes')]}
+                </attribute>
             </xpath>
 
             <xpath expr="//div[hasclass('o_address_format')]" position="attributes">
@@ -98,41 +104,41 @@
                 <field name="cc_email" string="CC Email"/>
                 <field name="role" string="Role"/>
                 <field name="notes" string="Notes"
-                attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>
-                <field name="is_date_based_disc" string="Date Based Discounts" options="{'horizontal': true}" widget="radio" attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>
-                <field name="is_vol_based_disc" string="Volume Based Discounts" options="{'horizontal': true}" widget="radio" attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>
-                <field name="is_cus_based_disc" string="Customer Discounts" options="{'horizontal': true}" widget="radio" attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>
+                       attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>
+                <field name="is_date_based_disc" string="Date Based Discounts" options="{'horizontal': true}"
+                       widget="radio" attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>
+                <field name="is_vol_based_disc" string="Volume Based Discounts" options="{'horizontal': true}"
+                       widget="radio" attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>
+                <field name="is_cus_based_disc" string="Customer Discounts" options="{'horizontal': true}"
+                       widget="radio" attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>
                 <field name="customer_rank" invisible="1"/>
                 <field name="supplier_rank" invisible="1"/>
             </xpath>
 
-<!--Contact 2 view-->
-<!--            <xpath expr="//field[@name='title']" position="after">-->
-<!--                <h5 attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}">Contact 2</h5><br/><br/>-->
-<!--                <field name="first_name1" string="First Name"-->
-<!--                attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>-->
-<!--                <field name="middle_initial1" string="Middle Initial"-->
-<!--                attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>-->
-<!--                <field name="last_name1" string="Last Name"-->
-<!--                attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>-->
-<!--                 <field name="job_title" string="Job Title"-->
-<!--                attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>-->
-<!--                <field name="role1" string="Role"-->
-<!--                attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>-->
-<!--                <field name="mobile1" string="Mobile"-->
-<!--                attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>-->
-<!--                <field name="work_phone1" string="Work Phone"-->
-<!--                attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>-->
-<!--                <field name="home_phone1" string="Home Phone"-->
-<!--                attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>-->
-<!--                <field name="email1" string="Email"-->
-<!--                attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>-->
+            <!--Contact 2 view-->
+            <!--            <xpath expr="//field[@name='title']" position="after">-->
+            <!--                <h5 attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}">Contact 2</h5><br/><br/>-->
+            <!--                <field name="first_name1" string="First Name"-->
+            <!--                attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>-->
+            <!--                <field name="middle_initial1" string="Middle Initial"-->
+            <!--                attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>-->
+            <!--                <field name="last_name1" string="Last Name"-->
+            <!--                attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>-->
+            <!--                 <field name="job_title" string="Job Title"-->
+            <!--                attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>-->
+            <!--                <field name="role1" string="Role"-->
+            <!--                attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>-->
+            <!--                <field name="mobile1" string="Mobile"-->
+            <!--                attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>-->
+            <!--                <field name="work_phone1" string="Work Phone"-->
+            <!--                attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>-->
+            <!--                <field name="home_phone1" string="Home Phone"-->
+            <!--                attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>-->
+            <!--                <field name="email1" string="Email"-->
+            <!--                attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>-->
 
 
-
-
-<!--            </xpath>-->
-
+            <!--            </xpath>-->
 
 
             <!--tabs in contact-->
@@ -262,87 +268,87 @@
             </xpath>
             <xpath expr="//page[@name='contact_addresses']" position="before">
                 <page string="Contact_2" name="contacts">
-                        <sheet>
-                            <group>
-                                    <field name="contact_name" style="width:40%;"/>
-                            </group>
-                            <div class="row" style="width:100%;">
-                                <div style="width:50%">
-                                    <div style="padding:2% !important;width:100%;">
-                                        <label for="first_name1" string="First Name"
-                                               style="width:39%;margin-bottom: -15px;"/>
-                                        <field name="first_name1"
-                                               style="width:49%;margin-bottom: -15px;"></field>
-                                        <br/>
+                    <sheet>
+                        <group>
+                            <field name="contact_name" style="width:40%;"/>
+                        </group>
+                        <div class="row" style="width:100%;">
+                            <div style="width:50%">
+                                <div style="padding:2% !important;width:100%;">
+                                    <label for="first_name1" string="First Name"
+                                           style="width:39%;margin-bottom: -15px;"/>
+                                    <field name="first_name1"
+                                           style="width:49%;margin-bottom: -15px;"></field>
+                                    <br/>
+                                </div>
+                                <div style="padding:2% !important;width:100%;">
+                                    <label for="middle_initial1" string="Middle Initial"
+                                           style="width:39%;margin-bottom: -15px;"/>
+                                    <field name="middle_initial1"
+                                           style="width:49%;margin-bottom: -15px;"></field>
+                                    <br/>
+                                </div>
+                                <div style="padding:2% !important;width:100%;">
+                                    <label for="last_name1" string="Last Name"
+                                           style="width:39%;margin-bottom: -15px;"/>
+                                    <field name="last_name1"
+                                           style="width:49%;margin-bottom: -15px;"></field>
+                                    <br/>
+                                </div>
+                                <div style="padding:2% !important;width:100%;">
+                                    <label for="job_title" string="Job Title"
+                                           style="width:39%;margin-bottom: -15px;"/>
+                                    <field name="job_title"
+                                           style="width:49%;margin-bottom: -15px;"></field>
+                                    <br/>
+                                </div>
+                                <div style="padding:2% !important;width:100%;">
+                                    <label for="role1" string="Role"
+                                           style="width:39%;margin-bottom: -15px;"/>
+                                    <field name="role1"
+                                           style="width:49%;margin-bottom: -15px;"></field>
+                                    <br/>
+                                </div>
+                                <div style="padding:2% !important;width:100%;">
+                                    <label for="mobile1" string="Mobile"
+                                           style="width:39%;margin-bottom: -15px;"/>
+                                    <field name="mobile1"
+                                           style="width:49%;margin-bottom: -15px;"></field>
+                                    <br/>
+                                </div>
+                            </div>
+                            <div style="width:50%">
+                                <br/>
+                                <div class="row" col="2" style="width:100%">
+                                    <div style="width:40%">
+                                        <label for="work_phone1" string="Work Phone"/>
                                     </div>
-                                    <div style="padding:2% !important;width:100%;">
-                                        <label for="middle_initial1" string="Middle Initial"
-                                               style="width:39%;margin-bottom: -15px;"/>
-                                        <field name="middle_initial1"
-                                               style="width:49%;margin-bottom: -15px;"></field>
-                                        <br/>
-                                    </div>
-                                    <div style="padding:2% !important;width:100%;">
-                                        <label for="last_name1" string="Last Name"
-                                               style="width:39%;margin-bottom: -15px;"/>
-                                        <field name="last_name1"
-                                               style="width:49%;margin-bottom: -15px;"></field>
-                                        <br/>
-                                    </div>
-                                    <div style="padding:2% !important;width:100%;">
-                                        <label for="job_title" string="Job Title"
-                                               style="width:39%;margin-bottom: -15px;"/>
-                                        <field name="job_title"
-                                               style="width:49%;margin-bottom: -15px;"></field>
-                                        <br/>
-                                    </div>
-                                    <div style="padding:2% !important;width:100%;">
-                                        <label for="role1" string="Role"
-                                               style="width:39%;margin-bottom: -15px;"/>
-                                        <field name="role1"
-                                               style="width:49%;margin-bottom: -15px;"></field>
-                                        <br/>
-                                    </div>
-                                    <div style="padding:2% !important;width:100%;">
-                                        <label for="mobile1" string="Mobile"
-                                               style="width:39%;margin-bottom: -15px;"/>
-                                        <field name="mobile1"
-                                               style="width:49%;margin-bottom: -15px;"></field>
-                                        <br/>
+                                    <div class="o_address_format" style="width:50%">
+                                        <field name="work_phone1"/>
                                     </div>
                                 </div>
-                                <div style="width:50%">
-                                    <br/>
-                                    <div class="row" col="2" style="width:100%">
-                                        <div style="width:40%">
-                                            <label for="work_phone1" string="Work Phone"/>
-                                        </div>
-                                        <div class="o_address_format" style="width:50%">
-                                            <field name="work_phone1"/>
-                                        </div>
+                                <br/>
+                                <div class="row" col="2" style="width:100%">
+                                    <div style="width:40%">
+                                        <label for="home_phone1" string="Home Phone"/>
                                     </div>
-                                    <br/>
-                                    <div class="row" col="2" style="width:100%">
-                                        <div style="width:40%">
-                                            <label for="home_phone1" string="Home Phone"/>
-                                        </div>
-                                        <div class="o_address_format" style="width:50%">
-                                            <field name="home_phone1"/>
-                                        </div>
+                                    <div class="o_address_format" style="width:50%">
+                                        <field name="home_phone1"/>
                                     </div>
-                                    <br/>
-                                    <div class="row" col="2" style="width:100%">
-                                        <div style="width:40%">
-                                            <label for="email1" string="Email"/>
-                                        </div>
-                                        <div class="o_address_format" style="width:50%">
-                                            <field name="email1"/>
-                                        </div>
+                                </div>
+                                <br/>
+                                <div class="row" col="2" style="width:100%">
+                                    <div style="width:40%">
+                                        <label for="email1" string="Email"/>
                                     </div>
-                                    <br/>
+                                    <div class="o_address_format" style="width:50%">
+                                        <field name="email1"/>
+                                    </div>
+                                </div>
+                                <br/>
 
 
-                                    <div class="row" col="2" style="width:100%">
+                                <div class="row" col="2" style="width:100%">
                                     <div style="width:40%">
                                         <label for="street_contact2" string="From"/>
                                     </div>
@@ -350,24 +356,25 @@
                                         <field name="street_contact2" placeholder="Street..." class="o_address_street"/>
                                         <field name="street2_contact2" placeholder="Street 2..."
                                                class="o_address_street"/>
-<!--                                        <field name=" street3_contact2" placeholder="Street 3..."-->
-<!--                                               class="o_address_street"/>-->
+                                        <!--                                        <field name=" street3_contact2" placeholder="Street 3..."-->
+                                        <!--                                               class="o_address_street"/>-->
                                         <field name="city_contact2" placeholder="City" class="o_address_city"/>
                                         <field name="state_id_contact2" class="o_address_state" placeholder="State"
                                                options="{'no_open': True, 'no_quick_create': True}"
                                                context="{'country_id': country_id, 'default_country_id': country_id, 'zip': zip}"/>
                                         <field name="zip_contact2" placeholder="ZIP" class="o_address_zip"/>
-                                        <field name="country_id_contact2" placeholder="Country" class="o_address_country"
+                                        <field name="country_id_contact2" placeholder="Country"
+                                               class="o_address_country"
                                                options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
 
                                     </div>
 
                                 </div>
 
-                                </div>
                             </div>
-                        </sheet>
-                    </page>
+                        </div>
+                    </sheet>
+                </page>
             </xpath>
 
             <xpath expr="//notebook" position="inside">
@@ -395,7 +402,6 @@
                     </div>
 
                 </page>
-
 
 
                 <pages string="Misc" name="misc" attrs="{'invisible': [('is_customer_vendor', '=', 'is_vendor')]}">
@@ -488,20 +494,23 @@
                     </group>
                 </page>
 
-                 <pages string="Customer Discounts" name="customer_discounts" attrs="{'invisible': ['|', ('is_customer_vendor', '=', 'is_customer'),('is_cus_based_disc', '=', 'no')]}">
+                <pages string="Customer Discounts" name="customer_discounts"
+                       attrs="{'invisible': ['|', ('is_customer_vendor', '=', 'is_customer'),('is_cus_based_disc', '=', 'no')]}">
                     <sheet>
                         <div class="row" style="width:100%;">
                             <div style="width:50%">
                                 <div style="padding:2% !important;width:100%;">
                                     <label for="customer_base_discount" string="Customer Base Discount"
                                            style="width:39%;margin-bottom: -15px;"/>
-                                    <field name="customer_base_discount" style="width:49%;margin-bottom: -15px;"></field>
+                                    <field name="customer_base_discount"
+                                           style="width:49%;margin-bottom: -15px;"></field>
                                     <br/>
                                 </div>
                                 <div style="padding:2% !important;width:100%;">
                                     <label for="customer_early_order_discount" string="Customer Early Order Discount"
                                            style="width:39%;margin-bottom: -15px;"/>
-                                    <field name="customer_early_order_discount" style="width:49%;margin-bottom: -15px;"></field>
+                                    <field name="customer_early_order_discount"
+                                           style="width:49%;margin-bottom: -15px;"></field>
                                     <br/>
                                 </div>
                             </div>
@@ -526,7 +535,8 @@
                     </sheet>
                 </pages>
 
-                <page string="Date Based Discounts" attrs="{'invisible': ['|',('is_customer_vendor', '=', 'is_customer'),('is_date_based_disc', '=', 'no')]}">
+                <page string="Date Based Discounts"
+                      attrs="{'invisible': ['|',('is_customer_vendor', '=', 'is_customer'),('is_date_based_disc', '=', 'no')]}">
                     <sheet>
                         <div class="row" style="width:100%;">
                             <div style="width:50%">
@@ -598,7 +608,8 @@
                     </sheet>
                 </page>
 
-                <pages string="Volume Based Discounts" attrs="{'invisible': ['|',('is_customer_vendor', '=', 'is_customer'),('is_vol_based_disc', '=', 'no')]}">
+                <pages string="Volume Based Discounts"
+                       attrs="{'invisible': ['|',('is_customer_vendor', '=', 'is_customer'),('is_vol_based_disc', '=', 'no')]}">
                     <sheet>
                         <div class="row" style="width:100%;">
                             <div style="width:50%">
@@ -661,18 +672,18 @@
                                     <br/>
                                 </div>
                             </div>
-<!--                        <field name="vb_volume_disc_level_1"/>-->
-<!--                        <field name="vb_level_1_disc"/>-->
-<!--                        <field name="vb_volume_disc_level_2"/>-->
-<!--                        <field name="vb_level_2_disc"/>-->
-<!--                        <field name="vb_volume_disc_level_3"/>-->
-<!--                        <field name="vb_level_3_disc"/>-->
-<!--                        <field name="vb_volume_disc_level_4"/>-->
-<!--                        <field name="vb_level_4_disc"/>-->
+                            <!--                        <field name="vb_volume_disc_level_1"/>-->
+                            <!--                        <field name="vb_level_1_disc"/>-->
+                            <!--                        <field name="vb_volume_disc_level_2"/>-->
+                            <!--                        <field name="vb_level_2_disc"/>-->
+                            <!--                        <field name="vb_volume_disc_level_3"/>-->
+                            <!--                        <field name="vb_level_3_disc"/>-->
+                            <!--                        <field name="vb_volume_disc_level_4"/>-->
+                            <!--                        <field name="vb_level_4_disc"/>-->
                         </div>
                     </sheet>
                 </pages>
-                
+
             </xpath>
         </field>
     </record>
@@ -685,9 +696,12 @@
         <field name="arch" type="xml">
             <xpath expr="//search" position="inside">
                 <field name="product_detail_ids" string="Equipment"/>
-                <filter name="is_vol_based_disc" string="Volume Based Discounts" domain="[('is_vol_based_disc','=','yes')]" />
-                <filter name="is_date_based_disc" string="Date Based Discounts" domain="[('is_date_based_disc','=','yes')]" />
-                <filter name="is_cus_based_disc" string="Customer Discounts" domain="[('is_cus_based_disc','=','yes')]" />
+                <filter name="is_vol_based_disc" string="Volume Based Discounts"
+                        domain="[('is_vol_based_disc','=','yes')]"/>
+                <filter name="is_date_based_disc" string="Date Based Discounts"
+                        domain="[('is_date_based_disc','=','yes')]"/>
+                <filter name="is_cus_based_disc" string="Customer Discounts"
+                        domain="[('is_cus_based_disc','=','yes')]"/>
 
             </xpath>
         </field>
@@ -700,7 +714,7 @@
         </field>
     </record>
 
-<!--Inherit the form view of invoice in accounting module-->
+    <!--Inherit the form view of invoice in accounting module-->
     <record id="view_account_invoice_inherit" model="ir.ui.view">
         <field name="name">account.invoice.inherit</field>
         <field name="model">account.move</field>
@@ -716,7 +730,7 @@
         </field>
     </record>
 
-<!--Inherit the form view of purchase order in purchase module-->
+    <!--Inherit the form view of purchase order in purchase module-->
     <record id="view_purchase_order_inherit" model="ir.ui.view">
         <field name="name">purchase.order.inherit</field>
         <field name="model">purchase.order</field>
@@ -727,7 +741,7 @@
             </xpath>
 
             <xpath expr="//tree/field[@name='name']" position="after">
-                <field name="mpn" />
+                <field name="mpn"/>
             </xpath>
         </field>
     </record>
