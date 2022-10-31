@@ -141,6 +141,10 @@ class PartnerInherit(models.Model):
     vb_volume_disc_level_4 = fields.Float(string="Volume Discount Level 4")
     vb_level_4_disc = fields.Float(string="Level 4 Discount")
 
+    '''for contact and address tab'''
+    contact_name1 = fields.Many2one('res.partner', string="Contact")
+
+
     '''for contact 2'''
     contact_name = fields.Many2one('res.partner',string="Contact")
     first_name1 = fields.Char(string="First Name")
@@ -184,6 +188,28 @@ class PartnerInherit(models.Model):
             self.state_id_contact2 = contact.state_id
             self.country_id_contact2 = contact.country_id
 
+    @api.onchange('contact_name1')
+    def onchange_contact1(self):
+        if self.contact_name1:
+            print(self.contact_name1)
+            contact = self.env['res.partner'].search([('id', '=', self.contact_name1.id)])
+            print(contact)
+            print(contact.first_name)
+            self.name = contact.first_name
+            self.middle_initial = contact.middle_initial
+            self.last_name = contact.last_name
+            self.role = contact.role
+            self.function = contact.function
+            self.mobile = contact.mobile
+            self.phone = contact.work_phone
+            self.home_phone1 = contact.home_phone
+            self.email = contact.email
+            self.street = contact.street
+            self.street2 = contact.street2
+            self.zip = contact.zip
+            self.city = contact.city
+            self.state_id = contact.state_id
+            self.country_id = contact.country_id
 
 
 

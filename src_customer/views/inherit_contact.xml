@@ -33,8 +33,34 @@
 
             <xpath expr="//notebook//page[@name='contact_addresses']//form//sheet//field[@name='name']"
                    position="before">
-                <field name="contact_name"/>
+               <field name="contact_name1"/>             </xpath>
+
+             <xpath expr="//notebook//page[@name='contact_addresses']//form//sheet//field[@name='name']"
+                   position="after">
+                <field name="middle_initial"/>
+                <field name="last_name"/>
             </xpath>
+
+
+            <xpath expr="//notebook//page[@name='contact_addresses']//form//sheet//field[@name='name']"
+                   position="replace">
+                <field name="name" string="First Name"/>
+            </xpath>
+
+
+            <xpath expr="//notebook//page[@name='contact_addresses']//form//sheet//field[@name='phone']"
+                   position="replace">
+                <field name="phone" string="Work Phone"/>
+            </xpath>
+
+
+            <xpath expr="//notebook//page[@name='contact_addresses']//form//sheet//field[@name='mobile']"
+                   position="after">
+                <field name="home_phone"/>
+                <field name="role"/>
+            </xpath>
+
+            
 
             <xpath expr="//field[@name='company_type']" position="after">
                 <!--                <field name="is_customer_vendor" widget="radio"/>-->
