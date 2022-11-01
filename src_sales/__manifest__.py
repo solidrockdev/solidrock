@@ -20,13 +20,13 @@
 
     # always loaded
     'data': [
-        'security/ir.model.access.csv',
-        'wizard/customer_report_view.xml',
-        'report/customer_report.xml',
-        'report/customer_report_layout.xml',
+        # 'security/ir.model.access.csv',
+        # 'wizard/customer_report_view.xml',
+        # 'report/customer_report.xml',
+        # 'report/customer_report_layout.xml',
         'report/section_quote_report_external_layout.xml',
         'report/section_quotation_report.xml',
-        'views/menu.xml',
+        # 'views/menu.xml',
         'views/sale_order_inherited.xml',
 
     ],

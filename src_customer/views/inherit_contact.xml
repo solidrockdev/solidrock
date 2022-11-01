@@ -61,7 +61,7 @@
                 <field name="role"/>
             </xpath>
 
-            
+
 
             <xpath expr="//field[@name='company_type']" position="after">
                 <!--                <field name="is_customer_vendor" widget="radio"/>-->
