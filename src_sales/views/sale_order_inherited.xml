@@ -43,4 +43,17 @@
             </xpath>
         </field>
     </record>
+
+
+    <record id="sale_view_order_tree_inherited" model="ir.ui.view">
+        <field name="name">sale.order.tree.inherited</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='activity_ids']" position="after">
+                <field name="margin" sum="Total Margin" class="oe_inline"/>
+                <field name="margin_percent"  class="oe_inline" widget="percentage"/>
+            </xpath>
+        </field>
+    </record>
 </odoo>
