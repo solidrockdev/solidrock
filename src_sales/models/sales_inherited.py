@@ -9,6 +9,9 @@ class SaleInherited(models.Model):
     _inherit = "sale.order"
 
     sell_to = fields.Selection([('customer', 'Customer'), ('vendor', 'Vendor')], string="Sell To", default='customer')
+
+    '''Added margin and margin% for sale order list view'''
+
     margin = fields.Float(related='order_line.margin')
     margin_percent = fields.Float(related='order_line.margin_percent')
 
