@@ -111,6 +111,13 @@ class PartnerInherit(models.Model):
          ('manager', 'Manager'),
          ], string='Job Position')
 
+    function_st = fields.Selection(
+        [('agronomist', 'Agronomist'),
+         ('engineer', 'Engineer'),
+         ('owner', 'Owner'),
+         ('salesrep', 'Sales Rep'), ('techsupport', 'Technical Support'),
+         ], string='Job Position')
+
     '''Added fields for MISC tab'''
     resale = fields.Char()
     account_no = fields.Char()
@@ -133,6 +140,7 @@ class PartnerInherit(models.Model):
 
     primary_contact = fields.Char(string="Primary Contact")
     fax = fields.Char(string="Fax")
+    support_mobile = fields.Char(string="Support Phone")
     work_phone = fields.Char(string="Work Phone")
     home_phone = fields.Char(string="Home Phone")
     alt_phone = fields.Char(string="Alt. Phone")
