@@ -70,7 +70,6 @@
             </xpath>
 
 
-
             <xpath expr="//field[@name='company_type']" position="after">
                 <!--                <field name="is_customer_vendor" widget="radio"/>-->
                 <field name="is_customer_vendor" options="{'horizontal': true}" widget="radio"/>
@@ -99,24 +98,26 @@
                 <!--                <field name="work_phone" string="Work Phone"/>-->
                 <!--                <field name="home_phone" string="Home Phone"/>-->
                 <!--                <field name="alt_phone" string="Alt. Phone"/>-->
-<!--                <field name="alt_mobile" string="Alt. Mobile" attrs="{'invisible': [('is_company', '=', False), ('is_customer_vendor', '=', 'is_customer')]}"/>-->
+                <!--                <field name="alt_mobile" string="Alt. Mobile" attrs="{'invisible': [('is_company', '=', False), ('is_customer_vendor', '=', 'is_customer')]}"/>-->
                 <!--                <field name="from_timer" string="From Timer"/>-->
                 <!--                <field name="attach" string="Attach"/>-->
                 <field name="date_added" string="Date Added"/>
                 <field name="dob" string="Date of Birth" attrs="{'invisible': [('is_company', '=', True)]}"/>
                 <!--                       attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>-->
-                <field name="eligible_for_1099" string="Eligible For 1099" attrs="{'invisible': ['|',('is_customer_vendor', '=', 'is_customer') ,('is_company', '=', False)]}"/>
-<!--                <field name="vat" string="Tax ID" attrs="{'invisible': ['|',('is_customer_vendor', '=', 'is_customer') ,('is_company', '=', False)]}"/>-->
+                <field name="eligible_for_1099" string="Eligible For 1099"
+                       attrs="{'invisible': ['|',('is_customer_vendor', '=', 'is_customer') ,('is_company', '=', False)]}"/>
+                <!--                <field name="vat" string="Tax ID" attrs="{'invisible': ['|',('is_customer_vendor', '=', 'is_customer') ,('is_company', '=', False)]}"/>-->
             </xpath>
             <xpath expr="//field[@name='vat']" position="replace">
-                <field name="vat" string="Tax ID" attrs="{'invisible': ['|',('is_customer_vendor', '=', 'is_customer') ,('is_company', '=', False)]}"/>
+                <field name="vat" string="Tax ID"
+                       attrs="{'invisible': ['|',('is_customer_vendor', '=', 'is_customer') ,('is_company', '=', False)]}"/>
             </xpath>
             <xpath expr="//field[@name='function']" position="attributes">
                 <attribute name="invisible">True</attribute>
                 <!--                <field name="function_s" string="Job Position"/>-->
             </xpath>
             <xpath expr="//field[@name='phone']" position="replace">
-                <field name="phone" string="Phone" />
+                <field name="phone" string="Phone"/>
             </xpath>
 
             <xpath expr="//page[@name='contact_addresses']" position="attributes">
@@ -128,7 +129,9 @@
                 </attribute>
             </xpath>
             <xpath expr="//page[@name='sales_purchases']" position="attributes">
-                <attribute name="attrs">{'invisible': ['|',('is_customer_vendor', '=', 'is_customer') ,('is_company', '=', False)]}</attribute>
+                <attribute name="attrs">{'invisible': ['|',('is_customer_vendor', '=', 'is_customer') ,('is_company',
+                    '=', False)]}
+                </attribute>
             </xpath>
 
             <xpath expr="//div[hasclass('o_address_format')]" position="attributes">
@@ -147,24 +150,28 @@
                 <field name="alt_email1" string="Alt. Email 1"/>
                 <field name="alt_email2" string="Alt. Email 2"/>
                 <field name="cc_email" string="CC Email"/>
-                <field name="function_s" string="Job Position"/>
+                <field name="function_s" string="Job Position"
+                       attrs="{'invisible': ['|',('is_company', '=', True),('is_customer_vendor', '=', 'is_vendor')]}"/>
                 <field name="linkedIn" string="LinkedIn"
                        attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>
                 <field name="facebook" string="Facebook"
                        attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>
                 <field name="twitter" string="Twitter"
                        attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>
-                <field name="function_s" string="Job Position" attrs="{'invisible': [('is_customer_vendor', '=', 'is_vendor')]}"/>
-                <field name="function_st" string="Job Position" attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>
+                <!--                <field name="function_s" string="Job Position" attrs="{'invisible': [('is_customer_vendor', '=', 'is_vendor')]}"/>-->
+                <field name="function_st" string="Job Position"
+                       attrs="{'invisible': ['|',('is_company', '=', True),('is_customer_vendor', '=', 'is_customer')]}"/>
                 <field name="role" attrs="{'invisible': [('is_company', '=', True)]}"/>
                 <field name="notes" string="Notes"
                        attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>
                 <field name="is_date_based_disc" string="Vendor Margin" options="{'horizontal': true}"
-                       widget="radio" attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>
-                <!--                <field name="is_vol_based_disc" string="Volume Based Discounts" options="{'horizontal': true}"-->
-                <!--                       widget="radio" attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>-->
-                <field name="is_cus_based_disc" string="Customer Discounts" options="{'horizontal': true}"
-                       widget="radio" attrs="{'invisible': [('is_customer_vendor', '=', 'is_customer')]}"/>
+                       widget="radio"
+                       attrs="{'invisible': ['|',('is_company', '=', False),('is_customer_vendor', '=', 'is_customer')]}"/>
+                <field name="is_vol_based_disc" string="Volume Based Margin" options="{'horizontal': true}"
+                       widget="radio"
+                       attrs="{'invisible': ['|',('is_company', '=', False),('is_customer_vendor', '=', 'is_customer')]}"/>
+                <!--                <field name="is_cus_based_disc" string="Customer Discounts" options="{'horizontal': true}"-->
+                <!--                       widget="radio" attrs="{'invisible': ['|',('is_company', '=', False),('is_customer_vendor', '=', 'is_customer')]}"/>-->
                 <field name="customer_rank" invisible="1"/>
                 <field name="supplier_rank" invisible="1"/>
             </xpath>
@@ -436,110 +443,126 @@
                 <page name="customer_shipping" string="Company Vendor Shipping">
 
                     <div class="row" col="2" style="width:100%; padding-left:20px !important;">
-                    <div style="width:50%">
+                        <div style="width:50%">
 
-                        <div class="row" col="2" style="width:100%">
-                            <div style="width:30%">
-                            <label for="street_ship" string="Shipping"/>
+                            <div class="row" col="2" style="width:100%">
+                                <div style="width:30%">
+                                    <label for="street_ship" string="Shipping"/>
+                                </div>
+
+
+                                <div class="o_address_format" style="width:50%;">
+
+                                    <field name="street_ship" placeholder="Street..." class="o_address_street"/>
+                                    <field name="street2_ship" placeholder="Street 2..." class="o_address_street"/>
+                                    <field name="street3_ship" placeholder="Street 3..." class="o_address_street"/>
+                                    <field name="city_ship" placeholder="City" class="o_address_city"/>
+                                    <field name="state_id_ship" class="o_address_state" placeholder="State"
+                                           options="{'no_open': True, 'no_quick_create': True}"
+                                           context="{'country_id_ship': country_id_ship, 'default_country_id_ship': country_id_ship, 'zip_ship': zip_ship}"/>
+                                    <field name="zip_ship" placeholder="ZIP" class="o_address_zip"/>
+                                    <field name="country_id_ship" placeholder="Country" class="o_address_country"
+                                           options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                                </div>
                             </div>
 
 
-                            <div class="o_address_format" style="width:50%;">
-
-                                <field name="street_ship" placeholder="Street..." class="o_address_street"/>
-                                <field name="street2_ship" placeholder="Street 2..." class="o_address_street"/>
-                                <field name="street3_ship" placeholder="Street 3..." class="o_address_street"/>
-                                <field name="city_ship" placeholder="City" class="o_address_city"/>
-                                <field name="state_id_ship" class="o_address_state" placeholder="State"
-                                       options="{'no_open': True, 'no_quick_create': True}"
-                                       context="{'country_id_ship': country_id_ship, 'default_country_id_ship': country_id_ship, 'zip_ship': zip_ship}"/>
-                                <field name="zip_ship" placeholder="ZIP" class="o_address_zip"/>
-                                <field name="country_id_ship" placeholder="Country" class="o_address_country"
-                                       options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                            <div class="row" col="2" style="width:100%">
+                                <div style="width:30%">
+                                    <label for="db_free_freight_vol" string="Free Freight Volume"/>
+                                </div>
+                                <div class="o_address_format" style="width:50%">
+                                    <field name="db_free_freight_vol"/>
+                                </div>
                             </div>
-                        </div>
-
-
-                        <div class="row" col="2" style="width:100%">
-                            <div style="width:30%">
-                                <label for="db_free_freight_vol" string="Free Freight Volume"/>
-                            </div>
-                            <div class="o_address_format" style="width:50%">
-                                <field name="db_free_freight_vol"/>
-                            </div>
-                        </div>
-                        <div style="margin-left: -29px !important; padding:2% !important;width:87%;">
+                            <div style="margin-left: -29px !important; padding:2% !important;width:87%;">
                                 <label for="db_free_freight_date_range_start" string="Free Freight Date Range"
-                                           style="width:39%;margin-bottom: -20px;"/>
-                                <div class="o_row" style="margin-left: -10px !important; padding:2% !important;width:80%;">
+                                       style="width:39%;margin-bottom: -20px;"/>
+                                <div class="o_row"
+                                     style="margin-left: -10px !important; padding:2% !important;width:80%;">
                                     <field name="db_free_freight_date_range_start" style="width:30%" nolabel="1"
-                                               class="oe_inline"
-                                               options="{'related_start_date': 'db_free_freight_date_range_start'}"/>
+                                           class="oe_inline"
+                                           options="{'related_start_date': 'db_free_freight_date_range_start'}"/>
                                     <i class="fa fa-long-arrow-right mx-2" aria-label="Arrow icon" title="Arrow"/>
                                     <field name="db_free_freight_date_range_end" style="width:30%" nolabel="1"
-                                               class="oe_inline"
-                                               options="{'related_end_date': 'db_free_freight_date_range_end'}"/>
+                                           class="oe_inline"
+                                           options="{'related_end_date': 'db_free_freight_date_range_end'}"/>
                                 </div>
-                        </div>
-                        <div class="row" col="2" style="width:100%">
-                            <div style="width:30%">
-                                <label for="additional_notes" string="Additional Notes"/>
                             </div>
-                            <div class="o_address_format" >
-                                <field name="additional_notes"/>
+                            <div class="row" col="2" style="width:100%">
+                                <div style="width:30%">
+                                    <label for="additional_notes" string="Additional Notes"/>
+                                </div>
+                                <div class="o_address_format" style="width:50%">
+                                    <field name="additional_notes"/>
+                                </div>
                             </div>
-                        </div>
 
                         </div>
                         <div style="width:50%">
                             <div style="padding:2% !important;width:100%;">
-                                    <label for="level1_free_ship_volume" string="Level 1 Free Shipping Volume"
-                                           style="width:39%;margin-bottom: -15px;"/>
-                                    <field name="level1_free_ship_volume" style="width:59%;margin-bottom: -15px;" widget="percentage" />
-                                    <br/>
+                                <label for="level1_free_ship_volume" string="Level 1 Free Shipping Volume"
+                                       style="width:39%;margin-bottom: -15px;"/>
+                                <field name="level1_free_ship_volume" style="width:59%;margin-bottom: -15px;"
+                                       widget="percentage"/>
+                                <br/>
                             </div>
-                            <div style="padding:2% !important;width:100%;">
-                                    <label for="level2_free_ship_volume" string="Level 2 Free Shipping Volume"
-                                           style="width:39%;margin-bottom: -15px;"/>
-                                    <field name="level2_free_ship_volume" style="width:59%;margin-bottom: -15px;" widget="percentage" />
-                                    <br/>
-                            </div>
-<!--                            <div style="padding:2% !important;width:100%;">-->
-<!--                                    <label for="level1_free_ship_date" string="Level 1 Free Shipping Date Range"-->
-<!--                                           style="width:39%;margin-bottom: -15px;"/>-->
-<!--                                    <field name="level1_free_ship_date" style="width:59%;margin-bottom: -15px;"></field>-->
-<!--                                    <br/>-->
-<!--                            </div>-->
-<!--                            <div style="padding:2% !important;width:100%;">-->
-<!--                                    <label for="level2_free_ship_date" string="Level 2 Free Shipping Date Range"-->
-<!--                                           style="width:39%;margin-bottom: -15px;"/>-->
-<!--                                    <field name="level2_free_ship_date" style="width:59%;margin-bottom: -15px;"></field>-->
-<!--                                    <br/>-->
-<!--                            </div>-->
                             <div style="padding:2% !important;width:100%;">
                                 <label for="level1_free_ship_date_start" string="Level 1 Free Shipping Date Range"
-                                           style="width:39%;margin-bottom: -15px;"/>
+                                       style="width:39%;margin-bottom: -15px;"/>
                                 <div class="o_row" style="padding:2% !important;width:100%;">
                                     <field name="level1_free_ship_date_start" style="width:30%" nolabel="1"
-                                               class="oe_inline"
-                                               options="{'related_start_date': 'level1_free_ship_date_start'}"/>
+                                           class="oe_inline"
+                                           options="{'related_start_date': 'level1_free_ship_date_start'}"/>
                                     <i class="fa fa-long-arrow-right mx-2" aria-label="Arrow icon" title="Arrow"/>
                                     <field name="level1_free_ship_date_end" style="width:30%" nolabel="1"
-                                               class="oe_inline"
-                                               options="{'related_end_date': 'level1_free_ship_date_end'}"/>
+                                           class="oe_inline"
+                                           options="{'related_end_date': 'level1_free_ship_date_end'}"/>
                                 </div>
                             </div>
                             <div style="padding:2% !important;width:100%;">
+                                <label for="level2_free_ship_volume" string="Level 2 Free Shipping Volume"
+                                       style="width:39%;margin-bottom: -15px;"/>
+                                <field name="level2_free_ship_volume" style="width:59%;margin-bottom: -15px;"
+                                       widget="percentage"/>
+                                <br/>
+                            </div>
+                            <!--                            <div style="padding:2% !important;width:100%;">-->
+                            <!--                                    <label for="level1_free_ship_date" string="Level 1 Free Shipping Date Range"-->
+                            <!--                                           style="width:39%;margin-bottom: -15px;"/>-->
+                            <!--                                    <field name="level1_free_ship_date" style="width:59%;margin-bottom: -15px;"></field>-->
+                            <!--                                    <br/>-->
+                            <!--                            </div>-->
+                            <!--                            <div style="padding:2% !important;width:100%;">-->
+                            <!--                                    <label for="level2_free_ship_date" string="Level 2 Free Shipping Date Range"-->
+                            <!--                                           style="width:39%;margin-bottom: -15px;"/>-->
+                            <!--                                    <field name="level2_free_ship_date" style="width:59%;margin-bottom: -15px;"></field>-->
+                            <!--                                    <br/>-->
+                            <!--                            </div>-->
+                            <!--                            <div style="padding:2% !important;width:100%;">-->
+                            <!--                                <label for="level1_free_ship_date_start" string="Level 1 Free Shipping Date Range"-->
+                            <!--                                       style="width:39%;margin-bottom: -15px;"/>-->
+                            <!--                                <div class="o_row" style="padding:2% !important;width:100%;">-->
+                            <!--                                    <field name="level1_free_ship_date_start" style="width:30%" nolabel="1"-->
+                            <!--                                           class="oe_inline"-->
+                            <!--                                           options="{'related_start_date': 'level1_free_ship_date_start'}"/>-->
+                            <!--                                    <i class="fa fa-long-arrow-right mx-2" aria-label="Arrow icon" title="Arrow"/>-->
+                            <!--                                    <field name="level1_free_ship_date_end" style="width:30%" nolabel="1"-->
+                            <!--                                           class="oe_inline"-->
+                            <!--                                           options="{'related_end_date': 'level1_free_ship_date_end'}"/>-->
+                            <!--                                </div>-->
+                            <!--                            </div>-->
+                            <div style="padding:2% !important;width:100%;">
                                 <label for="level2_free_ship_date_start" string="Level 2 Free Shipping Date Range"
-                                           style="width:39%;margin-bottom: -15px;"/>
+                                       style="width:39%;margin-bottom: -15px;"/>
                                 <div class="o_row" style="padding:2% !important;width:100%;">
                                     <field name="level2_free_ship_date_start" style="width:30%" nolabel="1"
-                                               class="oe_inline"
-                                               options="{'related_start_date': 'level2_free_ship_date_start'}"/>
+                                           class="oe_inline"
+                                           options="{'related_start_date': 'level2_free_ship_date_start'}"/>
                                     <i class="fa fa-long-arrow-right mx-2" aria-label="Arrow icon" title="Arrow"/>
                                     <field name="level2_free_ship_date_end" style="width:30%" nolabel="1"
-                                               class="oe_inline"
-                                               options="{'related_end_date': 'level2_free_ship_date_end'}"/>
+                                           class="oe_inline"
+                                           options="{'related_end_date': 'level2_free_ship_date_end'}"/>
                                 </div>
                             </div>
 
@@ -639,110 +662,51 @@
                     </group>
                 </page>
 
-                <pages string="Customer Discounts" name="customer_discounts"
-                       attrs="{'invisible': ['|', ('is_customer_vendor', '=', 'is_customer'),('is_cus_based_disc', '=', 'no')]}">
-                    <sheet>
-                        <div class="row" style="width:100%;">
-                            <div style="width:50%">
-                                <div style="padding:2% !important;width:100%;">
-                                    <label for="customer_base_discount" string="Customer Base Discount"
-                                           style="width:39%;margin-bottom: -15px;"/>
-                                    <field name="customer_base_discount"
-                                           style="width:49%;margin-bottom: -15px;"></field>
-                                    <br/>
-                                </div>
-                                <div style="padding:2% !important;width:100%;">
-                                    <label for="customer_early_order_discount" string="Customer Early Order Discount"
-                                           style="width:39%;margin-bottom: -15px;"/>
-                                    <field name="customer_early_order_discount"
-                                           style="width:49%;margin-bottom: -15px;"></field>
-                                    <br/>
-                                </div>
-                            </div>
+                <!--                <pages string="Customer Discounts" name="customer_discounts"-->
+                <!--                       attrs="{'invisible': ['|', ('is_customer_vendor', '=', 'is_customer'),('is_cus_based_disc', '=', 'no')]}">-->
+                <!--                    <sheet>-->
+                <!--                        <div class="row" style="width:100%;">-->
+                <!--                            <div style="width:50%">-->
+                <!--                                <div style="padding:2% !important;width:100%;">-->
+                <!--                                    <label for="customer_base_discount" string="Customer Base Discount"-->
+                <!--                                           style="width:39%;margin-bottom: -15px;"/>-->
+                <!--                                    <field name="customer_base_discount"-->
+                <!--                                           style="width:49%;margin-bottom: -15px;"></field>-->
+                <!--                                    <br/>-->
+                <!--                                </div>-->
+                <!--                                <div style="padding:2% !important;width:100%;">-->
+                <!--                                    <label for="customer_early_order_discount" string="Customer Early Order Discount"-->
+                <!--                                           style="width:39%;margin-bottom: -15px;"/>-->
+                <!--                                    <field name="customer_early_order_discount"-->
+                <!--                                           style="width:49%;margin-bottom: -15px;"></field>-->
+                <!--                                    <br/>-->
+                <!--                                </div>-->
+                <!--                            </div>-->
 
-                            <div style="width:50%">
+                <!--                            <div style="width:50%">-->
 
-                                <div style="padding:2% !important;width:100%;">
-                                    <label for="customer_early_pay_discount" string="Customer Early Pay Discount"
-                                           style="width:39%;margin-bottom: -15px;"/>
-                                    <field name="customer_early_pay_discount"
-                                           style="width:49%;margin-bottom: -15px;"></field>
-                                    <br/>
-                                </div>
-                                <div style="padding:2% !important;width:100%;">
-                                    <label for="early_order_deadline" string="Early Order Deadline"
-                                           style="width:39%;margin-bottom: -15px;"/>
-                                    <field name="early_order_deadline" style="width:49%;margin-bottom: -15px;"></field>
-                                    <br/>
-                                </div>
-                            </div>
-                        </div>
-                    </sheet>
-                </pages>
+                <!--                                <div style="padding:2% !important;width:100%;">-->
+                <!--                                    <label for="customer_early_pay_discount" string="Customer Early Pay Discount"-->
+                <!--                                           style="width:39%;margin-bottom: -15px;"/>-->
+                <!--                                    <field name="customer_early_pay_discount"-->
+                <!--                                           style="width:49%;margin-bottom: -15px;"></field>-->
+                <!--                                    <br/>-->
+                <!--                                </div>-->
+                <!--                                <div style="padding:2% !important;width:100%;">-->
+                <!--                                    <label for="early_order_deadline" string="Early Order Deadline"-->
+                <!--                                           style="width:39%;margin-bottom: -15px;"/>-->
+                <!--                                    <field name="early_order_deadline" style="width:49%;margin-bottom: -15px;"></field>-->
+                <!--                                    <br/>-->
+                <!--                                </div>-->
+                <!--                            </div>-->
+                <!--                        </div>-->
+                <!--                    </sheet>-->
+                <!--                </pages>-->
 
                 <page string="Vendor margin"
                       attrs="{'invisible': ['|',('is_customer_vendor', '=', 'is_customer'),('is_date_based_disc', '=', 'no')]}">
                     <sheet>
                         <div class="row" style="width:100%;">
-                            <div style="width:50%">
-                                <div style="padding:2% !important;width:100%;">
-                                    <label for="vb_volume_disc_level_1" string="Volume Discount Level 1"
-                                           style="width:39%;margin-bottom: -15px;"/>
-                                    <field name="vb_volume_disc_level_1"
-                                           style="width:29%;margin-bottom: -15px;" widget="percentage"></field>
-                                    <br/>
-                                </div>
-                                <div style="padding:2% !important;width:100%;">
-                                    <label for="vb_level_1_disc" string="Level 1 Discount"
-                                           style="width:39%;margin-bottom: -15px;"/>
-                                    <field name="vb_level_1_disc"
-                                           style="width:29%;margin-bottom: -15px;" widget="percentage"></field>
-                                    <br/>
-                                </div>
-                                <div style="padding:2% !important;width:100%;">
-                                    <label for="vb_volume_disc_level_2" string="Volume Discount Level 2"
-                                           style="width:39%;margin-bottom: -15px;"/>
-                                    <field name="vb_volume_disc_level_2"
-                                           style="width:29%;margin-bottom: -15px;" widget="percentage"></field>
-                                    <br/>
-                                </div>
-                                <div style="padding:2% !important;width:100%;">
-                                    <label for="vb_level_2_disc" string="Level 2 Discount"
-                                           style="width:39%;margin-bottom: -15px;"/>
-                                    <field name="vb_level_2_disc"
-                                           style="width:29%;margin-bottom: -15px;" widget="percentage"></field>
-                                    <br/>
-                                </div>
-                                <div style="padding:2% !important;width:100%;">
-                                    <label for="vb_volume_disc_level_3" string="Volume Discount Level 3"
-                                           style="width:39%;margin-bottom: -15px;"/>
-                                    <field name="vb_volume_disc_level_3"
-                                           style="width:29%;margin-bottom: -15px;" widget="percentage"></field>
-                                    <br/>
-                                </div>
-                                <div style="padding:2% !important;width:100%;">
-                                    <label for="vb_level_3_disc" string="Level 3 Discount"
-                                           style="width:39%;margin-bottom: -15px;"/>
-                                    <field name="vb_level_3_disc"
-                                           style="width:29%;margin-bottom: -15px;" widget="percentage"></field>
-                                    <br/>
-                                </div>
-                                <div style="padding:2% !important;width:100%;">
-                                    <label for="vb_volume_disc_level_4" string="Volume Discount Level 4"
-                                           style="width:39%;margin-bottom: -15px;"/>
-                                    <field name="vb_volume_disc_level_4"
-                                           style="width:29%;margin-bottom: -15px;" widget="percentage"></field>
-                                    <br/>
-                                </div>
-                                <div style="padding:2% !important;width:100%;">
-                                    <label for="vb_level_4_disc" string="Level 4 Discount"
-                                           style="width:39%;margin-bottom: -15px;"/>
-                                    <field name="vb_level_4_disc"
-                                           style="width:29%;margin-bottom: -15px;" widget="percentage"></field>
-                                    <br/>
-                                </div>
-                            </div>
-
                             <div style="width:50%">
                                 <div style="padding:2% !important;width:100%;">
                                     <label for="db_std_base_dealer_disc" string="Standard Base Dealer Discount"
@@ -754,21 +718,15 @@
                                 <div style="padding:2% !important;width:100%;">
                                     <label for="db_level_2_disc" string="Level 2 Discount"
                                            style="width:39%;margin-bottom: -15px;"/>
-                                    <field name="db_level_2_disc" style="width:29%;margin-bottom: -15px;" widget="percentage"></field>
+                                    <field name="db_level_2_disc" style="width:29%;margin-bottom: -15px;"
+                                           widget="percentage"></field>
                                     <br/>
                                 </div>
-                                <div style="padding:2% !important;width:100%;">
-                                    <label for="db_level_3_dealer_disc" string="Level 3 Dealer Discount"
-                                           style="width:39%;margin-bottom: -15px;"/>
-                                    <field name="db_level_3_dealer_disc"
-                                           style="width:29%;margin-bottom: -15px;" widget="percentage"></field>
-                                    <br/>
-                                </div>
-
                                 <div style="padding:2% !important;width:73%;">
                                     <label for="level2_date_range_start" string="Level 2 Date Range"
                                            style="width:39%;margin-bottom: -15px;"/>
-                                    <div class="o_row" style="margin-left: -15px !important;padding:2% !important;width:100%;">
+                                    <div class="o_row"
+                                         style="margin-left: -15px !important;padding:2% !important;width:100%;">
                                         <field name="level2_date_range_start" style="width:30%" nolabel="1"
                                                class="oe_inline"
                                                options="{'related_start_date': 'level2_date_range_start'}"/>
@@ -778,10 +736,106 @@
                                                options="{'related_end_date': 'level2_date_range_end'}"/>
                                     </div>
                                 </div>
+                                <!--                                <div style="padding:2% !important;width:100%;">-->
+                                <!--                                    <label for="vb_volume_disc_level_1" string="Volume Discount Level 1"-->
+                                <!--                                           style="width:39%;margin-bottom: -15px;"/>-->
+                                <!--                                    <field name="vb_volume_disc_level_1"-->
+                                <!--                                           style="width:29%;margin-bottom: -15px;" widget="percentage"></field>-->
+                                <!--                                    <br/>-->
+                                <!--                                </div>-->
+                                <!--                                <div style="padding:2% !important;width:100%;">-->
+                                <!--                                    <label for="vb_level_1_disc" string="Level 1 Discount"-->
+                                <!--                                           style="width:39%;margin-bottom: -15px;"/>-->
+                                <!--                                    <field name="vb_level_1_disc"-->
+                                <!--                                           style="width:29%;margin-bottom: -15px;" widget="percentage"></field>-->
+                                <!--                                    <br/>-->
+                                <!--                                </div>-->
+                                <!--                                <div style="padding:2% !important;width:100%;">-->
+                                <!--                                    <label for="vb_volume_disc_level_2" string="Volume Discount Level 2"-->
+                                <!--                                           style="width:39%;margin-bottom: -15px;"/>-->
+                                <!--                                    <field name="vb_volume_disc_level_2"-->
+                                <!--                                           style="width:29%;margin-bottom: -15px;" widget="percentage"></field>-->
+                                <!--                                    <br/>-->
+                                <!--                                </div>-->
+                                <!--                                <div style="padding:2% !important;width:100%;">-->
+                                <!--                                    <label for="vb_level_2_disc" string="Level 2 Discount"-->
+                                <!--                                           style="width:39%;margin-bottom: -15px;"/>-->
+                                <!--                                    <field name="vb_level_2_disc"-->
+                                <!--                                           style="width:29%;margin-bottom: -15px;" widget="percentage"></field>-->
+                                <!--                                    <br/>-->
+                                <!--                                </div>-->
+                                <!--                                <div style="padding:2% !important;width:100%;">-->
+                                <!--                                    <label for="vb_volume_disc_level_3" string="Volume Discount Level 3"-->
+                                <!--                                           style="width:39%;margin-bottom: -15px;"/>-->
+                                <!--                                    <field name="vb_volume_disc_level_3"-->
+                                <!--                                           style="width:29%;margin-bottom: -15px;" widget="percentage"></field>-->
+                                <!--                                    <br/>-->
+                                <!--                                </div>-->
+                                <!--                                <div style="padding:2% !important;width:100%;">-->
+                                <!--                                    <label for="vb_level_3_disc" string="Level 3 Discount"-->
+                                <!--                                           style="width:39%;margin-bottom: -15px;"/>-->
+                                <!--                                    <field name="vb_level_3_disc"-->
+                                <!--                                           style="width:29%;margin-bottom: -15px;" widget="percentage"></field>-->
+                                <!--                                    <br/>-->
+                                <!--                                </div>-->
+                                <!--                                <div style="padding:2% !important;width:100%;">-->
+                                <!--                                    <label for="vb_volume_disc_level_4" string="Volume Discount Level 4"-->
+                                <!--                                           style="width:39%;margin-bottom: -15px;"/>-->
+                                <!--                                    <field name="vb_volume_disc_level_4"-->
+                                <!--                                           style="width:29%;margin-bottom: -15px;" widget="percentage"></field>-->
+                                <!--                                    <br/>-->
+                                <!--                                </div>-->
+                                <!--                                <div style="padding:2% !important;width:100%;">-->
+                                <!--                                    <label for="vb_level_4_disc" string="Level 4 Discount"-->
+                                <!--                                           style="width:39%;margin-bottom: -15px;"/>-->
+                                <!--                                    <field name="vb_level_4_disc"-->
+                                <!--                                           style="width:29%;margin-bottom: -15px;" widget="percentage"></field>-->
+                                <!--                                    <br/>-->
+                                <!--                                </div>-->
+                            </div>
+
+                            <div style="width:50%">
+                                <!--                                <div style="padding:2% !important;width:100%;">-->
+                                <!--                                    <label for="db_std_base_dealer_disc" string="Standard Base Dealer Discount"-->
+                                <!--                                           style="width:39%;margin-bottom: -15px;"/>-->
+                                <!--                                    <field name="db_std_base_dealer_disc"-->
+                                <!--                                           style="width:29%;margin-bottom: -15px;" widget="percentage"></field>-->
+                                <!--                                    <br/>-->
+                                <!--                                </div>-->
+                                <!--                                <div style="padding:2% !important;width:100%;">-->
+                                <!--                                    <label for="db_level_2_disc" string="Level 2 Discount"-->
+                                <!--                                           style="width:39%;margin-bottom: -15px;"/>-->
+                                <!--                                    <field name="db_level_2_disc" style="width:29%;margin-bottom: -15px;"-->
+                                <!--                                           widget="percentage"></field>-->
+                                <!--                                    <br/>-->
+                                <!--                                </div>-->
+                                <div style="padding:2% !important;width:100%;">
+                                    <label for="db_level_3_dealer_disc" string="Level 3 Dealer Discount"
+                                           style="width:39%;margin-bottom: -15px;"/>
+                                    <field name="db_level_3_dealer_disc"
+                                           style="width:29%;margin-bottom: -15px;" widget="percentage"></field>
+                                    <br/>
+                                </div>
+
+                                <!--                                <div style="padding:2% !important;width:73%;">-->
+                                <!--                                    <label for="level2_date_range_start" string="Level 2 Date Range"-->
+                                <!--                                           style="width:39%;margin-bottom: -15px;"/>-->
+                                <!--                                    <div class="o_row"-->
+                                <!--                                         style="margin-left: -15px !important;padding:2% !important;width:100%;">-->
+                                <!--                                        <field name="level2_date_range_start" style="width:30%" nolabel="1"-->
+                                <!--                                               class="oe_inline"-->
+                                <!--                                               options="{'related_start_date': 'level2_date_range_start'}"/>-->
+                                <!--                                        <i class="fa fa-long-arrow-right mx-2" aria-label="Arrow icon" title="Arrow"/>-->
+                                <!--                                        <field name="level2_date_range_end" style="width:30%" nolabel="1"-->
+                                <!--                                               class="oe_inline"-->
+                                <!--                                               options="{'related_end_date': 'level2_date_range_end'}"/>-->
+                                <!--                                    </div>-->
+                                <!--                                </div>-->
                                 <div style="padding:2% !important;width:73%;">
                                     <label for="level3_date_range_start" string="Level 3 Date Range"
                                            style="width:39%;margin-bottom: -15px;"/>
-                                    <div class="o_row" style="margin-left: -15px !important;padding:2% !important;width:100%;">
+                                    <div class="o_row"
+                                         style="margin-left: -15px !important;padding:2% !important;width:100%;">
                                         <field name="level3_date_range_start" style="width:30%" nolabel="1"
                                                class="oe_inline"
                                                options="{'related_start_date': 'level3_date_range_start'}"/>
@@ -818,81 +872,95 @@
                     </sheet>
                 </page>
 
-                <!--                <pages string="Volume Based Discounts"-->
-                <!--                       attrs="{'invisible': ['|',('is_customer_vendor', '=', 'is_customer'),('is_vol_based_disc', '=', 'no')]}">-->
-                <!--                    <sheet>-->
-                <!--                        <div class="row" style="width:100%;">-->
-                <!--                            <div style="width:50%">-->
-                <!--                                <div style="padding:2% !important;width:100%;">-->
-                <!--                                    <label for="vb_volume_disc_level_1" string="Volume Discount Level 1"-->
-                <!--                                           style="width:39%;margin-bottom: -15px;"/>-->
-                <!--                                    <field name="vb_volume_disc_level_1"-->
-                <!--                                           style="width:49%;margin-bottom: -15px;"></field>-->
-                <!--                                    <br/>-->
-                <!--                                </div>-->
-                <!--                                <div style="padding:2% !important;width:100%;">-->
-                <!--                                    <label for="vb_level_1_disc" string="Level 1 Discount"-->
-                <!--                                           style="width:39%;margin-bottom: -15px;"/>-->
-                <!--                                    <field name="vb_level_1_disc"-->
-                <!--                                           style="width:49%;margin-bottom: -15px;"></field>-->
-                <!--                                    <br/>-->
-                <!--                                </div>-->
-                <!--                                <div style="padding:2% !important;width:100%;">-->
-                <!--                                    <label for="vb_volume_disc_level_2" string="Volume Discount Level 2"-->
-                <!--                                           style="width:39%;margin-bottom: -15px;"/>-->
-                <!--                                    <field name="vb_volume_disc_level_2"-->
-                <!--                                           style="width:49%;margin-bottom: -15px;"></field>-->
-                <!--                                    <br/>-->
-                <!--                                </div>-->
-                <!--                                <div style="padding:2% !important;width:100%;">-->
-                <!--                                    <label for="vb_level_2_disc" string="Level 2 Discount"-->
-                <!--                                           style="width:39%;margin-bottom: -15px;"/>-->
-                <!--                                    <field name="vb_level_2_disc"-->
-                <!--                                           style="width:49%;margin-bottom: -15px;"></field>-->
-                <!--                                    <br/>-->
-                <!--                                </div>-->
-                <!--                            </div>-->
-                <!--                            <div style="width:50%">-->
-                <!--                                <div style="padding:2% !important;width:100%;">-->
-                <!--                                    <label for="vb_volume_disc_level_3" string="Volume Discount Level 3"-->
-                <!--                                           style="width:39%;margin-bottom: -15px;"/>-->
-                <!--                                    <field name="vb_volume_disc_level_3"-->
-                <!--                                           style="width:49%;margin-bottom: -15px;"></field>-->
-                <!--                                    <br/>-->
-                <!--                                </div>-->
-                <!--                                <div style="padding:2% !important;width:100%;">-->
-                <!--                                    <label for="vb_level_3_disc" string="Level 3 Discount"-->
-                <!--                                           style="width:39%;margin-bottom: -15px;"/>-->
-                <!--                                    <field name="vb_level_3_disc"-->
-                <!--                                           style="width:49%;margin-bottom: -15px;"></field>-->
-                <!--                                    <br/>-->
-                <!--                                </div>-->
-                <!--                                <div style="padding:2% !important;width:100%;">-->
-                <!--                                    <label for="vb_volume_disc_level_4" string="Volume Discount Level 4"-->
-                <!--                                           style="width:39%;margin-bottom: -15px;"/>-->
-                <!--                                    <field name="vb_volume_disc_level_4"-->
-                <!--                                           style="width:49%;margin-bottom: -15px;"></field>-->
-                <!--                                    <br/>-->
-                <!--                                </div>-->
-                <!--                                <div style="padding:2% !important;width:100%;">-->
-                <!--                                    <label for="vb_level_4_disc" string="Level 4 Discount"-->
-                <!--                                           style="width:39%;margin-bottom: -15px;"/>-->
-                <!--                                    <field name="vb_level_4_disc"-->
-                <!--                                           style="width:49%;margin-bottom: -15px;"></field>-->
-                <!--                                    <br/>-->
-                <!--                                </div>-->
-                <!--                            </div>-->
-                <!--                        <field name="vb_volume_disc_level_1"/>-->
-                <!--                        <field name="vb_level_1_disc"/>-->
-                <!--                        <field name="vb_volume_disc_level_2"/>-->
-                <!--                        <field name="vb_level_2_disc"/>-->
-                <!--                        <field name="vb_volume_disc_level_3"/>-->
-                <!--                        <field name="vb_level_3_disc"/>-->
-                <!--                        <field name="vb_volume_disc_level_4"/>-->
-                <!--                        <field name="vb_level_4_disc"/>-->
-                <!--                        </div>-->
-                <!--                    </sheet>-->
-                <!--                </pages>-->
+                <pages string="Volume Based Margin"
+                       attrs="{'invisible': ['|',('is_customer_vendor', '=', 'is_customer'),('is_vol_based_disc', '=', 'no')]}">
+                    <sheet>
+                        <div class="row" style="width:100%;">
+                            <div style="width:50%">
+                                <div style="padding:2% !important;width:100%;">
+                                    <label for="vb_volume_disc_level_1" string="Volume Discount Level 1"
+                                           style="width:39%;margin-bottom: -15px;"/>
+                                    <field name="company_currency_id" invisible="1"/>
+                                    <field name="vb_volume_disc_level_1"
+                                           style="width:29%;margin-bottom: -15px;" widget="monetary"
+                                           options="{'currency_field': 'company_currency_id'}"></field>
+                                    <br/>
+                                </div>
+                                <div style="padding:2% !important;width:100%;">
+                                    <label for="vb_level_1_disc" string="Level 1 Discount"
+                                           style="width:39%;margin-bottom: -15px;"/>
+                                    <field name="vb_level_1_disc"
+                                           style="width:29%;margin-bottom: -15px;" widget="percentage"></field>
+                                    <br/>
+                                </div>
+                                <div style="padding:2% !important;width:100%;">
+                                    <label for="vb_volume_disc_level_2" string="Volume Discount Level 2"
+                                           style="width:39%;margin-bottom: -15px;"/>
+                                    <field name="company_currency_id" invisible="1"/>
+                                    <field name="vb_volume_disc_level_2"
+                                           style="width:29%;margin-bottom: -15px;" widget="monetary"
+                                           options="{'currency_field': 'company_currency_id'}"></field>
+                                    <br/>
+                                </div>
+                                <div style="padding:2% !important;width:100%;">
+                                    <label for="vb_level_2_disc" string="Level 2 Discount"
+                                           style="width:39%;margin-bottom: -15px;"/>
+                                    <field name="vb_level_2_disc"
+                                           style="width:29%;margin-bottom: -15px;" widget="percentage"></field>
+                                    <br/>
+                                </div>
+                            </div>
+                            <div style="width:50%">
+                                <div style="padding:2% !important;width:100%;">
+                                    <label for="vb_volume_disc_level_3" string="Volume Discount Level 3"
+                                           style="width:39%;margin-bottom: -15px;"/>
+                                    <field name="company_currency_id" invisible="1"/>
+                                    <field name="vb_volume_disc_level_3"
+                                           style="width:29%;margin-bottom: -15px;" widget="monetary"
+                                           options="{'currency_field': 'company_currency_id'}"></field>
+                                    <br/>
+                                </div>
+                                <div style="padding:2% !important;width:100%;">
+                                    <label for="vb_level_3_disc" string="Level 3 Discount"
+                                           style="width:39%;margin-bottom: -15px;"/>
+                                    <field name="vb_level_3_disc"
+                                           style="width:29%;margin-bottom: -15px;" widget="percentage"></field>
+                                    <br/>
+                                </div>
+                                <div style="padding:2% !important;width:100%;">
+                                    <label for="vb_volume_disc_level_4" string="Volume Discount Level 4"
+                                           style="width:39%;margin-bottom: -15px;"/>
+                                    <field name="company_currency_id" invisible="1"/>
+                                    <field name="vb_volume_disc_level_4"
+                                           style="width:29%;margin-bottom: -15px;" widget="monetary"
+                                           options="{'currency_field': 'company_currency_id'}"></field>
+                                    <br/>
+                                </div>
+                                <div style="padding:2% !important;width:100%;">
+                                    <label for="vb_level_4_disc" string="Level 4 Discount"
+                                           style="width:39%;margin-bottom: -15px;"/>
+                                    <field name="vb_level_4_disc"
+                                           style="width:29%;margin-bottom: -15px;" widget="percentage"></field>
+                                    <br/>
+                                </div>
+                                <div style="padding:2% !important;width:100%;">
+                                    <label for="additional_notes" string="Additional Notes"
+                                           style="width:39%;margin-bottom: -15px;"/>
+                                    <field name="additional_notes" style="width:29%;margin-bottom: -15px;"></field>
+                                    <br/>
+                                </div>
+                            </div>
+                            <!--                        <field name="vb_volume_disc_level_1"/>-->
+                            <!--                        <field name="vb_level_1_disc"/>-->
+                            <!--                        <field name="vb_volume_disc_level_2"/>-->
+                            <!--                        <field name="vb_level_2_disc"/>-->
+                            <!--                        <field name="vb_volume_disc_level_3"/>-->
+                            <!--                        <field name="vb_level_3_disc"/>-->
+                            <!--                        <field name="vb_volume_disc_level_4"/>-->
+                            <!--                        <field name="vb_level_4_disc"/>-->
+                        </div>
+                    </sheet>
+                </pages>
 
             </xpath>
         </field>
@@ -906,12 +974,12 @@
         <field name="arch" type="xml">
             <xpath expr="//search" position="inside">
                 <field name="product_detail_ids" string="Equipment"/>
-                <!--                <filter name="is_vol_based_disc" string="Volume Based Discounts"-->
-                <!--                        domain="[('is_vol_based_disc','=','yes')]"/>-->
+                <filter name="is_vol_based_disc" string="Volume Based Discounts"
+                        domain="[('is_vol_based_disc','=','yes')]"/>
                 <filter name="is_date_based_disc" string="Date Based Discounts"
                         domain="[('is_date_based_disc','=','yes')]"/>
-                <filter name="is_cus_based_disc" string="Customer Discounts"
-                        domain="[('is_cus_based_disc','=','yes')]"/>
+                <!--                <filter name="is_cus_based_disc" string="Customer Discounts"-->
+                <!--                        domain="[('is_cus_based_disc','=','yes')]"/>-->
 
             </xpath>
         </field>
@@ -966,11 +1034,14 @@
                 <label string="Main Phone" for="phone"/>
             </label>
             <xpath expr="//div[hasclass('o_row_readonly')]" position="after">
-                <field name="support_mobile" widget="phone" attrs="{'invisible': ['|',('is_company', '=', False),('is_customer_vendor', '=', 'is_customer')]}"/>
-                <field name="work_phone" widget="phone" attrs="{'invisible': [('is_company', '=', True),('is_customer_vendor', '=', 'is_vendor')]}"/>
+                <field name="support_mobile" widget="phone"
+                       attrs="{'invisible': ['|',('is_company', '=', False),('is_customer_vendor', '=', 'is_customer')]}"/>
+                <field name="work_phone" widget="phone"
+                       attrs="{'invisible': [('is_company', '=', True),('is_customer_vendor', '=', 'is_vendor')]}"/>
                 <field name="home_phone" widget="phone" attrs="{'invisible': [('is_company', '=', True)]}"/>
                 <field name="alt_phone" widget="phone" attrs="{'invisible': [('is_company', '=', False)]}"/>
-                <field name="alt_mobile" widget="phone" attrs="{'invisible': ['|',('is_company', '=', False),('is_customer_vendor', '=', 'is_customer')]}"/>
+                <field name="alt_mobile" widget="phone"
+                       attrs="{'invisible': ['|',('is_company', '=', False),('is_customer_vendor', '=', 'is_customer')]}"/>
             </xpath>
             <xpath expr="//div[hasclass('o_row_readonly')]//field[@name='mobile']" position="replace">
                 <field name="mobile" widget="phone" attrs="{'invisible': [('is_company', '=', True)]}"/>
@@ -991,7 +1062,8 @@
                 <field name="customer_type"/>
                 <field name="vendor_type"/>
                 <separator/>
-                <filter string="Customer Type" name="customer_type" domain="[('is_customer_vendor', '=', 'is_customer')]"/>
+                <filter string="Customer Type" name="customer_type"
+                        domain="[('is_customer_vendor', '=', 'is_customer')]"/>
                 <filter string="Vendor Type" name="vendor_type" domain="[('is_customer_vendor', '=', 'is_vendor')]"/>
             </xpath>
         </field>

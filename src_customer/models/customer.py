@@ -133,10 +133,10 @@ class PartnerInherit(models.Model):
 
     '''Added fields for customer discounts tab'''
 
-    customer_base_discount = fields.Float()
-    customer_early_order_discount = fields.Float()
-    customer_early_pay_discount = fields.Float()
-    early_order_deadline = fields.Date()
+    # customer_base_discount = fields.Float()
+    # customer_early_order_discount = fields.Float()
+    # customer_early_pay_discount = fields.Float()
+    # early_order_deadline = fields.Date()
 
     primary_contact = fields.Char(string="Primary Contact")
     fax = fields.Char(string="Fax")
@@ -179,8 +179,8 @@ class PartnerInherit(models.Model):
     '''
     is_customer_vendor = fields.Selection(string='Contact Type', selection=[('is_customer', 'Customer'), ('is_vendor', 'Vendor')], default='is_customer')
     is_date_based_disc = fields.Selection(selection=[('yes', 'Yes'), ('no', 'No')], string="Date Based Discounts", default='no')
-    # is_vol_based_disc = fields.Selection(selection=[('yes', 'Yes'), ('no', 'No')], string="Volume Based Discounts", default='no')
-    is_cus_based_disc = fields.Selection(selection=[('yes', 'Yes'), ('no', 'No')], string="Customer Discounts", default='no')
+    is_vol_based_disc = fields.Selection(selection=[('yes', 'Yes'), ('no', 'No')], string="Volume Based Discounts", default='no')
+    # is_cus_based_disc = fields.Selection(selection=[('yes', 'Yes'), ('no', 'No')], string="Customer Discounts", default='no')
 
 
     db_std_base_dealer_disc = fields.Float(string="Standard Base Dealer Discount")
@@ -189,6 +189,12 @@ class PartnerInherit(models.Model):
     db_free_freight_vol = fields.Float(string="Free Freight Volume")
     additional_notes = fields.Text(string="Additional Notes")
 
+
+    '''For adding currency symbol in volume based margin tab'''
+
+    company_currency_id = fields.Many2one("res.currency",related="company_id.currency_id", string="Company Currency", readonly=True,
+                                          store=True, default=lambda self:
+                                self.env['res.currency'].search([('name','=','USD')],limit=1))
 
     vb_volume_disc_level_1 = fields.Float(string="Volume Discount Level 1")
     vb_level_1_disc = fields.Float(string="Level 1 Discount")
