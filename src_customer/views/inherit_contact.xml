@@ -70,6 +70,7 @@
             </xpath>
 
 
+
             <xpath expr="//field[@name='company_type']" position="after">
                 <!--                <field name="is_customer_vendor" widget="radio"/>-->
                 <field name="is_customer_vendor" options="{'horizontal': true}" widget="radio"/>
@@ -467,36 +468,36 @@
                             </div>
 
 
-                            <div class="row" col="2" style="width:100%">
-                                <div style="width:30%">
-                                    <label for="db_free_freight_vol" string="Free Freight Volume"/>
-                                </div>
-                                <div class="o_address_format" style="width:50%">
-                                    <field name="db_free_freight_vol"/>
-                                </div>
-                            </div>
-                            <div style="margin-left: -29px !important; padding:2% !important;width:87%;">
-                                <label for="db_free_freight_date_range_start" string="Free Freight Date Range"
-                                       style="width:39%;margin-bottom: -20px;"/>
-                                <div class="o_row"
-                                     style="margin-left: -10px !important; padding:2% !important;width:80%;">
-                                    <field name="db_free_freight_date_range_start" style="width:30%" nolabel="1"
-                                           class="oe_inline"
-                                           options="{'related_start_date': 'db_free_freight_date_range_start'}"/>
-                                    <i class="fa fa-long-arrow-right mx-2" aria-label="Arrow icon" title="Arrow"/>
-                                    <field name="db_free_freight_date_range_end" style="width:30%" nolabel="1"
-                                           class="oe_inline"
-                                           options="{'related_end_date': 'db_free_freight_date_range_end'}"/>
-                                </div>
-                            </div>
-                            <div class="row" col="2" style="width:100%">
-                                <div style="width:30%">
-                                    <label for="additional_notes" string="Additional Notes"/>
-                                </div>
-                                <div class="o_address_format" style="width:50%">
-                                    <field name="additional_notes"/>
-                                </div>
-                            </div>
+<!--                            <div class="row" col="2" style="width:100%">-->
+<!--                                <div style="width:30%">-->
+<!--                                    <label for="db_free_freight_vol" string="Free Freight Volume"/>-->
+<!--                                </div>-->
+<!--                                <div class="o_address_format" style="width:50%">-->
+<!--                                    <field name="db_free_freight_vol"/>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div style="margin-left: -29px !important; padding:2% !important;width:87%;">-->
+<!--                                <label for="db_free_freight_date_range_start" string="Free Freight Date Range"-->
+<!--                                       style="width:39%;margin-bottom: -20px;"/>-->
+<!--                                <div class="o_row"-->
+<!--                                     style="margin-left: -10px !important; padding:2% !important;width:80%;">-->
+<!--                                    <field name="db_free_freight_date_range_start" style="width:30%" nolabel="1"-->
+<!--                                           class="oe_inline"-->
+<!--                                           options="{'related_start_date': 'db_free_freight_date_range_start'}"/>-->
+<!--                                    <i class="fa fa-long-arrow-right mx-2" aria-label="Arrow icon" title="Arrow"/>-->
+<!--                                    <field name="db_free_freight_date_range_end" style="width:30%" nolabel="1"-->
+<!--                                           class="oe_inline"-->
+<!--                                           options="{'related_end_date': 'db_free_freight_date_range_end'}"/>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="row" col="2" style="width:100%">-->
+<!--                                <div style="width:30%">-->
+<!--                                    <label for="additional_notes" string="Additional Notes"/>-->
+<!--                                </div>-->
+<!--                                <div class="o_address_format" style="width:50%">-->
+<!--                                    <field name="additional_notes"/>-->
+<!--                                </div>-->
+<!--                            </div>-->
 
                         </div>
                         <div style="width:50%">
@@ -644,46 +645,92 @@
                 <page string="Farm Equipment Base" name="product_details"
                       attrs="{'invisible': [('is_customer_vendor', '=', 'is_vendor')]}">
                     <group>
-                        <field name="product_detail_ids" nolabel="1" class="product_auto_populate">
-                            <tree editable="bottom">
-                                <field name="name_id" string=" Product Name" style="width: 200px;"/>
-                                <field name="product_category_id" string="Category"/>
-                                <field name="company_id" string="Make" style="width: 200px;"/>
-                                <field name="model" string="Model" style="width: 100px;"/>
-                                <field name="year" string="Year" style="width: 100px;"/>
-                                <field name="serial_no" string="Serial No" widget="many2many_tags"
-                                       style="width: 100px;"/>
-                                <field name="warranty_start_date" string="Warranty Start Date"/>
-                                <field name="warranty_end_date" string="Warranty End Date"/>
-                                <field name="expiration_date" string="Expiration Date"/>
+                        <group>
+                            <separator string="Planner" colspan="4" style="height:23px; font-size:1.3rem" />
+                        </group>
+                        <group>
+                            <field name="company_id" string="Make" style="width: 200px;"/>
+                            <field name="serial_no" string="Serial No" widget="many2many_tags" style="width: 200px;" />
+                            <field name="model" string="Model" style="width: 100px;"/>
+                            <field name="year" string="Year" style="width: 200px;"/>
+                            <field name="rows" string="Rows" style="width: 200px;" />
+                            <field name="crops_being_planted" string="Crops being planted" style="width: 300px;" />
+                            <field name="acres_planted_per_year" string="Acres Planted Per Year" style="width: 300px;" />
+                            <field name="spacing" string="Spacing" style="width: 200px;" />
+                            <field name="frame_type" string="Frame Type" style="width: 200px;" />
+                            <field name="seed_delivery" string="Seed Delivery" style="width: 200px;" />
+                            <field name="original_planter_monitor" string="Original Planter Monitor" style="width: 300px;" />
+                            <field name="current_planter_monitor" string="Current Planter Monitor" style="width: 300px;" />
+                            <field name="meter_type" string="Meter Type" style="width: 200px;"/>
+                            <field name="meter_drive_system" string="Meter Drive System" style="width: 300px;"/>
+                            <field name="closing_system" string="Closing System" style="width: 200px;"/>
+                            <field name="hopper_type" string="Hopper Type" style="width: 200px;"/>
+                            <field name="row_config" string="Row Configuration" style="width: 200px;"/>
+                            <field name="no_of_regular_parallel_arms" string="No of Regular Parallel Arms" style="width: 300px;"/>
+                            <field name="no_of_long_parallel_arms" string="No of Long Parallel Arms" style="width: 300px;"/>
+                            <field name="downforce_system" string="Down Force System" style="width: 200px;"/>
+                            <field name="no_of_vr_motors" string="No of VR Motors" style="width: 200px;"/>
+                            <field name="row_cleaner_make" string="Row Cleaner Make" style="width: 200px;"/>
+                            <field name="row_cleaner_model" string="Row Cleaner Model" style="width: 200px;"/>
+                            <field name="no_till_coulters" string="No-Till Coulters" style="width: 200px;"/>
+                            <field name="liquid_application_method_1" string="Liquid Application Method #1" style="width: 300px;"/>
+                            <field name="liquid_application_method_2" string="Liquid Application Method #2" style="width: 300px;"/>
+                            <field name="firmer" string="Firmer" style="width: 200px;"/>
+                            <field name="gps_make" string="GPS Make" style="width: 200px;"/>
+                            <field name="gps_monitor" string="GPS Monitor" style="width: 200px;"/>
 
-                            </tree>
-                        </field>
+                        </group>
                     </group>
+                    <group>
+                        <group>
+                            <separator string="Tractor" colspan="4" style="height:23px; font-size:1.3rem" />
+                        </group>
+                        <group>
+                            <field name="company_id" string="Make" style="width: 200px;"/>
+                            <field name="model" string="Model" style="width: 100px;"/>
+                            <field name="year" string="Year" style="width: 200px;"/>
+                            <field name="no_of_hydraulic_remotes" string="No of Hydraulic Remotes" style="width: 300px;"/>
+                            <field name="hydraulic_capacity" string="Hydraulic Capacity" style="width: 200px;"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <separator string="Combine" colspan="4" style="height:23px; font-size:1.3rem" />
+                        </group>
+                        <group>
+                            <field name="company_id" string="Make" style="width: 200px;"/>
+                            <field name="model" string="Model" style="width: 100px;"/>
+                            <field name="year" string="Year" style="width: 200px;"/>
+                            <field name="no_of_hydraulic_remotes" string="No of Hydraulic Remotes" style="width: 300px;"/>
+                            <field name="hydraulic_capacity" string="Hydraulic Capacity" style="width: 200px;"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <separator string="Combine Head" colspan="4" style="height:23px; font-size:1.3rem" />
+                        </group>
+                        <group>
+                            <field name="company_id" string="Make" style="width: 200px;"/>
+                            <field name="model" string="Model" style="width: 100px;"/>
+                            <field name="year" string="Year" style="width: 200px;"/>
+                        </group>
+                    </group>
+                    <group>
+                        <group>
+                            <separator string="Sprayer" colspan="4" style="height:23px; font-size:1.3rem" />
+                        </group>
+                        <group>
+                            <field name="company_id" string="Make" style="width: 200px;"/>
+                            <field name="model" string="Model" style="width: 100px;"/>
+                            <field name="year" string="Year" style="width: 200px;"/>
+                            <field name="width" string="Width" style="width: 200px;"/>
+                            <field name="spacing" string="Spacing" style="width: 200px;" />
+                            <field name="monitor" string="Monitor" style="width: 200px;"/>
+                        </group>
+                    </group>
+
                 </page>
 
-                <!--                <pages string="Customer Discounts" name="customer_discounts"-->
-                <!--                       attrs="{'invisible': ['|', ('is_customer_vendor', '=', 'is_customer'),('is_cus_based_disc', '=', 'no')]}">-->
-                <!--                    <sheet>-->
-                <!--                        <div class="row" style="width:100%;">-->
-                <!--                            <div style="width:50%">-->
-                <!--                                <div style="padding:2% !important;width:100%;">-->
-                <!--                                    <label for="customer_base_discount" string="Customer Base Discount"-->
-                <!--                                           style="width:39%;margin-bottom: -15px;"/>-->
-                <!--                                    <field name="customer_base_discount"-->
-                <!--                                           style="width:49%;margin-bottom: -15px;"></field>-->
-                <!--                                    <br/>-->
-                <!--                                </div>-->
-                <!--                                <div style="padding:2% !important;width:100%;">-->
-                <!--                                    <label for="customer_early_order_discount" string="Customer Early Order Discount"-->
-                <!--                                           style="width:39%;margin-bottom: -15px;"/>-->
-                <!--                                    <field name="customer_early_order_discount"-->
-                <!--                                           style="width:49%;margin-bottom: -15px;"></field>-->
-                <!--                                    <br/>-->
-                <!--                                </div>-->
-                <!--                            </div>-->
-
-                <!--                            <div style="width:50%">-->
 
                 <!--                                <div style="padding:2% !important;width:100%;">-->
                 <!--                                    <label for="customer_early_pay_discount" string="Customer Early Pay Discount"-->
@@ -973,7 +1020,7 @@
         <field name="inherit_id" ref="base.view_res_partner_filter"/>
         <field name="arch" type="xml">
             <xpath expr="//search" position="inside">
-                <field name="product_detail_ids" string="Equipment"/>
+                <field name="model" string="Model"/>
                 <filter name="is_vol_based_disc" string="Volume Based Discounts"
                         domain="[('is_vol_based_disc','=','yes')]"/>
                 <filter name="is_date_based_disc" string="Date Based Discounts"
