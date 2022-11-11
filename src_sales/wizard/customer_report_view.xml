@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+<!--    <record id="view_customer_report" model="ir.ui.view">-->
+<!--        <field name="name">customer.report.wizard.form</field>-->
+<!--        <field name="model">customer.report.wizard</field>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <form>-->
+<!--                Do you want to print the customer report?-->
+
+<!--                <footer>-->
+<!--                    <button name="action_print_report" string="Print" type="object" class="btn-primary" />-->
+<!--                    <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="z"/>-->
+<!--                </footer>-->
+<!--            </form>-->
+<!--        </field>-->
+<!--    </record>-->
+
+<!--    <record id="action_print_menu_item" model="ir.actions.act_window">-->
+<!--        <field name="name">Customer Report</field>-->
+<!--        <field name="type">ir.actions.act_window</field>-->
+<!--        <field name="res_model">customer.report.wizard</field>-->
+<!--        <field name="view_mode">form</field>-->
+<!--        <field name="target">new</field>-->
+<!--    </record>-->
+
+<!--    <menuitem id="customer_report_menu"-->
+<!--              name="Customer Report"-->
+<!--              parent="sale.menu_sale_report"-->
+<!--              action="action_print_menu_item"-->
+<!--              sequence="30"/>-->
+</odoo>

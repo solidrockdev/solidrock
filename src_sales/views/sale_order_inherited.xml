@@ -1,0 +1,59 @@
+<odoo>
+    <record id="sale_order_form_inherited" model="ir.ui.view">
+        <field name="name">sale.order.form.inherited</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='partner_id']" position="before">
+                <field name="sell_to"/>
+            </xpath>
+            <xpath expr="//field[@name='partner_id']" position="replace">
+                <!--                    <label for="partner_id" attrs="{'invisible': [('sell_to','=','vendor')]}"/>-->
+                <div>
+                    <label for="partner_id" string="Vendor" attrs="{'invisible': [('sell_to','=','customer')]}"
+                           style="font-weight:500;"/>
+                    <label for="partner_id" string="Customer" attrs="{'invisible': [('sell_to','=','vendor')]}"
+                           style="font-weight:500;"/>
+                </div>
+                <field name="partner_id" nolabel="1" widget="res_partner_many2one"
+                       context="{'res_partner_search_mode': 'customer', 'show_address': 1, 'show_vat': True}"
+                       options='{"always_reload": True}'/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='name']" position="before">
+                <field name="available_qty"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="sale_report_pivot_inherited" model="ir.ui.view">
+        <field name="name">sale.report.pivot.inherited</field>
+        <field name="model">sale.report</field>
+        <field name="inherit_id" ref="sale.view_order_product_pivot"/>
+        <field name="type">pivot</field>
+        <field name="arch" type="xml">
+            <xpath expr="//pivot" position="replace">
+                <pivot>
+                    <field name="price_total" type="measure"/>
+                    <field name="partner_id" type="row"/>
+<!--                    <field name="product_tmpl_id" type="col"/>-->
+<!--                    <field name="context">{'search_default_product_tmpl_id':1}</field>-->
+<!--                    <field name="Product" type="col"/>-->
+                </pivot>
+            </xpath>
+        </field>
+    </record>
+
+
+    <record id="sale_view_order_tree_inherited" model="ir.ui.view">
+        <field name="name">sale.order.tree.inherited</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='activity_ids']" position="after">
+                <field name="margin" sum="Total Margin" class="oe_inline"/>
+                <field name="margin_percent"  class="oe_inline" widget="percentage"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
