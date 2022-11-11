@@ -10,6 +10,10 @@ class SaleInherited(models.Model):
 
     sell_to = fields.Selection([('customer', 'Customer'), ('vendor', 'Vendor')], string="Sell To", default='customer')
 
+    '''Added margin and margin% for sale order list view'''
+
+    margin = fields.Float(related='order_line.margin')
+    margin_percent = fields.Float(related='order_line.margin_percent')
 
     @api.onchange('sell_to')
     def onchange_partner(self):
