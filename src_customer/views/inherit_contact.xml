@@ -309,7 +309,7 @@
                                     <br/>
                                 </div>
                                 <div style="padding:2% !important;width:100%;">
-                                    <label for="tax_item" string="Tax ID"
+                                    <label for="tax_item" string="Tax Item"
                                            style="width:29%;margin-bottom: -15px;"/>
                                     <field name="tax_item" style="width:49%;margin-bottom: -15px;"></field>
                                     <br/>
@@ -644,91 +644,100 @@
 
                 <page string="Farm Equipment Base" name="product_details"
                       attrs="{'invisible': [('is_customer_vendor', '=', 'is_vendor')]}">
-                    <group>
-                        <group>
-                            <separator string="Planner" colspan="4" style="height:23px; font-size:1.3rem" />
-                        </group>
-                        <group>
-                            <field name="company_id" string="Make" style="width: 200px;"/>
-                            <field name="serial_no" string="Serial No" widget="many2many_tags" style="width: 200px;" />
-                            <field name="model" string="Model" style="width: 100px;"/>
-                            <field name="year" string="Year" style="width: 200px;"/>
-                            <field name="rows" string="Rows" style="width: 200px;" />
-                            <field name="crops_being_planted" string="Crops being planted" style="width: 300px;" />
-                            <field name="acres_planted_per_year" string="Acres Planted Per Year" style="width: 300px;" />
-                            <field name="spacing" string="Spacing" style="width: 200px;" />
-                            <field name="frame_type" string="Frame Type" style="width: 200px;" />
-                            <field name="seed_delivery" string="Seed Delivery" style="width: 200px;" />
-                            <field name="original_planter_monitor" string="Original Planter Monitor" style="width: 300px;" />
-                            <field name="current_planter_monitor" string="Current Planter Monitor" style="width: 300px;" />
-                            <field name="meter_type" string="Meter Type" style="width: 200px;"/>
-                            <field name="meter_drive_system" string="Meter Drive System" style="width: 300px;"/>
-                            <field name="closing_system" string="Closing System" style="width: 200px;"/>
-                            <field name="hopper_type" string="Hopper Type" style="width: 200px;"/>
-                            <field name="row_config" string="Row Configuration" style="width: 200px;"/>
-                            <field name="no_of_regular_parallel_arms" string="No of Regular Parallel Arms" style="width: 300px;"/>
-                            <field name="no_of_long_parallel_arms" string="No of Long Parallel Arms" style="width: 300px;"/>
-                            <field name="downforce_system" string="Down Force System" style="width: 200px;"/>
-                            <field name="no_of_vr_motors" string="No of VR Motors" style="width: 200px;"/>
-                            <field name="row_cleaner_make" string="Row Cleaner Make" style="width: 200px;"/>
-                            <field name="row_cleaner_model" string="Row Cleaner Model" style="width: 200px;"/>
-                            <field name="no_till_coulters" string="No-Till Coulters" style="width: 200px;"/>
-                            <field name="liquid_application_method_1" string="Liquid Application Method #1" style="width: 300px;"/>
-                            <field name="liquid_application_method_2" string="Liquid Application Method #2" style="width: 300px;"/>
-                            <field name="firmer" string="Firmer" style="width: 200px;"/>
-                            <field name="gps_make" string="GPS Make" style="width: 200px;"/>
-                            <field name="gps_monitor" string="GPS Monitor" style="width: 200px;"/>
+                        <group >
+                            <div style="width:25% !important;">
+                                <group><h3>Product Line</h3>
+                                    <separator string="Planter" colspan="3" style="height:23px; font-size:1.3rem" />
+                                </group>
+                            </div>
+                            <group><h3>Properties</h3>
+                                <field name="planter_company_id" string="Make" style="width: 500px !important;;"/>
+                                <field name="planter_serial_no" string="Serial No"  style="width: 500px !important;;" />
+                                <field name="planter_model" string="Model" style="width: 500px !important;;"/>
+                                <field name="planter_year" string="Year" style="width: 500px !important;;"/>
+                                <field name="planter_rows" string="Rows" style="width: 500px !important;;" />
+                                <field name="planter_crops_being_planted" string="Crops being planted" style="width: 500px !important;;" />
+                                <field name="planter_acres_planted_per_year" string="Acres Planted Per Year" style="width: 500px !important;;" />
+                                <field name="planter_spacing" string="Spacing" style="width: 500px !important;;" />
+                                <field name="planter_frame_type" string="Frame Type" style="width: 500px !important;;" />
+                                <field name="planter_seed_delivery" string="Seed Delivery" style="width: 500px !important;;" />
+                                <field name="planter_original_planter_monitor" string="Original Planter Monitor" style="width: 500px !important;;" />
+                                <field name="planter_current_planter_monitor" string="Current Planter Monitor" style="width: 500px !important;;" />
+                                <field name="planter_meter_type" string="Meter Type" style="width: 500px !important;;"/>
+                                <field name="planter_meter_drive_system" string="Meter Drive System" style="width: 500px !important;;"/>
+                                <field name="planter_closing_system" string="Closing System" style="width: 500px !important;;"/>
+                                <field name="planter_hopper_type" string="Hopper Type" style="width: 500px !important;;"/>
+                                <field name="planter_row_config" string="Row Configuration" style="width: 500px !important;;"/>
+                                <field name="planter_no_of_regular_parallel_arms" string="No of Regular Parallel Arms" style="width: 500px !important;;"/>
+                                <field name="planter_no_of_long_parallel_arms" string="No of Long Parallel Arms" style="width: 500px !important;;"/>
+                                <field name="planter_downforce_system" string="Down Force System" style="width: 500px !important;;"/>
+                                <field name="planter_no_of_vr_motors" string="No of VR Motors" style="width: 500px !important;;"/>
+                                <field name="planter_row_cleaner_make" string="Row Cleaner Make" style="width: 500px !important;;"/>
+                                <field name="planter_row_cleaner_model" string="Row Cleaner Model" style="width: 500px !important;;"/>
+                                <field name="planter_no_till_coulters" string="No-Till Coulters" style="width: 500px !important;;"/>
+                                <field name="planter_liquid_application_method_1" string="Liquid Application Method #1" style="width: 500px !important;;"/>
+                                <field name="planter_liquid_application_method_2" string="Liquid Application Method #2" style="width: 500px !important;;"/>
+                                <field name="planter_firmer" string="Firmer" style="width: 500px !important;;"/>
+                                <field name="planter_gps_make" string="GPS Make" style="width: 500px !important;;"/>
+                                <field name="planter_gps_monitor" string="GPS Monitor" style="width: 500px !important;;"/>
 
+                            </group>
                         </group>
-                    </group>
-                    <group>
-                        <group>
-                            <separator string="Tractor" colspan="4" style="height:23px; font-size:1.3rem" />
+                        <group >
+                            <div style="width:25% !important;">
+                                <group>
+                                    <separator string="Tractor" colspan="3" style="height:23px; font-size:1.3rem" />
+                                </group>
+                            </div>
+                            <group>
+                                <field name="tractor_company_id" string="Make" style="width: 500px !important;;"/>
+                                <field name="tractor_model" string="Model" style="width: 500px !important;;"/>
+                                <field name="tractor_year" string="Year" style="width: 500px !important;;"/>
+                                <field name="tractor_no_of_hydraulic_remotes" string="No of Hydraulic Remotes" style="width: 500px !important;;"/>
+                                <field name="tractor_hydraulic_capacity" string="Hydraulic Capacity" style="width: 500px !important;;"/>
+                            </group>
                         </group>
-                        <group>
-                            <field name="company_id" string="Make" style="width: 200px;"/>
-                            <field name="model" string="Model" style="width: 100px;"/>
-                            <field name="year" string="Year" style="width: 200px;"/>
-                            <field name="no_of_hydraulic_remotes" string="No of Hydraulic Remotes" style="width: 300px;"/>
-                            <field name="hydraulic_capacity" string="Hydraulic Capacity" style="width: 200px;"/>
+                        <group >
+                            <div style="width:25% !important;">
+                                <group>
+                                    <separator string="Combine" colspan="3" style="height:23px; font-size:1.3rem" />
+                                </group>
+                            </div>
+                            <group>
+                                <field name="combine_company_id" string="Make" style="width: 500px !important;;"/>
+                                <field name="combine_model" string="Model" style="width: 500px !important;;"/>
+                                <field name="combine_year" string="Year" style="width: 500px !important;;"/>
+                                <field name="combine_no_of_hydraulic_remotes" string="No of Hydraulic Remotes" style="width: 500px !important;;"/>
+                                <field name="combine_hydraulic_capacity" string="Hydraulic Capacity" style="width: 500px !important;;"/>
+                            </group>
                         </group>
-                    </group>
-                    <group>
-                        <group>
-                            <separator string="Combine" colspan="4" style="height:23px; font-size:1.3rem" />
+                        <group >
+                            <div style="width:25% !important;">
+                                <group>
+                                    <separator string="Combine Head" colspan="3" style="height:23px; font-size:1.3rem" />
+                                </group>
+                            </div>
+                            <group>
+                                <field name="combine_head_company_id" string="Make" style="width: 500px !important;;"/>
+                                <field name="combine_head_model" string="Model" style="width: 500px !important;;"/>
+                                <field name="combine_head_year" string="Year" style="width: 500px !important;;"/>
+                            </group>
                         </group>
-                        <group>
-                            <field name="company_id" string="Make" style="width: 200px;"/>
-                            <field name="model" string="Model" style="width: 100px;"/>
-                            <field name="year" string="Year" style="width: 200px;"/>
-                            <field name="no_of_hydraulic_remotes" string="No of Hydraulic Remotes" style="width: 300px;"/>
-                            <field name="hydraulic_capacity" string="Hydraulic Capacity" style="width: 200px;"/>
+                        <group >
+                            <div style="width:25% !important;">
+                                <group>
+                                    <separator string="Sprayer" colspan="3" style="height:23px; font-size:1.3rem" />
+                                </group>
+                            </div>
+                            <group>
+                                <field name="sprayer_company_id" string="Make" style="width: 500px !important;;"/>
+                                <field name="sprayer_model" string="Model" style="width: 500px !important;;"/>
+                                <field name="sprayer_year" string="Year" style="width: 500px !important;;"/>
+                                <field name="sprayer_width" string="Width" style="width: 500px !important;;"/>
+                                <field name="sprayer_monitor" string="Spacing" style="width: 500px !important;;" />
+                                <field name="sprayer_spacing" string="Monitor" style="width: 500px !important;;"/>
+                            </group>
                         </group>
-                    </group>
-                    <group>
-                        <group>
-                            <separator string="Combine Head" colspan="4" style="height:23px; font-size:1.3rem" />
-                        </group>
-                        <group>
-                            <field name="company_id" string="Make" style="width: 200px;"/>
-                            <field name="model" string="Model" style="width: 100px;"/>
-                            <field name="year" string="Year" style="width: 200px;"/>
-                        </group>
-                    </group>
-                    <group>
-                        <group>
-                            <separator string="Sprayer" colspan="4" style="height:23px; font-size:1.3rem" />
-                        </group>
-                        <group>
-                            <field name="company_id" string="Make" style="width: 200px;"/>
-                            <field name="model" string="Model" style="width: 100px;"/>
-                            <field name="year" string="Year" style="width: 200px;"/>
-                            <field name="width" string="Width" style="width: 200px;"/>
-                            <field name="spacing" string="Spacing" style="width: 200px;" />
-                            <field name="monitor" string="Monitor" style="width: 200px;"/>
-                        </group>
-                    </group>
-
                 </page>
 
 
@@ -1020,7 +1029,11 @@
         <field name="inherit_id" ref="base.view_res_partner_filter"/>
         <field name="arch" type="xml">
             <xpath expr="//search" position="inside">
-                <field name="model" string="Model"/>
+                <field name="planter_model" string="Model"/>
+                <field name="tractor_model" string="Model"/>
+                <field name="combine_model" string="Model"/>
+                <field name="combine_head_model" string="Model"/>
+                <field name="sprayer_model" string="Model"/>
                 <filter name="is_vol_based_disc" string="Volume Based Discounts"
                         domain="[('is_vol_based_disc','=','yes')]"/>
                 <filter name="is_date_based_disc" string="Date Based Discounts"

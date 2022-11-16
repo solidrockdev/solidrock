@@ -69,11 +69,15 @@ class PartnerInherit(models.Model):
 
     # customer_type = fields.Many2one('my.customer.type',string="Customer Type")
     customer_type = fields.Selection(
-        [('customer', 'Customer'),
-         ('partner', 'Partner'),
-         ('precision_dealer', 'Precision Dealer'),
-         ('prospect', 'Prospect'),
-         ('influencer', 'Influencer'),
+        [('influencers', 'Influencers'),
+         ('precision_dealers', 'Precision Dealers'),
+         ('employees', 'Employees'),
+         ('partners', 'Partners'),
+         ('distant_customers', 'Distant Customers'),
+         ('peterson_ag_customers', 'Peterson Ag Customers'),
+         ('retired', 'Retired'),
+         ('hoosier_customer', 'Hoosier Customer'),
+         ('unsubscribed', 'Unsubscribed'),
          ('other', 'Other'),
          ], string='Customer Type')
     # vendor_type = fields.Many2one('my.vendor.type',string="Vendor Type")
@@ -91,7 +95,7 @@ class PartnerInherit(models.Model):
     balance_total = fields.Float()
     terms_id = fields.Many2one('account.payment.term', string="Terms")
     tax_code = fields.Char(string="Tax Code")
-    tax_item = fields.Many2one('account.tax', string="Tax ID")
+    tax_item = fields.Many2one('account.tax', string="Tax Item")
     rep_id = fields.Many2one('hr.employee', string="Rep")
     street_ship = fields.Char()
     street2_ship = fields.Char()
@@ -130,44 +134,66 @@ class PartnerInherit(models.Model):
 
     '''Added for Farm Equipment tab'''
 
-    company_id = fields.Many2one('res.company', 'Company', index=1, readonly=False)
-    # partner_id = fields.Many2one('res.partner', readonly=False)
+    planter_company_id = fields.Char(string="Make")
+    planter_serial_no = fields.Char(string='Serial No')
+    planter_model = fields.Char(string="Model", readonly=False)
+    planter_year = fields.Char(string="Year", readonly=False)
+    planter_rows = fields.Char(string="Rows", readonly=False)
+    planter_crops_being_planted = fields.Char(string="Crops being planted", readonly=False)  # many2many
+    planter_acres_planted_per_year = fields.Char(string="Acres Planted Per Year", readonly=False)
+    planter_spacing = fields.Char(string="Spacing", readonly=False)
+    planter_frame_type = fields.Char(string="Frame Type", readonly=False)  # many2one
+    planter_seed_delivery = fields.Char(string="Seed Delivery", readonly=False)
+    planter_original_planter_monitor = fields.Char(string="Original Planter Monitor", readonly=False)
+    planter_current_planter_monitor = fields.Char(string="Current Planter Monitor", readonly=False)
+    planter_meter_type = fields.Char(string="Meter Type", readonly=False)  # many2one
+    planter_meter_drive_system = fields.Char(string="Meter Drive System", readonly=False)  # many2one
+    planter_closing_system = fields.Char(string="Closing System", readonly=False)  # many2one
+    planter_hopper_type = fields.Char(string="Hopper Type", readonly=False)  # many2one
+    planter_row_config = fields.Char(string="Row Configuration", readonly=False)
+    planter_no_of_regular_parallel_arms = fields.Char(string="No of Regular Parallel Arms", readonly=False)
+    planter_no_of_long_parallel_arms = fields.Char(string="No of Long Parallel Arms", readonly=False)
+    planter_downforce_system = fields.Char(string="Down Force System", readonly=False)
+    planter_no_of_vr_motors = fields.Char(string="No of VR Motors", readonly=False)
+    planter_row_cleaner_make = fields.Char(string="Row Cleaner Make", readonly=False)
+    planter_row_cleaner_model = fields.Char(string="Row Cleaner Model", readonly=False)
+    planter_no_till_coulters = fields.Char(string="No-Till Coulters", readonly=False)
+    planter_liquid_application_method_1 = fields.Char(string="Liquid Application Method #1", readonly=False)  # many2one
+    planter_liquid_application_method_2 = fields.Char(string="Liquid Application Method #2", readonly=False)  # many2one
+    planter_firmer = fields.Char(string="Firmer", readonly=False)
+    planter_gps_make = fields.Char(string="GPS Make", readonly=False)
+    planter_gps_monitor = fields.Char(string="GPS Monitor", readonly=False)
+
+    tractor_company_id = fields.Char(string="Make")
+    tractor_model = fields.Char(string="Model", readonly=False)
+    tractor_year = fields.Char(string="Year", readonly=False)
+    tractor_no_of_hydraulic_remotes = fields.Char(string="No of Hydraulic Remotes", readonly=False)
+    tractor_hydraulic_capacity = fields.Char(string="Hydraulic Capacity", readonly=False)
+
+    combine_company_id = fields.Char(string="Make")
+    combine_model = fields.Char(string="Model", readonly=False)
+    combine_year = fields.Char(string="Year", readonly=False)
+    combine_no_of_hydraulic_remotes = fields.Char(string="No of Hydraulic Remotes", readonly=False)
+    combine_hydraulic_capacity = fields.Char(string="Hydraulic Capacity", readonly=False)
+
+    combine_head_company_id = fields.Char(string="Make")
+    combine_head_model = fields.Char(string="Model", readonly=False)
+    combine_head_year = fields.Char(string="Year", readonly=False)
+
+    sprayer_company_id = fields.Char(string="Make")
+    sprayer_model = fields.Char(string="Model", readonly=False)
+    sprayer_year = fields.Char(string="Year", readonly=False)
+    sprayer_width = fields.Char(string="Width", readonly=False)
+    sprayer_monitor = fields.Char(string="Monitor", readonly=False)
+    sprayer_spacing = fields.Char(string="Spacing", readonly=False)
+
+
+
     warranty_start_date = fields.Date(string="Warranty Start Date", readonly=False)
     warranty_end_date = fields.Date(string="Warranty End Date", readonly=False)
     expiration_date = fields.Date(string="Expiration Date", readonly=False)
     is_farm_equipment_base = fields.Boolean(string="Is Farm Equipment Base", default=False, readonly=False)
     customer = fields.Many2one('res.partner', string="Customer", readonly=False)
-    model = fields.Char(string="Model", readonly=False)
-    year = fields.Char(string="Year", readonly=False)
-    rows = fields.Integer(string="Rows", readonly=False)
-    crops_being_planted = fields.Char(string="Crops being planted", readonly=False)  # many2many
-    acres_planted_per_year = fields.Char(string="Acres Planted Per Year", readonly=False)
-    spacing = fields.Integer(string="Spacing", readonly=False)
-    frame_type = fields.Char(string="Frame Type", readonly=False)  # many2one
-    seed_delivery = fields.Char(string="Seed Delivery", readonly=False)
-    original_planter_monitor = fields.Char(string="Original Planter Monitor", readonly=False)
-    current_planter_monitor = fields.Char(string="Current Planter Monitor", readonly=False)
-    meter_type = fields.Char(string="Meter Type", readonly=False)  # many2one
-    meter_drive_system = fields.Char(string="Meter Drive System", readonly=False)  # many2one
-    closing_system = fields.Char(string="Closing System", readonly=False)  # many2one
-    hopper_type = fields.Char(string="Hopper Type", readonly=False)  # many2one
-    row_config = fields.Char(string="Row Configuration", readonly=False)
-    no_of_regular_parallel_arms = fields.Integer(string="No of Regular Parallel Arms", readonly=False)
-    no_of_long_parallel_arms = fields.Integer(string="No of Long Parallel Arms", readonly=False)
-    downforce_system = fields.Char(string="Down Force System", readonly=False)
-    no_of_vr_motors = fields.Integer(string="No of VR Motors", readonly=False)
-    row_cleaner_make = fields.Char(string="Row Cleaner Make", readonly=False)
-    row_cleaner_model = fields.Char(string="Row Cleaner Model", readonly=False)
-    no_till_coulters = fields.Char(string="No-Till Coulters", readonly=False)
-    liquid_application_method_1 = fields.Char(string="Liquid Application Method #1", readonly=False)  # many2one
-    liquid_application_method_2 = fields.Char(string="Liquid Application Method #2", readonly=False)  # many2one
-    firmer = fields.Char(string="Firmer", readonly=False)
-    gps_make = fields.Char(string="GPS Make", readonly=False)
-    gps_monitor = fields.Char(string="GPS Monitor", readonly=False)
-    no_of_hydraulic_remotes = fields.Integer(string="No of Hydraulic Remotes", readonly=False)
-    hydraulic_capacity = fields.Char(string="Hydraulic Capacity", readonly=False)
-    width = fields.Float(string="Width", readonly=False)
-    monitor = fields.Char(string="Monitor", readonly=False)
     mpn = fields.Char(string="MPN")
     tax_agency = fields.Char(string="Tax Agency")
     assets_account = fields.Many2one('account.account', string='Assets Account')
@@ -181,13 +207,14 @@ class PartnerInherit(models.Model):
         ('non', 'Non'),
         ('yes', 'Yes'),
     ], default='non', string="Tax Status")
-    serial_no = fields.Many2many('stock.production.lot', string='Serial No')
 
-    # categ_id = fields.Many2one(
-    #     'product.category', 'Product Category', ondelete='cascade',
-    #     help="Specify a product category if this rule only applies to products belonging to this category or its children categories. Keep empty otherwise.")
 
-    # categ_id = fields.Selection([('planter', 'Planter'), ('tractor', 'Tractor'), ('combine', 'Combine'), ('combinehead', 'Combine Head'), ('sprayer', 'Sprayer')], string="Product Line")
+
+
+
+
+
+
 
 
     '''Added fields for customer discounts tab'''
