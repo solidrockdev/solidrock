@@ -101,3 +101,7 @@ class Inventorys(models.Model):
     def _compute_available_count(self):
         for rec in self:
             rec.available = rec.qty_available - rec.sales_count
+
+
+    def action_view_units_available(self):
+        print("")
