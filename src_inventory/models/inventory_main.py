@@ -13,7 +13,7 @@ class Inventorys(models.Model):
     warranty_end_date = fields.Date(string="Warranty End Date")
     expiration_date = fields.Date(string="Expiration Date")
     is_farm_equipment_base = fields.Boolean(string="Is Farm Equipment Base", default=False)
-    customer = fields.Many2one('res.partner', string="Customer Name")
+    customer = fields.Many2one('res.partner', string="Customer")
     model = fields.Char(string="Model")
     year = fields.Char(string="Year")
     rows = fields.Integer(string="Rows")
