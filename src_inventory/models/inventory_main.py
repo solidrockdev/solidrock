@@ -9,7 +9,7 @@ class Inventorys(models.Model):
 
     _inherit = "product.template"
 
-    warranty_start_date = fields.Date(string="Warranty Start Date now")
+    warranty_start_date_now = fields.Date(string="Warranty Start Date")
     warranty_end_date = fields.Date(string="Warranty End Date")
     expiration_date = fields.Date(string="Expiration Date")
     is_farm_equipment_base = fields.Boolean(string="Is Farm Equipment Base", default=False)
