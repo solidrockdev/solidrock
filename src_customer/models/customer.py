@@ -10,7 +10,7 @@ from odoo import fields, models, api
 
     # customer_type = fields.Many2one('my.customer.type',string="Customer Type")
     # company = fields.Char(string="Company")
-    # first_name = fields.Char(string="First Name")
+    # first_name = fields.Char(string="First Name1")
     # middle_initial = fields.Char(string="Middle Initial")
     # last_name = fields.Char(string="Last Name")
     # primary_contact = fields.Char(string="Primary Contact")
