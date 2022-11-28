@@ -115,7 +115,7 @@
                         </group>
                         <group>
                             <field name="customer" string="Customer"/>
-                            <field name="warranty_start_date" string="Warranty Start Date now"/>
+                            <field name="warranty_start_date" string="Warranty Start Date"/>
                             <field name="warranty_end_date" string="Warranty End Date"/>
                             <field name="expiration_date" string="Expiration Date"/>
                             <field name="original_planter_monitor" string="Original Planter Monitor"/>
