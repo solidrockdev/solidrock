@@ -88,7 +88,7 @@ class PartnerInherit(models.Model):
          ('partner', 'Partner'),
          ('precision_dealer', 'Precision Dealer'),
          ], string='Vendor Type')
-    first_name = fields.Char(string="First Name")
+    first_name = fields.Char(string="First Name1")
     middle_initial = fields.Char(string="Middle Initial")
     last_name = fields.Char(string="Last Name")
     balance = fields.Float()
